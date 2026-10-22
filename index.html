@@ -1,245 +1,254 @@
 <!DOCTYPE html>
 <html lang="rw">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0a1929">
-<title>ExamHub Rwanda — EAUR</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a1929">
+  <title>ExamHub Rwanda — EAUR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
+  <style>
+    :root {
+      --primary: #38bdf8;
+      --primary-dark: #0284c7;
+      --primary-light: rgba(56, 189, 248, 0.15);
+      --secondary: #8b5cf6;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --purple: #8b5cf6;
+      --bg: #f8fafc;
+      --bg-card: #ffffff;
+      --text: #0f172a;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+      --gradient-1: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      --gradient-2: linear-gradient(135deg, #10b981, #06b6d4);
+      --gradient-purple: linear-gradient(135deg, #8b5cf6, #a78bfa);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,0.15);
+      --radius-sm: 12px;
+      --radius: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; overflow-x: hidden; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(60px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes logoFloat { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
+    @keyframes glowPulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.15); opacity: 0.5; } }
+    @keyframes errorShake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+    @keyframes successBounce { 0% { transform: scale(0) rotate(-180deg); } 60% { transform: scale(1.2) rotate(10deg); } 100% { transform: scale(1) rotate(0); } }
+    @keyframes equalizer { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+    @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+    @keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+    @keyframes floatIcon { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(5deg); } }
+    @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-<style>
-  :root {
-    --primary: #38bdf8;
-    --primary-dark: #0284c7;
-    --primary-light: rgba(56, 189, 248, 0.15);
-    --secondary: #8b5cf6;
-    --success: #10b981;
-    --danger: #ef4444;
-    --warning: #f59e0b;
-    --purple: #8b5cf6;
-    
-    --bg: #0a1929;
-    --bg-card: #ffffff;
-    --text: #0f172a;
-    --text-secondary: #64748b;
-    --border: #e2e8f0;
-    
-    --gradient-1: linear-gradient(135deg, #38bdf8, #0ea5e9);
-    --gradient-2: linear-gradient(135deg, #10b981, #06b6d4);
-    --gradient-purple: linear-gradient(135deg, #8b5cf6, #a78bfa);
-    
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-    --shadow: 0 4px 20px rgba(0,0,0,0.08);
-    --shadow-lg: 0 20px 60px rgba(0,0,0,0.15);
-    
-    --radius-sm: 12px;
-    --radius: 16px;
-    --radius-lg: 24px;
-    --radius-xl: 32px;
-  }
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body { height: 100%; overflow-x: hidden; }
+    .loading-screen { position: fixed; inset: 0; background: #0a1929; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; color: white; transition: all 0.6s; }
+    .loading-screen.hidden { opacity: 0; pointer-events: none; }
+    .music-loader { position: relative; width: 100px; height: 100px; margin-bottom: 30px; }
+    .music-loader .bar { position: absolute; bottom: 0; width: 8px; background: #38bdf8; border-radius: 4px; animation: equalizer 1.2s ease-in-out infinite; box-shadow: 0 0 10px #38bdf8; }
+    .music-loader .bar:nth-child(1) { left: 10px; height: 30%; animation-delay: 0s; }
+    .music-loader .bar:nth-child(2) { left: 24px; height: 60%; animation-delay: 0.1s; }
+    .music-loader .bar:nth-child(3) { left: 38px; height: 100%; animation-delay: 0.2s; }
+    .music-loader .bar:nth-child(4) { left: 52px; height: 70%; animation-delay: 0.3s; }
+    .music-loader .bar:nth-child(5) { left: 66px; height: 40%; animation-delay: 0.4s; }
+    .music-loader .bar:nth-child(6) { left: 80px; height: 80%; animation-delay: 0.5s; }
+    .loading-screen h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #38bdf8; }
+    .loading-screen p { font-size: 14px; color: rgba(255,255,255,0.7); animation: pulse 2s ease-in-out infinite; }
 
-  body {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    background-color: #030b14;
-    background-image: 
-      radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.15), transparent 25%),
-      radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%),
-      linear-gradient(180deg, #030b14 0%, #0a1929 100%);
-    color: var(--text);
-    line-height: 1.6;
-    background-attachment: fixed;
-  }
-  
-  body::before {
-    content: '';
-    position: fixed; inset: 0; z-index: -1;
-    background-image: radial-gradient(#38bdf8 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.15;
-    animation: moveStars 20s linear infinite;
-  }
+    /* ===== AUTH SCREEN DARK BACKGROUND ===== */
+    .auth-screen { position: fixed; inset: 0; display: none; align-items: flex-start; justify-content: center; z-index: 9999; padding: 30px 15px; overflow-y: auto; -webkit-overflow-scrolling: touch; background: linear-gradient(135deg, #0a1929 0%, #0f172a 50%, #1e1b4b 100%); }
+    .auth-screen.active { display: flex; }
+    .auth-screen::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 50%); pointer-events: none; }
+    .auth-container { background: rgba(255, 255, 255, 0.06); backdrop-filter: blur(30px); border-radius: var(--radius-xl); box-shadow: 0 30px 90px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08) inset; padding: 40px 32px; max-width: 480px; width: 100%; position: relative; z-index: 1; animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); margin: auto 0; border: 1px solid rgba(255,255,255,0.1); color: white; }
+    @media (max-width: 600px) { .auth-screen { padding: 15px 10px; } .auth-container { padding: 30px 20px; border-radius: var(--radius-lg); } }
+    .auth-header { text-align: center; margin-bottom: 30px; }
+    .auth-header .logo-wrap { position: relative; width: 80px; height: 80px; margin: 0 auto 16px; }
+    .auth-header .logo-wrap::before { content: ''; position: absolute; inset: -10px; border-radius: 50%; background: var(--gradient-1); opacity: 0.3; filter: blur(20px); animation: glowPulse 2.5s ease-in-out infinite; }
+    .auth-header .icon { position: relative; width: 80px; height: 80px; background: var(--gradient-1); color: white; border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 36px; box-shadow: 0 15px 35px rgba(56, 189, 248, 0.4); animation: logoFloat 3s ease-in-out infinite; transform: rotate(-3deg); }
+    .auth-header h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .auth-header p { color: rgba(255,255,255,0.6); font-size: 14px; font-weight: 500; }
+    .form-group { margin-bottom: 20px; position: relative; z-index: 2; }
+    .form-group label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: rgba(255,255,255,0.9); }
+    .form-group label i { color: var(--primary); width: 18px; }
+    .form-group label span { color: var(--danger); margin-left: auto; }
+    .form-control { width: 100%; padding: 15px 18px; border: 2px solid rgba(255,255,255,0.12); border-radius: var(--radius); background: rgba(255,255,255,0.06); font-family: inherit; font-size: 14.5px; font-weight: 600; transition: all 0.3s; color: white; }
+    .form-control:focus { outline: none; border-color: var(--primary); background: rgba(255,255,255,0.1); box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.15); }
+    .form-control::placeholder { color: rgba(255,255,255,0.35); }
+    select.form-control { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 12 8'%3E%3Cpath fill='%2338bdf8' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 20px center; padding-right: 50px; }
+    select.form-control option { background: #1e293b; color: white; }
+    .level-selector { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .level-btn { padding: 12px 4px; border: 2px solid rgba(255,255,255,0.12); border-radius: var(--radius); background: rgba(255,255,255,0.06); color: white; font-size: 13px; font-weight: 800; cursor: pointer; text-align: center; transition: all 0.3s; }
+    .level-btn .level-icon { display: block; font-size: 18px; margin-bottom: 4px; }
+    .level-btn:hover { border-color: var(--primary); transform: translateY(-3px); }
+    .level-btn.selected { background: var(--gradient-1); color: white; border-color: transparent; box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4); transform: translateY(-3px) scale(1.02); }
+    .photo-upload { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 20px; border: 2.5px dashed rgba(255,255,255,0.15); border-radius: var(--radius-lg); background: rgba(255,255,255,0.03); cursor: pointer; transition: all 0.4s; margin-bottom: 24px; }
+    .photo-upload:hover { border-color: var(--primary); border-style: solid; transform: translateY(-2px); }
+    .photo-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid white; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4), 0 0 0 3px var(--primary); }
+    .photo-placeholder { width: 100px; height: 100px; border-radius: 50%; background: var(--gradient-1); color: white; display: flex; align-items: center; justify-content: center; font-size: 36px; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35); position: relative; }
+    .photo-placeholder::after { content: '+'; position: absolute; bottom: 2px; right: 2px; width: 28px; height: 28px; background: white; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; box-shadow: 0 4px 10px rgba(0,0,0,0.15); border: 2px solid var(--primary); }
+    .photo-upload-text { font-size: 12px; color: rgba(255,255,255,0.6); text-align: center; font-weight: 500; }
+    .photo-upload-text strong { display: block; color: var(--primary); margin-bottom: 4px; font-size: 13px; }
+    .btn { width: 100%; padding: 16px 24px; border: none; border-radius: var(--radius); font-family: inherit; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s; position: relative; overflow: hidden; }
+    .btn-primary { background: var(--gradient-1); color: white; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4); margin-top: 10px; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(56, 189, 248, 0.55); }
+    .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
+    .btn-sm { padding: 8px 14px; font-size: 12px; border-radius: 8px; width: auto; }
+    .auth-links { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; text-align: center; position: relative; z-index: 2; }
+    .auth-links a { font-size: 14px; color: var(--primary); text-decoration: none; font-weight: 700; cursor: pointer; padding: 10px; border-radius: 10px; background: rgba(56, 189, 248, 0.1); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .auth-links a:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+    .error-message { background: rgba(239, 68, 68, 0.15); color: #fca5a5; padding: 14px 18px; border-radius: var(--radius); font-size: 13px; font-weight: 600; margin-bottom: 20px; display: none; align-items: center; gap: 12px; border-left: 4px solid var(--danger); }
+    .error-message.active { display: flex; animation: errorShake 0.5s ease; }
+    .choir-title-banner { position: relative; width: 100%; padding: 20px 16px; margin-bottom: 24px; border-radius: 20px; background: var(--gradient-1); overflow: hidden; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35); text-align: center; }
+    .choir-title-text { font-size: 20px; font-weight: 900; color: white; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+    .choir-title-subtitle { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.9); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
+    .choice-modal { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); display: none; align-items: flex-end; justify-content: center; z-index: 10000; }
+    .choice-modal.active { display: flex; }
+    .choice-sheet { background: #1e293b; border-radius: var(--radius-xl) var(--radius-xl) 0 0; padding: 12px 24px 32px; width: 100%; max-width: 500px; animation: slideUp 0.4s ease; color: white; }
+    .sheet-handle { width: 44px; height: 5px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 0 auto 20px; }
+    .choice-title { font-size: 18px; font-weight: 800; text-align: center; margin-bottom: 6px; color: white; }
+    .choice-subtitle { font-size: 13px; color: rgba(255,255,255,0.6); text-align: center; margin-bottom: 20px; }
+    .choice-options { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+    .choice-option { padding: 20px 16px; border: 2px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); background: rgba(255,255,255,0.05); cursor: pointer; transition: all 0.3s; text-align: center; }
+    .choice-option:hover { border-color: var(--primary); transform: translateY(-4px); }
+    .choice-option .opt-icon { width: 56px; height: 56px; margin: 0 auto 12px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; }
+    .choice-option.camera .opt-icon { background: var(--gradient-1); }
+    .choice-option.gallery .opt-icon { background: var(--gradient-2); }
+    .choice-option h4 { font-size: 15px; font-weight: 800; margin-bottom: 4px; color: white; }
+    .choice-option p { font-size: 12px; color: rgba(255,255,255,0.6); }
+    .choice-cancel { width: 100%; padding: 14px; border: none; border-radius: var(--radius); background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+    .success-screen { display: none; text-align: center; padding: 20px 0; }
+    .success-screen.active { display: block; animation: slideUp 0.7s ease; }
+    .success-icon { width: 100px; height: 100px; background: var(--gradient-2); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 50px; margin: 0 auto 20px; box-shadow: 0 20px 50px rgba(16, 185, 129, 0.5); animation: successBounce 0.8s; }
+    .success-screen h2 { font-size: 26px; font-weight: 800; margin-bottom: 10px; color: var(--success); }
+    .success-screen p { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 24px; }
+    .member-card { background: rgba(255,255,255,0.06); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; text-align: left; border: 2px solid rgba(255,255,255,0.1); }
+    .member-photo { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 3px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .member-avatar { width: 70px; height: 70px; border-radius: 50%; background: var(--gradient-1); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 22px; border: 3px solid white; }
+    .member-name { font-size: 18px; font-weight: 800; margin-bottom: 4px; color: white; }
+    .member-details { font-size: 12px; color: rgba(255,255,255,0.6); display: flex; flex-direction: column; gap: 4px; }
+    .member-details span { display: flex; align-items: center; gap: 6px; }
 
-  @keyframes moveStars { from { background-position: 0 0; } to { background-position: 50px 50px; } }
-  @keyframes equalizer { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
-  @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
-  @keyframes slideUp { from { transform: translateY(60px) scale(0.95); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
-  @keyframes logoFloat { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
-  @keyframes glowPulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.15); opacity: 0.5; } }
-  @keyframes errorShake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
-  @keyframes successBounce { 0% { transform: scale(0) rotate(-180deg); } 60% { transform: scale(1.2) rotate(10deg); } 100% { transform: scale(1) rotate(0); } }
+    .app-layout { display: none; min-height: 100vh; }
+    .app-layout.active { display: flex; }
+    .sidebar { width: 260px; display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); background: var(--bg-card); border-right: 1px solid var(--border); }
+    .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .sidebar-header h2 { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 10px; color: var(--primary); }
+    .sidebar-nav { flex: 1; padding: 12px; overflow-y: auto; }
+    .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.3s; margin-bottom: 4px; border: none; background: transparent; width: 100%; text-align: left; color: var(--text-secondary); position: relative; }
+    .nav-item:hover { background: #f1f5f9; color: var(--text); }
+    .nav-item.active { background: var(--primary-light); color: var(--primary); font-weight: 700; }
+    .nav-item.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 60%; background: var(--primary); border-radius: 0 3px 3px 0; }
+    .nav-item i { width: 20px; text-align: center; font-size: 16px; }
+    .sidebar-footer { padding: 12px; border-top: 1px solid var(--border); }
+    .main-content { flex: 1; margin-left: 260px; padding: 24px; min-height: 100vh; background: var(--bg); }
+    .topbar { display: none; padding: 12px 20px; position: sticky; top: 0; z-index: 90; align-items: center; justify-content: space-between; background: var(--bg-card); border-bottom: 1px solid var(--border); }
+    .topbar .menu-btn { background: transparent; border: none; font-size: 20px; cursor: pointer; color: var(--text); }
+    .topbar h2 { font-size: 16px; font-weight: 800; color: var(--primary); }
+    .page-section { display: none; }
+    .page-section.active { display: block; animation: fadeInUp 0.5s ease; }
+    .page-title { font-size: 24px; font-weight: 800; margin-bottom: 6px; color: var(--text); }
+    .page-subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
+    .card { background: var(--bg-card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-sm); margin-bottom: 20px; border: 1px solid var(--border); transition: transform 0.3s ease; }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: var(--bg-card); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); transition: transform 0.3s ease; }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--primary); }
+    .stat-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
+    .stat-value { font-size: 28px; font-weight: 800; line-height: 1; margin-bottom: 6px; color: var(--text); }
+    .stat-label { font-size: 13px; color: var(--text-secondary); font-weight: 600; }
+    .table-wrapper { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg-card); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
+    th, td { padding: 14px 16px; text-align: left; }
+    th { background: #f8fafc; color: var(--text-secondary); font-size: 12px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+    td { border-bottom: 1px solid var(--border); color: var(--text); }
+    tr:hover td { background: #f8fafc; }
+    .badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .badge-pending { background: #fef3c7; color: #b45309; }
+    .badge-approved { background: #d1fae5; color: #047857; }
+    .badge-paid { background: #dbeafe; color: #1d4ed8; }
+    .badge-unpaid { background: #fee2e2; color: #b91c1c; }
+    .badge-pending-payment { background: #fef3c7; color: #b45309; }
 
-  .loading-screen {
-    position: fixed; inset: 0; background: #0a1929;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    z-index: 10000; color: white; transition: all 0.6s;
-  }
-  .loading-screen.hidden { opacity: 0; pointer-events: none; }
-  .music-loader { position: relative; width: 100px; height: 100px; margin-bottom: 30px; }
-  .music-loader .bar { position: absolute; bottom: 0; width: 8px; background: #38bdf8; border-radius: 4px; animation: equalizer 1.2s ease-in-out infinite; box-shadow: 0 0 10px #38bdf8; }
-  .music-loader .bar:nth-child(1) { left: 10px; height: 30%; animation-delay: 0s; }
-  .music-loader .bar:nth-child(2) { left: 24px; height: 60%; animation-delay: 0.1s; }
-  .music-loader .bar:nth-child(3) { left: 38px; height: 100%; animation-delay: 0.2s; }
-  .music-loader .bar:nth-child(4) { left: 52px; height: 70%; animation-delay: 0.3s; }
-  .music-loader .bar:nth-child(5) { left: 66px; height: 40%; animation-delay: 0.4s; }
-  .music-loader .bar:nth-child(6) { left: 80px; height: 80%; animation-delay: 0.5s; }
-  .loading-screen h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #38bdf8; }
-  .loading-screen p { font-size: 14px; color: rgba(255,255,255,0.7); animation: pulse 2s ease-in-out infinite; }
+    .admin-live-banner { position: relative; width: 100%; padding: 40px 20px; border-radius: var(--radius-lg); background: linear-gradient(135deg, #0ea5e9, #38bdf8, #8b5cf6); background-size: 200% 200%; animation: gradientMove 6s ease infinite; overflow: hidden; box-shadow: 0 15px 40px rgba(56, 189, 248, 0.35); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 24px; color: white; }
+    .admin-live-banner h1 { font-size: 32px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 8px; text-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 2; animation: fadeInUp 0.6s ease; }
+    .admin-live-banner p { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.9); z-index: 2; animation: fadeInUp 0.6s ease 0.2s both; }
+    .admin-live-banner .live-dot { display: inline-block; width: 10px; height: 10px; background: #ef4444; border-radius: 50%; margin-right: 8px; animation: livePulse 1.5s infinite; vertical-align: middle; }
+    .admin-live-banner .float-icon { position: absolute; color: rgba(255,255,255,0.15); animation: floatIcon 5s ease-in-out infinite; z-index: 1; }
+    .admin-live-banner .float-icon:nth-child(1) { top: 15%; left: 10%; font-size: 40px; animation-delay: 0s; }
+    .admin-live-banner .float-icon:nth-child(2) { top: 70%; right: 15%; font-size: 50px; animation-delay: 1s; }
+    .admin-live-banner .float-icon:nth-child(3) { top: 20%; right: 20%; font-size: 30px; animation-delay: 2s; }
+    .admin-live-banner .float-icon:nth-child(4) { bottom: 15%; left: 20%; font-size: 45px; animation-delay: 1.5s; }
 
-  .auth-screen {
-    position: fixed; inset: 0; display: none; 
-    align-items: flex-start; justify-content: center;
-    z-index: 9999; padding: 30px 15px; overflow-y: auto; -webkit-overflow-scrolling: touch;
-  }
-  .auth-screen.active { display: flex; }
+    .student-welcome-header { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 30px; border-radius: var(--radius-lg); margin-bottom: 24px; border: 1px solid var(--border); box-shadow: var(--shadow); display: flex; align-items: center; gap: 20px; }
+    .student-welcome-header .profile-pic { width: 100px; height: 100px; border-radius: 50%; background: var(--gradient-1); color: white; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 800; overflow: hidden; flex-shrink: 0; border: 4px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .student-welcome-header .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
+    .student-welcome-header .info h1 { font-size: 28px; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+    .student-welcome-header .info .meta { display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; color: var(--text-secondary); }
+    .student-welcome-header .info .meta span { display: flex; align-items: center; gap: 6px; }
 
-  .auth-container {
-    background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(30px);
-    border-radius: var(--radius-xl); box-shadow: 0 30px 90px rgba(0,0,0,0.5), 0 0 0 1px rgba(56,189,248,0.3) inset;
-    padding: 40px 32px; max-width: 480px; width: 100%; position: relative; z-index: 1;
-    animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); margin: auto 0;
-  }
-  
-  @media (max-width: 600px) {
-    .auth-screen { padding: 15px 10px; }
-    .auth-container { padding: 30px 20px; border-radius: var(--radius-lg); }
-  }
+    .pay-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #38bdf8, #0ea5e9); color: white; border: none; border-radius: var(--radius); font-size: 18px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4); }
+    .pay-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(56, 189, 248, 0.6); }
+    .pay-btn.paid { background: linear-gradient(135deg, #10b981, #06b6d4); cursor: default; }
+    .pay-btn.paid:hover { transform: none; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); }
+    .pay-btn.pending { background: linear-gradient(135deg, #f59e0b, #f97316); cursor: default; }
+    .pay-btn.pending:hover { transform: none; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4); }
 
-  .auth-header { text-align: center; margin-bottom: 30px; }
-  .auth-header .logo-wrap { position: relative; width: 80px; height: 80px; margin: 0 auto 16px; }
-  .auth-header .logo-wrap::before { content: ''; position: absolute; inset: -10px; border-radius: 50%; background: var(--gradient-1); opacity: 0.3; filter: blur(20px); animation: glowPulse 2.5s ease-in-out infinite; }
-  .auth-header .icon { position: relative; width: 80px; height: 80px; background: var(--gradient-1); color: white; border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 36px; box-shadow: 0 15px 35px rgba(56, 189, 248, 0.4); animation: logoFloat 3s ease-in-out infinite; transform: rotate(-3deg); }
-  .auth-header h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .auth-header p { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+    .notice-box { background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(139, 92, 246, 0.05)); border-left: 4px solid var(--primary); padding: 16px 20px; border-radius: 12px; font-size: 14px; color: var(--primary-dark); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .notice-box i { font-size: 20px; }
+    .notice-box.warning { background: rgba(245, 158, 11, 0.1); border-left-color: var(--warning); color: #92400e; }
+    .notice-box.pending { background: rgba(245, 158, 11, 0.1); border-left-color: var(--warning); color: #92400e; }
+    .notice-box.success { background: rgba(16, 185, 129, 0.08); border-left-color: var(--success); color: #047857; }
 
-  .form-group { margin-bottom: 20px; position: relative; z-index: 2; }
-  .form-group label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
-  .form-group label i { color: var(--primary); width: 18px; }
-  .form-group label span { color: var(--danger); margin-left: auto; }
-  
-  .form-control { width: 100%; padding: 15px 18px; border: 2px solid var(--border); border-radius: var(--radius); background: #f8fafc; font-family: inherit; font-size: 14.5px; font-weight: 600; transition: all 0.3s; }
-  .form-control:focus { outline: none; border-color: var(--primary); background: white; box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.12); }
-  
-  select.form-control { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 12 8'%3E%3Cpath fill='%2338bdf8' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 20px center; padding-right: 50px; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 20px; }
+    .modal-overlay.active { display: flex; }
+    .modal-content { background: white; border-radius: var(--radius-lg); padding: 30px; width: 100%; max-width: 500px; box-shadow: var(--shadow-lg); animation: slideUp 0.4s ease; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .modal-header h2 { font-size: 20px; font-weight: 800; color: var(--text); }
+    .modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-secondary); }
 
-  .level-selector { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .level-btn { padding: 12px 4px; border: 2px solid var(--border); border-radius: var(--radius); background: #f8fafc; color: var(--text); font-size: 13px; font-weight: 800; cursor: pointer; text-align: center; transition: all 0.3s; }
-  .level-btn .level-icon { display: block; font-size: 18px; margin-bottom: 4px; }
-  .level-btn:hover { border-color: var(--primary); transform: translateY(-3px); }
-  .level-btn.selected { background: var(--gradient-1); color: white; border-color: transparent; box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4); transform: translateY(-3px) scale(1.02); }
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main-content { margin-left: 0; padding: 16px; padding-top: 70px; }
+      .topbar { display: flex; }
+      .admin-live-banner h1 { font-size: 24px; }
+      .student-welcome-header { flex-direction: column; text-align: center; }
+      .student-welcome-header .info .meta { justify-content: center; }
+    }
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99; backdrop-filter: blur(2px); }
+    .overlay.show { display: block; }
 
-  .photo-upload { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 20px; border: 2.5px dashed var(--border); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(56, 189, 248, 0.05), rgba(139, 92, 246, 0.05)); cursor: pointer; transition: all 0.4s; margin-bottom: 24px; }
-  .photo-upload:hover { border-color: var(--primary); border-style: solid; transform: translateY(-2px); }
-  .photo-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid white; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4), 0 0 0 3px var(--primary); }
-  .photo-placeholder { width: 100px; height: 100px; border-radius: 50%; background: var(--gradient-1); color: white; display: flex; align-items: center; justify-content: center; font-size: 36px; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35); position: relative; }
-  .photo-placeholder::after { content: '+'; position: absolute; bottom: 2px; right: 2px; width: 28px; height: 28px; background: white; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; box-shadow: 0 4px 10px rgba(0,0,0,0.15); border: 2px solid var(--primary); }
-  .photo-upload-text { font-size: 12px; color: var(--text-secondary); text-align: center; font-weight: 500; }
-  .photo-upload-text strong { display: block; color: var(--primary); margin-bottom: 4px; font-size: 13px; }
+    .pdf-type-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .pdf-type-cat { background: #dbeafe; color: #1d4ed8; }
+    .pdf-type-midterm { background: #fef3c7; color: #b45309; }
+    .pdf-type-final { background: #d1fae5; color: #047857; }
 
-  .btn { width: 100%; padding: 16px 24px; border: none; border-radius: var(--radius); font-family: inherit; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s; position: relative; overflow: hidden; }
-  .btn-primary { background: var(--gradient-1); color: white; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4); margin-top: 10px; }
-  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(56, 189, 248, 0.55); }
-  .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
-  
-  .auth-links { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; text-align: center; position: relative; z-index: 2; }
-  .auth-links a { font-size: 14px; color: var(--primary); text-decoration: none; font-weight: 700; cursor: pointer; padding: 10px; border-radius: 10px; background: var(--primary-light); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-  .auth-links a:hover { background: var(--primary); color: white; transform: translateY(-2px); }
-
-  .error-message { background: rgba(239, 68, 68, 0.1); color: var(--danger); padding: 14px 18px; border-radius: var(--radius); font-size: 13px; font-weight: 600; margin-bottom: 20px; display: none; align-items: center; gap: 12px; border-left: 4px solid var(--danger); }
-  .error-message.active { display: flex; animation: errorShake 0.5s ease; }
-
-  .choir-title-banner { position: relative; width: 100%; padding: 20px 16px; margin-bottom: 24px; border-radius: 20px; background: var(--gradient-1); overflow: hidden; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35); text-align: center; }
-  .choir-title-text { font-size: 20px; font-weight: 900; color: white; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-  .choir-title-subtitle { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.9); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
-
-  .choice-modal { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); display: none; align-items: flex-end; justify-content: center; z-index: 10000; }
-  .choice-modal.active { display: flex; }
-  .choice-sheet { background: white; border-radius: var(--radius-xl) var(--radius-xl) 0 0; padding: 12px 24px 32px; width: 100%; max-width: 500px; animation: slideUp 0.4s ease; }
-  .sheet-handle { width: 44px; height: 5px; background: #cbd5e1; border-radius: 3px; margin: 0 auto 20px; }
-  .choice-title { font-size: 18px; font-weight: 800; text-align: center; margin-bottom: 6px; }
-  .choice-subtitle { font-size: 13px; color: var(--text-secondary); text-align: center; margin-bottom: 20px; }
-  .choice-options { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
-  .choice-option { padding: 20px 16px; border: 2px solid var(--border); border-radius: var(--radius-lg); background: #f8fafc; cursor: pointer; transition: all 0.3s; text-align: center; }
-  .choice-option:hover { border-color: var(--primary); transform: translateY(-4px); }
-  .choice-option .opt-icon { width: 56px; height: 56px; margin: 0 auto 12px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; }
-  .choice-option.camera .opt-icon { background: var(--gradient-1); }
-  .choice-option.gallery .opt-icon { background: var(--gradient-2); }
-  .choice-option h4 { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
-  .choice-option p { font-size: 12px; color: var(--text-secondary); }
-  .choice-cancel { width: 100%; padding: 14px; border: none; border-radius: var(--radius); background: #f1f5f9; color: var(--text-secondary); font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
-
-  .success-screen { display: none; text-align: center; padding: 20px 0; }
-  .success-screen.active { display: block; animation: slideUp 0.7s ease; }
-  .success-icon { width: 100px; height: 100px; background: var(--gradient-2); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 50px; margin: 0 auto 20px; box-shadow: 0 20px 50px rgba(16, 185, 129, 0.5); animation: successBounce 0.8s; }
-  .success-screen h2 { font-size: 26px; font-weight: 800; margin-bottom: 10px; color: var(--success); }
-  .success-screen p { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
-  .member-card { background: #f8fafc; border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; text-align: left; border: 2px solid var(--border); }
-  .member-photo { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 3px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-  .member-avatar { width: 70px; height: 70px; border-radius: 50%; background: var(--gradient-1); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 22px; border: 3px solid white; }
-  .member-name { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
-  .member-details { font-size: 12px; color: var(--text-secondary); display: flex; flex-direction: column; gap: 4px; }
-  .member-details span { display: flex; align-items: center; gap: 6px; }
-
-  .app-layout { display: none; min-height: 100vh; background: var(--bg); }
-  .app-layout.active { display: flex; }
-  
-  .sidebar { width: 260px; background: #fff; border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; transition: transform 0.35s ease; }
-  .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .sidebar-header h2 { font-size: 18px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; }
-  .sidebar-user { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
-  .sidebar-user .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--gradient-1); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
-  .sidebar-user .info .name { font-weight: 700; font-size: 14px; }
-  .sidebar-user .info .role { font-size: 12px; color: var(--text-secondary); }
-  .sidebar-nav { flex: 1; padding: 12px; overflow-y: auto; }
-  .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; cursor: pointer; color: var(--text-secondary); font-weight: 600; font-size: 14px; transition: all 0.2s; margin-bottom: 4px; border: none; background: transparent; width: 100%; text-align: left; }
-  .nav-item:hover { background: #f1f5f9; color: var(--text); }
-  .nav-item.active { background: var(--primary-light); color: var(--primary); }
-  .nav-item i { width: 20px; text-align: center; font-size: 16px; }
-  .sidebar-footer { padding: 12px; border-top: 1px solid var(--border); }
-
-  .main-content { flex: 1; margin-left: 260px; padding: 24px; min-height: 100vh; }
-  .topbar { display: none; background: #fff; padding: 12px 20px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 90; align-items: center; justify-content: space-between; }
-  .topbar .menu-btn { background: transparent; border: none; font-size: 20px; cursor: pointer; color: var(--text); }
-  
-  .page-section { display: none; }
-  .page-section.active { display: block; animation: slideUp 0.4s ease; }
-  .page-title { font-size: 24px; font-weight: 800; margin-bottom: 6px; color: #fff; }
-  .page-subtitle { font-size: 14px; color: #94a3b8; margin-bottom: 24px; }
-
-  .card { background: #1e293b; border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-sm); margin-bottom: 20px; border: 1px solid #334155; color: #fff; }
-  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
-  .stat-card { background: #1e293b; border-radius: var(--radius); padding: 20px; border: 1px solid #334155; }
-  .stat-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
-  .stat-value { font-size: 28px; font-weight: 800; line-height: 1; margin-bottom: 6px; color: #fff; }
-  .stat-label { font-size: 13px; color: #94a3b8; font-weight: 600; }
-
-  .table-wrapper { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid #334155; background: #1e293b; }
-  table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
-  th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #334155; color: #fff; }
-  th { background: #0f172a; font-weight: 700; color: #94a3b8; font-size: 12px; text-transform: uppercase; }
-
-  .badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-  .badge-pending { background: #fef3c7; color: #b45309; }
-  .badge-approved { background: #d1fae5; color: #047857; }
-
-  @media (max-width: 900px) {
-    .sidebar { transform: translateX(-100%); }
-    .sidebar.open { transform: translateX(0); }
-    .main-content { margin-left: 0; padding: 16px; padding-top: 70px; }
-    .topbar { display: flex; }
-  }
-  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99; backdrop-filter: blur(2px); }
-  .overlay.show { display: block; }
-</style>
+    .line-wrap { position: relative; display: inline-block; padding-bottom: 4px; }
+    .line-wrap::after { content: ''; position: absolute; left: 0; bottom: 0; height: 3px; width: 0%; border-radius: 3px; background: linear-gradient(90deg, #38bdf8, #8b5cf6, #10b981); background-size: 200% 100%; animation: lineGrow 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards, gradientShift 3s linear infinite; }
+    .line-wrap.delay-1::after { animation-delay: 0.3s, 0s; }
+    .line-wrap.delay-2::after { animation-delay: 0.6s, 0s; }
+    @keyframes lineGrow { 0% { width: 0%; } 100% { width: 100%; } }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    .shimmer { background: linear-gradient(90deg, #0284c7, #38bdf8, #8b5cf6, #38bdf8, #0284c7); background-size: 300% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmerText 4s linear infinite; font-weight: 800; }
+    @keyframes shimmerText { 0% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .moving-line { position: relative; display: block; height: 2px; margin-top: 16px; background: #e2e8f0; border-radius: 2px; overflow: hidden; }
+    .moving-line::after { content: ''; position: absolute; top: 0; left: -40%; width: 40%; height: 100%; border-radius: 2px; background: linear-gradient(90deg, transparent, #38bdf8, #8b5cf6, transparent); animation: slideLine 2.8s ease-in-out infinite; }
+    @keyframes slideLine { 0% { left: -40%; } 100% { left: 100%; } }
+  </style>
 </head>
 <body>
 
-  <!-- ============ LOADING SCREEN ============ -->
+  <!-- LOADING SCREEN -->
   <div class="loading-screen" id="loadingScreen">
     <div class="music-loader">
       <div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -249,7 +258,7 @@
     <p>Turashakisha amakuru...</p>
   </div>
 
-  <!-- ============ AUTH SCREEN (LOGIN) ============ -->
+  <!-- AUTH SCREEN (LOGIN) -->
   <div class="auth-screen" id="authScreen">
     <div class="auth-container">
       <div class="auth-header">
@@ -257,209 +266,149 @@
         <h1>ExamHub</h1>
         <p>Injira muri sisitemu ya EAUR</p>
       </div>
-
-      <div class="error-message" id="loginError">
-        <i class="fas fa-exclamation-circle"></i> <span id="loginErrorText"></span>
-      </div>
-
-      <div class="form-group">
-        <label><i class="fas fa-envelope"></i> Email yawe</label>
-        <input type="email" id="loginEmail" class="form-control" placeholder="email@example.com">
-      </div>
-      <div class="form-group">
-        <label><i class="fas fa-lock"></i> Ijambo ry'ibanga</label>
-        <input type="password" id="loginPassword" class="form-control" placeholder="••••••••">
-      </div>
-      
-      <button class="btn btn-primary" id="loginBtn" onclick="handleLogin()">
-        <i class="fas fa-sign-in-alt"></i> <span>INJIRA</span>
-      </button>
-
-      <div class="auth-links">
-        <a onclick="showRegisterScreen()"><i class="fas fa-user-plus"></i> Nta konti? Iyandikishe</a>
-      </div>
+      <div class="error-message" id="loginError"><i class="fas fa-exclamation-circle"></i> <span id="loginErrorText"></span></div>
+      <div class="form-group"><label><i class="fas fa-envelope"></i> Email yawe</label><input type="email" id="loginEmail" class="form-control" placeholder="email@example.com"></div>
+      <div class="form-group"><label><i class="fas fa-lock"></i> Ijambo ry'ibanga</label><input type="password" id="loginPassword" class="form-control" placeholder="••••••••"></div>
+      <button class="btn btn-primary" id="loginBtn" onclick="handleLogin()"><i class="fas fa-sign-in-alt"></i> <span>INJIRA</span></button>
+      <div class="auth-links"><a onclick="showRegisterScreen()"><i class="fas fa-user-plus"></i> Nta konti? Iyandikishe</a></div>
     </div>
   </div>
 
-  <!-- ============ AUTH SCREEN (REGISTER) ============ -->
+  <!-- AUTH SCREEN (REGISTER) -->
   <div class="auth-screen" id="registerScreen">
     <div class="auth-container">
-      <div class="choir-title-banner">
-        <div>
-          <div class="choir-title-text" id="memberChoirTitle">🎓 EAUR STUDENT</div>
-          <div class="choir-title-subtitle">Kwiyandikisha mu EAUR</div>
-        </div>
-      </div>
-
-      <div class="auth-header" style="margin-bottom: 20px;">
-        <h1 style="font-size: 22px;">Iyandikishe</h1>
-        <p>Uzuza amakuru yawe neza</p>
-      </div>
-
-      <div class="error-message" id="regError">
-        <i class="fas fa-exclamation-circle"></i> <span id="regErrorText"></span>
-      </div>
-
-      <!-- PHOTO UPLOAD -->
-      <div class="photo-upload" onclick="openPhotoChoice()">
-        <div id="photoPreviewContainer">
-          <div class="photo-placeholder"><i class="fas fa-camera"></i></div>
-        </div>
-        <div class="photo-upload-text">
-          <strong>📸 Kanda hano wongeremo ifoto</strong>
-          Kamera cyangwa Gallery
-        </div>
-      </div>
+      <div class="choir-title-banner"><div><div class="choir-title-text" id="memberChoirTitle">🎓 EAUR STUDENT</div><div class="choir-title-subtitle">Kwiyandikisha mu EAUR</div></div></div>
+      <div class="auth-header" style="margin-bottom: 20px;"><h1 style="font-size: 22px;">Iyandikishe</h1><p>Uzuza amakuru yawe neza</p></div>
+      <div class="error-message" id="regError"><i class="fas fa-exclamation-circle"></i> <span id="regErrorText"></span></div>
+      <div class="photo-upload" onclick="openPhotoChoice()"><div id="photoPreviewContainer"><div class="photo-placeholder"><i class="fas fa-camera"></i></div></div><div class="photo-upload-text"><strong>📸 Kanda hano wongeremo ifoto</strong>Kamera cyangwa Gallery</div></div>
       <input type="file" id="cameraInput" accept="image/*" capture="user" style="display: none;" onchange="handlePhotoSelected(event)">
       <input type="file" id="galleryInput" accept="image/*" style="display: none;" onchange="handlePhotoSelected(event)">
-
-      <div class="form-group">
-        <label><i class="fas fa-user"></i> Amazina yuzuye <span>*</span></label>
-        <input type="text" id="regName" class="form-control" placeholder="Jean Mugisha">
-      </div>
-      <div class="form-group">
-        <label><i class="fas fa-envelope"></i> Email yawe <span>*</span></label>
-        <input type="email" id="regEmail" class="form-control" placeholder="email@example.com">
-      </div>
-      <div class="form-group">
-        <label><i class="fas fa-lock"></i> Ijambo ry'ibanga <span>*</span></label>
-        <input type="password" id="regPassword" class="form-control" placeholder="Nibura 6">
-      </div>
-      <div class="form-group">
-        <label><i class="fas fa-phone"></i> Nimero ya Telefone <span>*</span></label>
-        <input type="text" id="regNumber" class="form-control" placeholder="0788...">
-      </div>
-
-      <div class="form-group">
-        <label><i class="fas fa-university"></i> Campus <span>*</span></label>
-        <select id="regCampus" class="form-control"></select>
-      </div>
-      <div class="form-group">
-        <label><i class="fas fa-building"></i> Ishuri / Department <span>*</span></label>
-        <select id="regSchool" class="form-control" onchange="onSchoolChange()"></select>
-      </div>
-      <div class="form-group">
-        <label><i class="fas fa-book"></i> Porogaramu <span>*</span></label>
-        <select id="regProgramme" class="form-control" disabled></select>
-      </div>
-
-      <!-- LEVEL SELECTOR (Special yakuweho) -->
-      <div class="form-group">
-        <label><i class="fas fa-graduation-cap"></i> Umwaka w'amashuri <span>*</span></label>
-        <div class="level-selector" id="levelSelector">
-          <button type="button" class="level-btn" onclick="selectLevel('Year 1', this)"><span class="level-icon">🎓</span><span>Y1</span></button>
-          <button type="button" class="level-btn" onclick="selectLevel('Year 2', this)"><span class="level-icon">🎓</span><span>Y2</span></button>
-          <button type="button" class="level-btn" onclick="selectLevel('Year 3', this)"><span class="level-icon">🎓</span><span>Y3</span></button>
-          <button type="button" class="level-btn" onclick="selectLevel('Year 4', this)"><span class="level-icon">🎓</span><span>Y4</span></button>
-        </div>
-        <input type="hidden" id="regYear">
-      </div>
-
-      <div class="form-group">
-        <label><i class="fas fa-calendar-alt"></i> Trimester <span>*</span></label>
-        <select id="regTrimester" class="form-control"></select>
-      </div>
-
-      <button class="btn btn-primary" id="submitBtn" onclick="handleRegister()">
-        <i class="fas fa-check-circle"></i> <span>IYANDIKISHE</span>
-      </button>
-
-      <div class="auth-links">
-        <a onclick="showLoginScreen()"><i class="fas fa-arrow-left"></i> Usanzwe ufite konti? Injira</a>
-      </div>
+      <div class="form-group"><label><i class="fas fa-user"></i> Amazina yuzuye <span>*</span></label><input type="text" id="regName" class="form-control" placeholder="Jean Mugisha"></div>
+      <div class="form-group"><label><i class="fas fa-envelope"></i> Email yawe <span>*</span></label><input type="email" id="regEmail" class="form-control" placeholder="email@example.com"></div>
+      <div class="form-group"><label><i class="fas fa-lock"></i> Ijambo ry'ibanga <span>*</span></label><input type="password" id="regPassword" class="form-control" placeholder="Nibura 6"></div>
+      <div class="form-group"><label><i class="fas fa-phone"></i> Nimero ya Telefone <span>*</span></label><input type="text" id="regNumber" class="form-control" placeholder="0788..."></div>
+      <div class="form-group"><label><i class="fas fa-university"></i> Campus <span>*</span></label><select id="regCampus" class="form-control"></select></div>
+      <div class="form-group"><label><i class="fas fa-building"></i> Ishuri / Department <span>*</span></label><select id="regSchool" class="form-control" onchange="onSchoolChange()"></select></div>
+      <div class="form-group"><label><i class="fas fa-book"></i> Porogaramu <span>*</span></label><select id="regProgramme" class="form-control" disabled></select></div>
+      <div class="form-group"><label><i class="fas fa-graduation-cap"></i> Umwaka w'amashuri <span>*</span></label><div class="level-selector" id="levelSelector"><button type="button" class="level-btn" onclick="selectLevel('Year 1', this)"><span class="level-icon">🎓</span><span>Y1</span></button><button type="button" class="level-btn" onclick="selectLevel('Year 2', this)"><span class="level-icon">🎓</span><span>Y2</span></button><button type="button" class="level-btn" onclick="selectLevel('Year 3', this)"><span class="level-icon">🎓</span><span>Y3</span></button><button type="button" class="level-btn" onclick="selectLevel('Year 4', this)"><span class="level-icon">🎓</span><span>Y4</span></button></div><input type="hidden" id="regYear"></div>
+      <div class="form-group"><label><i class="fas fa-calendar-alt"></i> Trimester <span>*</span></label><select id="regTrimester" class="form-control"></select></div>
+      <button class="btn btn-primary" id="submitBtn" onclick="handleRegister()"><i class="fas fa-check-circle"></i> <span>IYANDIKISHE</span></button>
+      <div class="auth-links"><a onclick="showLoginScreen()"><i class="fas fa-arrow-left"></i> Usanzwe ufite konti? Injira</a></div>
     </div>
   </div>
 
-  <!-- ============ SUCCESS SCREEN ============ -->
+  <!-- SUCCESS SCREEN -->
   <div class="auth-screen" id="successScreen">
     <div class="auth-container">
       <div class="success-icon"><i class="fas fa-check"></i></div>
       <h2>Wakiriwe! 🎉</h2>
       <p style="text-align: center; margin-bottom: 20px;">Wiyandikishije neza. Tegereza Admin yemeze konti yawe.</p>
-      
       <div class="member-card" id="successMemberCard"></div>
-
-      <button class="btn btn-primary" onclick="showLoginScreen()">
-        <i class="fas fa-sign-in-alt"></i> Injira Ubu
-      </button>
+      <button class="btn btn-primary" onclick="showLoginScreen()"><i class="fas fa-sign-in-alt"></i> Injira Ubu</button>
     </div>
   </div>
 
-  <!-- ============ PHOTO CHOICE MODAL ============ -->
+  <!-- PHOTO CHOICE MODAL -->
   <div class="choice-modal" id="photoChoiceModal">
     <div class="choice-sheet">
       <div class="sheet-handle"></div>
       <div class="choice-title">📸 Hitamo Ifoto</div>
       <div class="choice-subtitle">Fata ifoto nshya cyangwa uhitemo iyi isanzwe muri gallery</div>
       <div class="choice-options">
-        <div class="choice-option camera" onclick="chooseCamera()">
-          <div class="opt-icon"><i class="fas fa-camera"></i></div>
-          <h4>Kamera</h4>
-          <p>Fata ifoto nshya</p>
-        </div>
-        <div class="choice-option gallery" onclick="chooseGallery()">
-          <div class="opt-icon"><i class="fas fa-images"></i></div>
-          <h4>Gallery</h4>
-          <p>Hitamo ifoto isanzwe</p>
-        </div>
+        <div class="choice-option camera" onclick="chooseCamera()"><div class="opt-icon"><i class="fas fa-camera"></i></div><h4>Kamera</h4><p>Fata ifoto nshya</p></div>
+        <div class="choice-option gallery" onclick="chooseGallery()"><div class="opt-icon"><i class="fas fa-images"></i></div><h4>Gallery</h4><p>Hitamo ifoto isanzwe</p></div>
       </div>
       <button class="choice-cancel" onclick="closePhotoChoice()">Hagarika</button>
     </div>
   </div>
 
-  <!-- ============ STUDENT APP ============ -->
+  <!-- EDIT PROFILE MODAL -->
+  <div class="modal-overlay" id="editProfileModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Hindura Profile</h2>
+        <button class="modal-close" onclick="closeEditProfile()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="error-message" id="editError"><i class="fas fa-exclamation-circle"></i> <span id="editErrorText"></span></div>
+      <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+        <div id="editPhotoPreview" style="width:70px;height:70px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin-bottom:10px;overflow:hidden;border:2px solid var(--border);">
+          <i class="fas fa-camera" style="font-size:24px;color:var(--primary);"></i>
+        </div>
+        <label for="editPhotoInput" style="cursor:pointer;color:var(--primary);font-weight:700;font-size:14px;"><i class="fas fa-upload"></i> Hindura ifoto</label>
+        <input type="file" id="editPhotoInput" accept="image/*" style="display:none;" onchange="handleEditPhotoSelected(event)">
+      </div>
+      <div class="form-group"><label><i class="fas fa-user"></i> Amazina yuzuye</label><input type="text" id="editName" class="form-control" placeholder="Amazina yuzuye"></div>
+      <div class="form-group"><label><i class="fas fa-phone"></i> Nimero ya Telefone</label><input type="text" id="editNumber" class="form-control" placeholder="0788..."></div>
+      <button class="btn btn-primary" onclick="saveProfileChanges(this)"><i class="fas fa-save"></i> Bika Impinduka</button>
+    </div>
+  </div>
+
+  <!-- PAYMENT MODAL -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-hand-holding-usd" style="color:var(--primary);"></i> Kwishyura</h2>
+        <button class="modal-close" onclick="closePaymentModal()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="error-message" id="paymentError"><i class="fas fa-exclamation-circle"></i> <span id="paymentErrorText"></span></div>
+      <div style="text-align:center;margin-bottom:20px;">
+        <div style="font-size:48px;margin-bottom:8px;">💰</div>
+        <h3 style="font-size:22px;font-weight:800;color:var(--text);">Amafaranga y'isomo</h3>
+        <p style="color:var(--text-secondary);font-size:14px;">Ohereza amafaranga kuri <strong style="color:var(--primary);">0788 123 456</strong> (MTN MoMo) hanyuma utwandikire hano.</p>
+      </div>
+      <div style="background:#f8fafc;padding:16px;border-radius:12px;margin-bottom:16px;border:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="color:var(--text-secondary);font-size:14px;">Amafaranga:</span><strong style="color:var(--text);">5,000 RWF</strong></div>
+        <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-secondary);font-size:14px;">Uburyo:</span><strong style="color:var(--text);">MTN MoMo / Airtel Money</strong></div>
+      </div>
+      <div class="form-group"><label><i class="fas fa-phone"></i> Nimero yawe ya Mobile Money</label><input type="text" id="paymentPhone" class="form-control" placeholder="0788..."></div>
+      <div class="form-group"><label><i class="fas fa-hashtag"></i> Nimero y'ubwishyu (Transaction ID)</label><input type="text" id="paymentRef" class="form-control" placeholder="MF..."></div>
+      <button class="btn btn-primary" onclick="submitPaymentRequest(this)"><i class="fas fa-paper-plane"></i> Ohereza Ubwishyu kuri Admin</button>
+    </div>
+  </div>
+
+  <!-- STUDENT APP -->
   <div class="app-layout" id="studentApp">
     <aside class="sidebar" id="studentSidebar">
-      <div class="sidebar-header">
-        <h2><i class="fas fa-graduation-cap"></i> ExamHub</h2>
-        <button class="btn btn-sm" onclick="closeSidebar('studentSidebar')" style="display: none;"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="sidebar-user">
-        <div class="avatar" id="studentAvatar">?</div>
-        <div class="info"><div class="name" id="sidebarName">—</div><div class="role" id="sidebarRole">Umunyeshuri</div></div>
-      </div>
+      <div class="sidebar-header"><h2><i class="fas fa-graduation-cap"></i> ExamHub</h2></div>
       <nav class="sidebar-nav">
-        <button class="nav-item active" onclick="studentNav('home', this)"><i class="fas fa-home"></i> Dashboard</button>
-        <button class="nav-item" onclick="studentNav('cat', this)"><i class="fas fa-book-open"></i> Enrolled CAT</button>
+        <button class="nav-item active" onclick="studentNav('home', this)"><i class="fas fa-home"></i> Ahabanza</button>
         <button class="nav-item" onclick="studentNav('pdfs', this)"><i class="fas fa-file-pdf"></i> Exam PDFs</button>
         <button class="nav-item" onclick="studentNav('profile', this)"><i class="fas fa-user"></i> Profile</button>
       </nav>
-      <div class="sidebar-footer">
-        <button class="nav-item" onclick="logout()" style="color: var(--danger);"><i class="fas fa-sign-out-alt"></i> Sohoka</button>
-      </div>
+      <div class="sidebar-footer"><button class="nav-item" onclick="logout()" style="color: var(--danger);"><i class="fas fa-sign-out-alt"></i> Sohoka</button></div>
     </aside>
-    
     <div class="overlay" id="studentOverlay" onclick="closeSidebar('studentSidebar')"></div>
-    
     <main class="main-content">
       <div class="topbar">
         <button class="menu-btn" onclick="openSidebar('studentSidebar')"><i class="fas fa-bars"></i></button>
-        <h2 style="font-size: 16px; font-weight: 800; color: var(--primary);">ExamHub EAUR</h2>
-        <div class="avatar" style="width: 34px; height: 34px; border-radius: 50%; background: var(--gradient-1); color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800;" id="mobileAvatar">?</div>
+        <h2>ExamHub EAUR</h2>
       </div>
-
       <section class="page-section active" id="page-home">
-        <div class="page-title" id="welcomeTitle">Muraho!</div>
-        <div class="page-subtitle" id="welcomeMeta"></div>
-        <div class="stat-grid" id="studentStats"></div>
-        <div class="card">
-          <h3 style="margin-bottom: 16px;">📈 Incamake y'amanota</h3>
-          <div id="homeResultsSummary"></div>
+        <div style="margin-bottom: 24px; animation: fadeInUp 0.5s ease;">
+          <h1 style="font-size: 32px; font-weight: 900; color: var(--text); margin-bottom: 8px;">
+            👋 Murakaza neza, <span class="line-wrap" style="color: var(--primary);" id="welcomeFirstName">Umunyeshuri</span> ✨
+          </h1>
+          <div style="display:flex; gap:16px; font-size:14px; color: var(--text-secondary);">
+            <span>🎓 <span class="shimmer line-wrap delay-1" id="welcomeSchool">Ishuri</span></span>
+            <span>📅 <span class="shimmer line-wrap delay-2" id="welcomeTrimester">Trimester</span></span>
+          </div>
+          <div class="moving-line" style="margin-top: 12px;"></div>
         </div>
+        <div class="notice-box" id="paymentNotice"><i class="fas fa-info-circle"></i><span>Iyi ni <strong>Dashboard yawe</strong> — ureba gusa. Ntushobora guhindura amakuru hano.</span></div>
+        <div class="student-welcome-header">
+          <div class="profile-pic" id="welcomeProfilePic">?</div>
+          <div class="info"><h1 id="welcomeFullName">Izina Ryuzuye</h1><div class="meta" id="welcomeMeta"></div></div>
+        </div>
+        <button class="pay-btn" id="payBtn" onclick="openPaymentModal()"><i class="fas fa-hand-holding-usd"></i> <span id="payBtnText">Gutanga Umusanzu / Kwishyura</span></button>
+        <div class="stat-grid" id="studentStats"></div>
+        <div class="card"><h3 style="margin-bottom: 16px; color: var(--text);">📈 Incamake y'amanota</h3><div id="homeResultsSummary"></div></div>
       </section>
-
-      <section class="page-section" id="page-cat">
-        <div class="page-title">Enrolled CAT</div>
-        <div class="page-subtitle">Reba amanota yawe yose ku isomo</div>
-        <div id="studentCATs"></div>
-      </section>
-
       <section class="page-section" id="page-pdfs">
         <div class="page-title">Exam PDFs</div>
         <div class="page-subtitle">Past papers zihuye na porogaramu yawe</div>
+        <div id="pdfLockNotice" style="display:none;"></div>
         <div id="studentPdfs"></div>
       </section>
-
       <section class="page-section" id="page-profile">
         <div class="page-title">Profile Yanjye</div>
         <div class="page-subtitle">Amakuru yawe yose</div>
@@ -468,43 +417,35 @@
     </main>
   </div>
 
-  <!-- ============ ADMIN APP ============ -->
-  <div class="app-layout" id="adminApp">
+  <!-- ADMIN APP -->
+  <div class="app-layout" id="adminApp" style="background: var(--bg);">
     <aside class="sidebar" id="adminSidebar">
-      <div class="sidebar-header">
-        <h2><i class="fas fa-shield-alt"></i> ExamHub</h2>
-        <button class="btn btn-sm" onclick="closeSidebar('adminSidebar')" style="display: none;"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="sidebar-user">
-        <div class="avatar" style="background: linear-gradient(135deg, #ef4444, #f59e0b);">A</div>
-        <div class="info"><div class="name" id="adminName">Admin</div><div class="role">Super Admin</div></div>
-      </div>
+      <div class="sidebar-header"><h2><i class="fas fa-shield-alt"></i> ExamHub</h2></div>
       <nav class="sidebar-nav">
         <button class="nav-item active" onclick="adminNav('dashboard', this)"><i class="fas fa-chart-line"></i> Dashboard</button>
         <button class="nav-item" onclick="adminNav('students', this)"><i class="fas fa-users"></i> Abanyeshuri</button>
+        <button class="nav-item" onclick="adminNav('payments', this)"><i class="fas fa-hand-holding-usd"></i> Ubwishyu</button>
         <button class="nav-item" onclick="adminNav('results', this)"><i class="fas fa-edit"></i> Injiza Amanota</button>
         <button class="nav-item" onclick="adminNav('pdfs', this)"><i class="fas fa-file-pdf"></i> PDF Exams</button>
       </nav>
-      <div class="sidebar-footer">
-        <button class="nav-item" onclick="logout()" style="color: var(--danger);"><i class="fas fa-sign-out-alt"></i> Sohoka</button>
-      </div>
+      <div class="sidebar-footer"><button class="nav-item" onclick="logout()" style="color: var(--danger);"><i class="fas fa-sign-out-alt"></i> Sohoka</button></div>
     </aside>
-
     <div class="overlay" id="adminOverlay" onclick="closeSidebar('adminSidebar')"></div>
-
     <main class="main-content">
       <div class="topbar">
         <button class="menu-btn" onclick="openSidebar('adminSidebar')"><i class="fas fa-bars"></i></button>
-        <h2 style="font-size: 16px; font-weight: 800; color: var(--primary);">ExamHub Admin</h2>
-        <div class="avatar" style="width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #ef4444, #f59e0b); color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800;">A</div>
+        <h2>ExamHub Admin</h2>
       </div>
-
       <section class="page-section active" id="admin-page-dashboard">
-        <div class="page-title">Dashboard</div>
-        <div class="page-subtitle">Incamake y'ishuri</div>
+        <div class="admin-live-banner">
+          <i class="fas fa-graduation-cap float-icon"></i><i class="fas fa-book float-icon"></i><i class="fas fa-pen float-icon"></i><i class="fas fa-award float-icon"></i>
+          <h1><span class="live-dot"></span> EXAMHUB RWANDA IS LIVE</h1>
+          <p>EAUR EXAMINATION MANAGEMENT SYSTEM</p>
+        </div>
+        <div class="page-title" style="color: var(--text);">Murakaza neza! 👋</div>
+        <div class="page-subtitle" style="color: var(--text-secondary);">Reba incamake y'abanyeshuri n'amanota</div>
         <div class="stat-grid" id="adminStats"></div>
       </section>
-
       <section class="page-section" id="admin-page-students">
         <div class="page-title">Abanyeshuri</div>
         <div class="page-subtitle">Emeza cyangwa usibe abanyeshuri</div>
@@ -512,85 +453,53 @@
           <input type="text" id="searchStudents" class="form-control" placeholder="Shakisha ku izina cyangwa email..." oninput="renderAdminStudents()" style="margin-bottom: 16px;">
           <div class="table-wrapper">
             <table>
-              <thead><tr><th>Amazina</th><th>Email</th><th>Porogaramu</th><th>Umwaka</th><th>Status</th><th>Ibikorwa</th></tr></thead>
+              <thead><tr><th>Amazina</th><th>Email</th><th>Porogaramu</th><th>Umwaka</th><th>Status</th><th>Kwishyura</th><th>Ibikorwa</th></tr></thead>
               <tbody id="studentsTableBody"></tbody>
             </table>
           </div>
         </div>
       </section>
-
+      <section class="page-section" id="admin-page-payments">
+        <div class="page-title">Ubwishyu</div>
+        <div class="page-subtitle">Emeza ubwishyu bw'abanyeshuri</div>
+        <div class="card">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Umunyeshuri</th><th>Nimero</th><th>Transaction ID</th><th>Itariki</th><th>Status</th><th>Ibikorwa</th></tr></thead>
+              <tbody id="paymentsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
       <section class="page-section" id="admin-page-results">
         <div class="page-title">Injiza Amanota</div>
         <div class="page-subtitle">Ongeraho cyangwa urebe amanota y'abanyeshuri</div>
         <div class="card">
           <div class="stat-grid" style="grid-template-columns: 1fr;">
-            <div>
-              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Umunyeshuri</label>
-              <select id="resultStudent" class="form-control"></select>
-            </div>
-            <div>
-              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Isomo</label>
-              <input type="text" id="resultSubject" class="form-control" placeholder="Mathematics">
-            </div>
-            <div>
-              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Semester</label>
-              <select id="resultSemester" class="form-control">
-                <option value="Trimester 1">Trimester 1</option>
-                <option value="Trimester 2">Trimester 2</option>
-                <option value="Trimester 3">Trimester 3</option>
-              </select>
-            </div>
-            <div>
-              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">CAT (/10)</label>
-              <input type="number" id="resultCat" class="form-control" min="0" max="10" step="0.5">
-            </div>
-            <div>
-              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Midterm (/40)</label>
-              <input type="number" id="resultMid" class="form-control" min="0" max="40" step="0.5">
-            </div>
-            <div>
-              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Final (/40)</label>
-              <input type="number" id="resultFinal" class="form-control" min="0" max="40" step="0.5">
-            </div>
+            <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Umunyeshuri</label><select id="resultStudent" class="form-control"></select></div>
+            <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Isomo</label><input type="text" id="resultSubject" class="form-control" placeholder="Mathematics"></div>
+            <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Semester</label><select id="resultSemester" class="form-control"><option value="Trimester 1">Trimester 1</option><option value="Trimester 2">Trimester 2</option><option value="Trimester 3">Trimester 3</option></select></div>
+            <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">CAT (/10)</label><input type="number" id="resultCat" class="form-control" min="0" max="10" step="0.5"></div>
+            <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Midterm (/40)</label><input type="number" id="resultMid" class="form-control" min="0" max="40" step="0.5"></div>
+            <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Final (/40)</label><input type="number" id="resultFinal" class="form-control" min="0" max="40" step="0.5"></div>
           </div>
           <p id="resultError" class="error-message" style="margin-top: 10px; margin-bottom: 10px;"></p>
           <button class="btn btn-primary" onclick="saveResult(this)"><i class="fas fa-save"></i> Bika Amanota</button>
         </div>
       </section>
-
       <section class="page-section" id="admin-page-pdfs">
         <div class="page-title">PDF Exams</div>
-        <div class="page-subtitle">Ongeraho PDF z'ibizamini</div>
+        <div class="page-subtitle">Ongeraho PDF z'ibizamini (CAT, Midterm, Final)</div>
         <div class="card">
            <div class="stat-grid" style="grid-template-columns: 1fr 1fr;">
-             <div>
-               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Ishuri</label>
-               <select id="pdfSchool" class="form-control" onchange="onPdfSchoolChange()"></select>
-             </div>
-             <div>
-               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Porogaramu</label>
-               <select id="pdfProgramme" class="form-control" disabled></select>
-             </div>
-             <div>
-               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Umwaka</label>
-               <select id="pdfYear" class="form-control"></select>
-             </div>
-             <div>
-               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Trimester</label>
-               <select id="pdfTrimester" class="form-control"></select>
-             </div>
-             <div>
-               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Isomo</label>
-               <input type="text" id="pdfSubject" class="form-control" placeholder="Mathematics">
-             </div>
-             <div>
-               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Izina rya PDF</label>
-               <input type="text" id="pdfTitle" class="form-control" placeholder="CAT 1 2024">
-             </div>
-             <div style="grid-column: 1 / -1;">
-               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Dosiye PDF</label>
-               <input type="file" id="pdfFile" class="form-control" accept="application/pdf">
-             </div>
+             <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Ishuri</label><select id="pdfSchool" class="form-control" onchange="onPdfSchoolChange()"></select></div>
+             <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Porogaramu</label><select id="pdfProgramme" class="form-control" disabled></select></div>
+             <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Umwaka</label><select id="pdfYear" class="form-control"></select></div>
+             <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Trimester</label><select id="pdfTrimester" class="form-control"></select></div>
+             <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Ubwoko bwa PDF</label><select id="pdfType" class="form-control"><option value="CAT">CAT</option><option value="Midterm">Midterm</option><option value="Final">Final Exam</option></select></div>
+             <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Isomo</label><input type="text" id="pdfSubject" class="form-control" placeholder="Mathematics"></div>
+             <div><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Izina rya PDF</label><input type="text" id="pdfTitle" class="form-control" placeholder="CAT 1 2024"></div>
+             <div style="grid-column: 1 / -1;"><label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: var(--text);">Dosiye PDF</label><input type="file" id="pdfFile" class="form-control" accept="application/pdf"></div>
            </div>
            <p id="pdfError" class="error-message" style="margin-top: 10px; margin-bottom: 10px;"></p>
            <button class="btn btn-primary" onclick="uploadPdf(this)"><i class="fas fa-upload"></i> Ongeraho PDF</button>
@@ -599,15 +508,11 @@
     </main>
   </div>
 
-  <!-- =========================================================
-       FIREBASE IMPORTS & SCRIPT
-       ========================================================= -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, doc, setDoc, getDocs, query, where, updateDoc, deleteDoc, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // --- CONFIG YAWE YA FIREBASE ---
     const firebaseConfig = {
       apiKey: "AIzaSyB-O0scHYyCvym0EfxyUn-uPA5AD66GM-g",
       authDomain: "rwandahub.firebaseapp.com",
@@ -621,11 +526,8 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
 
-    // ============================================
-    // CLOUDINARY CONFIG NSHYA (UKURIKIJE PRESET NSHYA)
-    // ============================================
     const CLOUDINARY_CLOUD_NAME = "xkibckfu"; 
-    const CLOUDINARY_UPLOAD_PRESET = "EAUR_UPLOAD"; // PRESET NSHYA
+    const CLOUDINARY_UPLOAD_PRESET = "EAUR_UPLOAD"; 
     const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
     window.EAUR_CONFIG = {
@@ -648,21 +550,22 @@
   </script>
 
   <script>
-    /* =========================================================
-       UI HELPERS
-       ========================================================= */
     function $(id){ return document.getElementById(id); }
     function showError(elId, msg){ 
       const e = $(elId); 
-      e.querySelector('span').textContent = msg; 
+      if(!e) return;
+      const span = e.querySelector('span');
+      if(span) span.textContent = msg; 
       e.classList.add('active'); 
       setTimeout(() => e.classList.remove('active'), 5000);
     }
-    function hideError(elId){ const e=$(elId); e.classList.remove('active'); }
+    function hideError(elId){ const e=$(elId); if(e) e.classList.remove('active'); }
     function fillSelect(el,options,placeholder){
+      if(!el) return;
       el.innerHTML = `<option value="">${placeholder}</option>` + options.map(o => `<option value="${o}">${o}</option>`).join('');
     }
     function formatBytes(b){
+      if(!b) return 'N/A';
       if(b < 1024) return b + ' B';
       if(b < 1048576) return (b/1024).toFixed(1) + ' KB';
       return (b/1048576).toFixed(2) + ' MB';
@@ -686,11 +589,9 @@
       return `<span class="badge" style="background:var(--primary-light);color:var(--primary-dark);">${g.letter}</span>`;
     }
 
-    /* =========================================================
-       UI FLOW (AUTH)
-       ========================================================= */
     let photoFile = null;
     let selectedLevel = null;
+    let editPhotoFile = null;
 
     window.showLoginScreen = function() {
       document.querySelectorAll('.auth-screen').forEach(s => s.style.display = 'none');
@@ -718,9 +619,6 @@
       if (navigator.vibrate) navigator.vibrate(20);
     };
 
-    /* =========================================================
-       PHOTO UPLOAD LOGIC
-       ========================================================= */
     window.openPhotoChoice = function() { $('photoChoiceModal').classList.add('active'); };
     window.closePhotoChoice = function() { $('photoChoiceModal').classList.remove('active'); };
     window.chooseCamera = function() { closePhotoChoice(); setTimeout(() => $('cameraInput').click(), 200); };
@@ -746,22 +644,11 @@
     async function uploadToCloudinary(file) {
       const formData = new FormData();
       formData.append('file', file);
-      // Hano twifashishije preset nshya EAUR_UPLOAD
       formData.append('upload_preset', window.firebaseFunctions.CLOUDINARY_UPLOAD_PRESET);
-
       try {
-        const response = await fetch(window.firebaseFunctions.CLOUDINARY_URL, {
-          method: 'POST',
-          body: formData
-        });
-
+        const response = await fetch(window.firebaseFunctions.CLOUDINARY_URL, { method: 'POST', body: formData });
         const data = await response.json();
-
-        if (!response.ok) {
-          console.error("Cloudinary YANZE:", data);
-          throw new Error(data.error?.message || 'Gushyira ifoto byanze.');
-        }
-
+        if (!response.ok) throw new Error(data.error?.message || 'Gushyira ifoto byanze.');
         return data.secure_url;
       } catch (error) {
         console.error("Upload Error:", error);
@@ -769,9 +656,6 @@
       }
     }
 
-    /* =========================================================
-       INIT REGISTER FORM
-       ========================================================= */
     function initRegisterForm(){
       fillSelect($('regCampus'), EAUR_CONFIG.campuses, 'Hitamo Campus');
       fillSelect($('regSchool'), Object.keys(EAUR_CONFIG.schools), 'Hitamo Ishuri');
@@ -788,9 +672,6 @@
       prog.disabled = false;
     };
 
-    /* =========================================================
-       REGISTER
-       ========================================================= */
     window.handleRegister = async function(){
       hideError('regError');
       const first = $('regName').value.trim();
@@ -816,27 +697,23 @@
       try {
         const { createUserWithEmailAndPassword, updateProfile, doc, setDoc } = window.firebaseFunctions;
         
-        // 1. Upload Photo
         let photoURL = null;
         if(photoFile) {
           btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Turazamura ifoto...</span>';
-          try {
-            photoURL = await uploadToCloudinary(photoFile);
-          } catch (uploadError) {
+          try { photoURL = await uploadToCloudinary(photoFile); }
+          catch (uploadError) {
             btn.disabled = false;
             btn.innerHTML = '<i class="fas fa-check-circle"></i> <span>IYANDIKISHE</span>';
             return showError('regError', 'Ifoto ntiyashyizweho: ' + uploadError.message);
           }
         }
 
-        // 2. Create Auth
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Turakora account...</span>';
         const userCredential = await createUserWithEmailAndPassword(window.auth, email, pass);
         const user = userCredential.user;
         
         await updateProfile(user, { displayName: first, photoURL: photoURL });
 
-        // 3. Firestore
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Turabika...</span>';
         const names = first.split(' ');
         await setDoc(doc(window.db, "students", user.uid), {
@@ -853,6 +730,7 @@
           trimester: tri,
           role: 'student',
           approvalStatus: 'pending',
+          paymentStatus: 'unpaid',
           createdAt: new Date().toISOString()
         });
 
@@ -860,10 +738,8 @@
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-check-circle"></i> <span>IYANDIKISHE</span>';
 
-        // Confetti
         confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#38bdf8', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899'] });
 
-        // Show Success
         const inits = initials(first, names.slice(1).join(' '));
         const photoHtml = photoURL ? `<img src="${photoURL}" class="member-photo">` : `<div class="member-avatar">${inits}</div>`;
         $('successMemberCard').innerHTML = `
@@ -890,9 +766,6 @@
       }
     };
 
-    /* =========================================================
-       LOGIN & ROUTING
-       ========================================================= */
     window.handleLogin = async function(){
       hideError('loginError');
       const email = $('loginEmail').value.trim().toLowerCase();
@@ -906,7 +779,6 @@
       try {
         const { signInWithEmailAndPassword, doc, getDoc } = window.firebaseFunctions;
 
-        // Admin logic ihishe
         if (email === "admin@eaur.rw" && pass === "admin123") {
           sessionStorage.setItem('eaur_session', JSON.stringify({ role:'admin', id:'admin-1', name:'Super Admin', email:email }));
           btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>INJIRA</span>';
@@ -955,26 +827,18 @@
     function getSession(){ try{ return JSON.parse(sessionStorage.getItem('eaur_session')); }catch(e){ return null; } }
 
     window.addEventListener('DOMContentLoaded', async () => {
-      setTimeout(() => {
-        $('loadingScreen').classList.add('hidden');
-      }, 1000);
-
+      setTimeout(() => { $('loadingScreen').classList.add('hidden'); }, 1000);
       const s = getSession();
-      if(!s){ 
-        showLoginScreen(); 
-        return; 
-      }
+      if(!s){ showLoginScreen(); return; }
       document.querySelectorAll('.auth-screen').forEach(s => s.style.display = 'none');
       if(s.role === 'admin') enterAdmin();
       else await fetchStudentDataAndEnter(s.id);
     });
 
-    /* =========================================================
-       STUDENT APP
-       ========================================================= */
     let currentStudent = null;
     let studentResults = [];
     let studentPdfs = [];
+    let studentPayments = [];
 
     async function fetchStudentDataAndEnter(uid) {
       const { doc, getDoc, collection, query, where, getDocs } = window.firebaseFunctions;
@@ -991,6 +855,10 @@
         const snapPdfs = await getDocs(qPdfs);
         studentPdfs = snapPdfs.docs.map(d => ({ id: d.id, ...d.data() }));
 
+        const qPayments = query(collection(window.db, "payments"), where("studentId", "==", uid));
+        const snapPayments = await getDocs(qPayments);
+        studentPayments = snapPayments.docs.map(d => ({ id: d.id, ...d.data() }));
+
         enterStudent();
       } catch (e) {
         console.error(e);
@@ -1004,17 +872,22 @@
       $('adminApp').classList.remove('active');
 
       const inits = initials(student.firstName, student.lastName);
-      $('studentAvatar').textContent = inits;
-      $('mobileAvatar').textContent = inits;
-      $('sidebarName').textContent = `${student.firstName} ${student.lastName}`;
-      $('sidebarRole').textContent = student.programme;
+      $('welcomeProfilePic').innerHTML = student.photo ? `<img src="${student.photo}" alt="User">` : inits;
+      $('welcomeFirstName').textContent = student.firstName;
+      $('welcomeSchool').textContent = student.school;
+      $('welcomeTrimester').textContent = student.trimester;
+      $('welcomeFullName').textContent = `${student.firstName} ${student.lastName}`;
+      $('welcomeMeta').innerHTML = `
+        <span><i class="fas fa-id-badge"></i> ${student.id.substring(0,8)}</span>
+        <span><i class="fas fa-phone"></i> ${student.number || 'N/A'}</span>
+        <span><i class="fas fa-graduation-cap"></i> ${student.year}</span>
+        <span><i class="fas fa-building"></i> ${student.programme}</span>
+      `;
 
-      $('welcomeTitle').textContent = `Muraho, ${student.firstName}! 👋`;
-      $('welcomeMeta').textContent = `${student.campus} · ${student.programme} · ${student.year} · ${student.trimester}`;
+      updatePaymentUI(student);
 
       renderStudentStats(student);
       renderStudentHomeSummary(student);
-      renderStudentCATs();
       renderStudentPdfs(student);
       renderStudentProfile(student);
       
@@ -1022,23 +895,130 @@
       $('page-home').classList.add('active');
     }
 
+    function updatePaymentUI(student) {
+      const status = student.paymentStatus || 'unpaid';
+      const payBtn = $('payBtn');
+      const notice = $('paymentNotice');
+      
+      if (status === 'paid') {
+        payBtn.classList.remove('pending');
+        payBtn.classList.add('paid');
+        $('payBtnText').textContent = '✅ Wamaze kwishyura';
+        payBtn.onclick = null;
+        notice.innerHTML = '<i class="fas fa-check-circle" style="color:var(--success);"></i><span><strong>Wamaze kwishyura</strong> — Ushobora kubona PDF zose z\'ibizamini.</span>';
+        notice.className = 'notice-box success';
+      } else if (status === 'pending') {
+        payBtn.classList.remove('paid');
+        payBtn.classList.add('pending');
+        $('payBtnText').textContent = '⏳ Ubwishyu buri gukora';
+        payBtn.onclick = null;
+        notice.innerHTML = '<i class="fas fa-clock" style="color:var(--warning);"></i><span><strong>Ubwishyu bwawe buri gutegereza kwemezwa na Admin.</strong> Tuzakumenyesha iyo byemejwe.</span>';
+        notice.className = 'notice-box pending';
+      } else {
+        payBtn.classList.remove('paid', 'pending');
+        $('payBtnText').textContent = 'Gutanga Umusanzu / Kwishyura';
+        payBtn.onclick = openPaymentModal;
+        notice.innerHTML = '<i class="fas fa-exclamation-triangle" style="color:var(--warning);"></i><span><strong>Nturakwishyura</strong> — Ugomba kwishyura mbere yo kubona PDF z\'ibizamini.</span>';
+        notice.className = 'notice-box warning';
+      }
+      
+      const lockNotice = $('pdfLockNotice');
+      if (lockNotice) {
+        if (status !== 'paid') {
+          lockNotice.style.display = 'block';
+          lockNotice.innerHTML = `<div class="notice-box warning"><i class="fas fa-lock"></i><span><strong>PDF zirafunitse!</strong> Ugomba kwishyura mbere yo kureba PDF z'ibizamini. <button class="btn btn-primary btn-sm" style="width:auto;margin-left:10px;padding:6px 14px;" onclick="openPaymentModal()">Kwishyura Ubu</button></span></div>`;
+        } else {
+          lockNotice.style.display = 'none';
+        }
+      }
+    }
+
+    window.openPaymentModal = function() {
+      $('paymentPhone').value = currentStudent.number || '';
+      hideError('paymentError');
+      $('paymentModal').classList.add('active');
+    };
+
+    window.closePaymentModal = function() {
+      $('paymentModal').classList.remove('active');
+    };
+
+    window.submitPaymentRequest = async function(btn) {
+      hideError('paymentError');
+      const phone = $('paymentPhone').value.trim();
+      const ref = $('paymentRef').value.trim();
+      if(!phone) return showError('paymentError', 'Uzuza nimero ya Mobile Money');
+      if(!ref) return showError('paymentError', 'Uzuza nimero y\'ubwishyu (Transaction ID)');
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Turaohereza...';
+
+      try {
+        const { collection, addDoc, doc, updateDoc } = window.firebaseFunctions;
+        
+        await addDoc(collection(window.db, "payments"), {
+          studentId: currentStudent.id,
+          studentName: `${currentStudent.firstName} ${currentStudent.lastName}`,
+          studentEmail: currentStudent.email,
+          phone: phone,
+          reference: ref,
+          amount: 5000,
+          status: 'pending',
+          createdAt: new Date().toISOString()
+        });
+
+        await updateDoc(doc(window.db, "students", currentStudent.id), {
+          paymentStatus: 'pending'
+        });
+        
+        currentStudent.paymentStatus = 'pending';
+        
+        closePaymentModal();
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Ohereza Ubwishyu kuri Admin';
+        
+        updatePaymentUI(currentStudent);
+        renderStudentStats(currentStudent);
+        renderStudentPdfs(currentStudent);
+        
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#f59e0b', '#38bdf8', '#8b5cf6'] });
+        alert('✅ Ubwishyu bwawe bwatumwe kuri Admin. Tegereza kwemezwa.');
+        
+      } catch (e) {
+        console.error(e);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Ohereza Ubwishyu kuri Admin';
+        showError('paymentError', 'Habaye ikibazo: ' + e.message);
+      }
+    };
+
     window.studentNav = function(page, btn){
       document.querySelectorAll('#studentApp .page-section').forEach(s => s.classList.remove('active'));
       $('page-' + page).classList.add('active');
       document.querySelectorAll('#studentApp .nav-item').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      if(btn) btn.classList.add('active');
       closeSidebar('studentSidebar');
       window.scrollTo({ top:0, behavior:'smooth' });
+      
+      if (page === 'pdfs' && currentStudent) {
+        updatePaymentUI(currentStudent);
+        renderStudentPdfs(currentStudent);
+      }
     };
 
     function renderStudentStats(student){
       const avg = studentResults.length ? (studentResults.reduce((s,r) => s + ((r.cat||0)+(r.midterm||0)+(r.final||0)), 0) / studentResults.length).toFixed(1) : '0';
       const gpa = calculateGPA(studentResults);
+      const status = student.paymentStatus || 'unpaid';
+      const statusLabel = status === 'paid' ? 'Yishyuye' : status === 'pending' ? 'Gutegereza' : 'Ntiyishyuye';
+      const statusColor = status === 'paid' ? '#10b981' : status === 'pending' ? '#f59e0b' : '#ef4444';
+      const statusIcon = status === 'paid' ? 'check-circle' : status === 'pending' ? 'clock' : 'times-circle';
+      
       $('studentStats').innerHTML = `
         <div class="stat-card"><div class="stat-icon"><i class="fas fa-book"></i></div><div class="stat-value">${studentResults.length}</div><div class="stat-label">Amanota</div></div>
         <div class="stat-card"><div class="stat-icon" style="background:#d1fae5;color:#10b981;"><i class="fas fa-chart-line"></i></div><div class="stat-value">${avg}</div><div class="stat-label">Average /100</div></div>
         <div class="stat-card"><div class="stat-icon" style="background:#fef3c7;color:#f59e0b;"><i class="fas fa-bullseye"></i></div><div class="stat-value">${gpa}</div><div class="stat-label">GPA /4.0</div></div>
-        <div class="stat-card"><div class="stat-icon" style="background:#ede9fe;color:#8b5cf6;"><i class="fas fa-file-pdf"></i></div><div class="stat-value">${studentPdfs.length}</div><div class="stat-label">PDF Exams</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:${status === 'paid' ? '#d1fae5' : status === 'pending' ? '#fef3c7' : '#fee2e2'};color:${statusColor};"><i class="fas fa-${statusIcon}"></i></div><div class="stat-value" style="font-size:16px;">${statusLabel}</div><div class="stat-label">Kwishyura</div></div>
       `;
     }
 
@@ -1046,7 +1026,7 @@
       const results = studentResults;
       const wrap = $('homeResultsSummary');
       if(!results.length){
-        wrap.innerHTML = `<div style="text-align:center;padding:30px;color:#94a3b8;"><i class="fas fa-inbox" style="font-size:40px;opacity:0.3;margin-bottom:10px;"></i><br>Nta manota arashyirwaho.</div>`;
+        wrap.innerHTML = `<div style="text-align:center;padding:30px;color:var(--text-secondary);"><i class="fas fa-inbox" style="font-size:40px;opacity:0.3;margin-bottom:10px;"></i><br>Nta manota arashyirwaho.</div>`;
         return;
       }
       const bySem = {};
@@ -1054,113 +1034,213 @@
       wrap.innerHTML = Object.keys(bySem).sort().map(sem => {
         const avg = (bySem[sem].reduce((s,r)=>s+((r.cat||0)+(r.midterm||0)+(r.final||0)),0)/bySem[sem].length).toFixed(1);
         const gpa = calculateGPA(bySem[sem]);
-        return `<div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #334155;gap:10px;flex-wrap:wrap">
-          <div><strong>${sem}</strong><div style="font-size:.8rem;color:#94a3b8">${bySem[sem].length} amasomo</div></div>
+        return `<div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);gap:10px;flex-wrap:wrap">
+          <div><strong>${sem}</strong><div style="font-size:.8rem;color:var(--text-secondary)">${bySem[sem].length} amasomo</div></div>
           <div style="display:flex;gap:16px;align-items:center">
-            <div style="text-align:right"><div style="font-size:1.1rem;font-weight:800;color:var(--success)">${avg}<span style="font-size:.75rem;color:#94a3b8">/100</span></div><div style="font-size:.7rem;color:#94a3b8">AVERAGE</div></div>
-            <div style="text-align:right"><div style="font-size:1.1rem;font-weight:800;color:var(--purple)">${gpa}</div><div style="font-size:.7rem;color:#94a3b8">GPA</div></div>
+            <div style="text-align:right"><div style="font-size:1.1rem;font-weight:800;color:var(--success)">${avg}<span style="font-size:.75rem;color:var(--text-secondary)">/100</span></div><div style="font-size:.7rem;color:var(--text-secondary)">AVERAGE</div></div>
+            <div style="text-align:right"><div style="font-size:1.1rem;font-weight:800;color:var(--purple)">${gpa}</div><div style="font-size:.7rem;color:var(--text-secondary)">GPA</div></div>
           </div>
         </div>`;
       }).join('');
     }
 
-    function renderStudentCATs(){
-      const results = studentResults;
-      const wrap = $('studentCATs');
-      if(!results.length){
-        wrap.innerHTML = `<div class="card" style="text-align:center;padding:40px;color:#94a3b8;">Nta manota arashyirwaho.</div>`;
-        return;
-      }
-      const bySem = {};
-      results.forEach(r => { const s = r.semester||'Nta semester'; (bySem[s]=bySem[s]||[]).push(r); });
-      wrap.innerHTML = Object.keys(bySem).sort().map(sem => {
-        const cards = bySem[sem].map(r => {
-          const total = (r.cat||0) + (r.midterm||0) + (r.final||0);
-          const catPct = ((r.cat||0) / 10 * 100).toFixed(0);
-          const midPct = ((r.midterm||0) / 40 * 100).toFixed(0);
-          const finPct = ((r.final||0) / 40 * 100).toFixed(0);
-          return `
-            <div class="card" style="padding:16px;margin-bottom:12px;border-left:4px solid var(--primary);background:#0f172a;">
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
-                <div style="font-size:1.05rem;font-weight:800;color:#fff;">${r.subject}</div>
-                <span class="badge badge-approved">✓ Yakozwe</span>
-              </div>
-              <div style="font-size:.85rem;color:#94a3b8;display:flex;flex-direction:column;gap:4px;margin-bottom:12px;">
-                <span><strong>📊 CAT:</strong> ${r.cat??0}/10 (${catPct}%)</span>
-                <span><strong>📝 Midterm:</strong> ${r.midterm??0}/40 (${midPct}%)</span>
-                <span><strong>📄 Final:</strong> ${r.final??0}/40 (${finPct}%)</span>
-              </div>
-              <div style="display:flex;align-items:baseline;gap:4px;padding:10px;background:#1e293b;border-radius:8px;">
-                <span style="font-size:1.4rem;font-weight:800;color:var(--success)">${total}</span>
-                <span style="font-size:.85rem;color:#94a3b8;font-weight:600">/100</span>
-                <span style="margin-left:auto;">${gradeBadge(total)}</span>
-              </div>
-            </div>
-          `;
-        }).join('');
-
-        return `
-          <div class="card" style="margin-bottom:20px;">
-            <h3 style="margin-bottom:16px;">📅 ${sem}</h3>
-            <div>${cards}</div>
-          </div>
-        `;
-      }).join('');
-    }
-
     function renderStudentPdfs(student){
+      const status = student.paymentStatus || 'unpaid';
+      const isPaid = status === 'paid';
+      const isPending = status === 'pending';
       const filtered = studentPdfs;
       const wrap = $('studentPdfs');
+      const lockNotice = $('pdfLockNotice');
+      
       if(!filtered.length){
-        wrap.innerHTML = `<div class="card" style="text-align:center;padding:40px;color:#94a3b8;">Nta PDF ya exam yabonetse.</div>`;
+        wrap.innerHTML = `<div class="card" style="text-align:center;padding:40px;color:var(--text-secondary);">Nta PDF ya exam yabonetse.</div>`;
+        if (lockNotice) lockNotice.style.display = 'none';
         return;
       }
-      wrap.innerHTML = `<div style="display:grid;gap:16px;">` + filtered.map(p => `
-        <div class="card" style="margin-bottom:0;">
-          <div style="font-size:1.5rem;margin-bottom:10px;">📄</div>
-          <div style="font-weight:700;color:#fff;font-size:1rem;margin-bottom:8px;">${p.title}</div>
-          <div style="font-size:.85rem;color:#94a3b8;line-height:1.6;margin-bottom:12px;">
-            <strong>Isomo:</strong> ${p.subject}<br>
-            <strong>${p.year}</strong> · ${p.trimester}<br>
-            <strong>Ingano:</strong> ${formatBytes(p.size)}
-          </div>
-          <button class="btn btn-primary btn-sm" onclick="openPdf('${p.id}')">Fungura PDF</button>
-        </div>
-      `).join('') + `</div>`;
+      
+      if (lockNotice) {
+        if (!isPaid) {
+          lockNotice.style.display = 'block';
+          const msg = isPending 
+            ? `<strong>Ubwishyu bwawe buri gutegereza kwemezwa na Admin.</strong> PDF zizafunguka iyo byemejwe.`
+            : `<strong>PDF zirafunitse!</strong> Ugomba kwishyura mbere yo kureba PDF z'ibizamini. <button class="btn btn-primary btn-sm" style="width:auto;margin-left:10px;padding:6px 14px;" onclick="openPaymentModal()">Kwishyura Ubu</button>`;
+          lockNotice.innerHTML = `<div class="notice-box ${isPending ? 'pending' : 'warning'}"><i class="fas fa-${isPending ? 'clock' : 'lock'}"></i><span>${msg}</span></div>`;
+        } else {
+          lockNotice.style.display = 'none';
+        }
+      }
+      
+      const byType = { CAT: [], Midterm: [], Final: [] };
+      filtered.forEach(p => {
+        const t = p.pdfType || 'Final';
+        if (!byType[t]) byType[t] = [];
+        byType[t].push(p);
+      });
+      
+      let html = '';
+      const typeLabels = { CAT: { icon: '📝', label: 'CAT Exams', cls: 'pdf-type-cat' }, Midterm: { icon: '📋', label: 'Midterm Exams', cls: 'pdf-type-midterm' }, Final: { icon: '🎓', label: 'Final Exams', cls: 'pdf-type-final' } };
+      const typeOrder = ['CAT', 'Midterm', 'Final'];
+      
+      typeOrder.forEach(type => {
+        const pdfs = byType[type];
+        if (!pdfs || !pdfs.length) return;
+        const info = typeLabels[type] || { icon: '📄', label: type, cls: '' };
+        html += `<div class="card" style="margin-bottom:20px;">
+          <h3 style="margin-bottom:16px;color:var(--text);display:flex;align-items:center;gap:8px;">
+            <span>${info.icon}</span> ${info.label} <span class="pdf-type-badge ${info.cls}">${pdfs.length}</span>
+          </h3>
+          <div style="display:grid;gap:12px;">`;
+        pdfs.forEach(p => {
+          const viewBtn = isPaid 
+            ? `<button class="btn btn-primary btn-sm" style="width:auto;padding:10px 18px;font-size:13px;" onclick="openPdf('${p.id}')"><i class="fas fa-eye"></i> View</button>`
+            : `<button class="btn btn-sm" style="width:auto;padding:10px 18px;font-size:13px;background:#e2e8f0;color:#94a3b8;cursor:not-allowed;" onclick="alert('⚠️ Ugomba kwishyura mbere yo kureba PDF!')"><i class="fas fa-lock"></i> Locked</button>`;
+          html += `<div style="padding:14px;border:1px solid var(--border);border-radius:12px;background:#f8fafc;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:180px;">
+              <div style="font-weight:700;color:var(--text);font-size:.95rem;margin-bottom:4px;">${p.title}</div>
+              <div style="font-size:.8rem;color:var(--text-secondary);">
+                <strong>Isomo:</strong> ${p.subject} · <strong>${p.year}</strong> · ${p.trimester} · <strong>Ingano:</strong> ${formatBytes(p.size)}
+              </div>
+            </div>
+            ${viewBtn}
+          </div>`;
+        });
+        html += `</div></div>`;
+      });
+      
+      wrap.innerHTML = html;
     }
 
     function renderStudentProfile(student){
+      const photoHtml = student.photo 
+        ? `<img src="${student.photo}" class="member-photo">` 
+        : `<div class="member-avatar">${initials(student.firstName,student.lastName)}</div>`;
+
+      const status = student.paymentStatus || 'unpaid';
+      const statusLabel = status === 'paid' ? '✅ Yishyuye' : status === 'pending' ? '⏳ Gutegereza' : '❌ Ntiyishyuye';
+      const statusColor = status === 'paid' ? 'var(--success)' : status === 'pending' ? 'var(--warning)' : 'var(--danger)';
+
       $('profileCard').innerHTML = `
-        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap">
-          <div style="width:70px;height:70px;border-radius:50%;background:var(--gradient-1);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.6rem;">${initials(student.firstName,student.lastName)}</div>
-          <div><h2 style="margin:0;font-size:20px;">${student.firstName} ${student.lastName}</h2><p style="color:#94a3b8;font-size:.9rem">${student.email}</p></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:16px;">
+          <div style="display:flex;align-items:center;gap:16px;">
+            ${photoHtml}
+            <div><h2 style="margin:0;font-size:20px;color:var(--text);">${student.firstName} ${student.lastName}</h2><p style="color:var(--text-secondary);font-size:.9rem">${student.email}</p></div>
+          </div>
+          <button class="btn btn-primary" style="width:auto; padding:10px 20px; font-size:14px;" onclick="openEditProfile()"><i class="fas fa-edit"></i> Hindura Profile</button>
         </div>
         <div style="display:grid;gap:12px;">
-          <div style="background:#0f172a;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:#94a3b8;">Campus</label><div style="font-weight:600;">${student.campus}</div></div>
-          <div style="background:#0f172a;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:#94a3b8;">Ishuri</label><div style="font-weight:600;">${student.school}</div></div>
-          <div style="background:#0f172a;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:#94a3b8;">Porogaramu</label><div style="font-weight:600;">${student.programme}</div></div>
-          <div style="background:#0f172a;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:#94a3b8;">Umwaka / Trimester</label><div style="font-weight:600;">${student.year} • ${student.trimester}</div></div>
+          <div style="background:#f8fafc;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:var(--text-secondary);">Campus</label><div style="font-weight:600;color:var(--text);">${student.campus}</div></div>
+          <div style="background:#f8fafc;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:var(--text-secondary);">Ishuri</label><div style="font-weight:600;color:var(--text);">${student.school}</div></div>
+          <div style="background:#f8fafc;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:var(--text-secondary);">Porogaramu</label><div style="font-weight:600;color:var(--text);">${student.programme}</div></div>
+          <div style="background:#f8fafc;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:var(--text-secondary);">Umwaka / Trimester</label><div style="font-weight:600;color:var(--text);">${student.year} • ${student.trimester}</div></div>
+          <div style="background:#f8fafc;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:var(--text-secondary);">Kwishyura</label><div style="font-weight:600;color:${statusColor};">${statusLabel}</div></div>
         </div>
       `;
     }
 
+    window.openEditProfile = function() {
+      const student = currentStudent;
+      $('editName').value = `${student.firstName} ${student.lastName}`;
+      $('editNumber').value = student.number || '';
+      editPhotoFile = null;
+      $('editPhotoPreview').innerHTML = `<i class="fas fa-camera" style="font-size:24px; color:var(--primary);"></i>`;
+      hideError('editError');
+      $('editProfileModal').classList.add('active');
+    };
+
+    window.closeEditProfile = function() {
+      $('editProfileModal').classList.remove('active');
+    };
+
+    window.handleEditPhotoSelected = function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      editPhotoFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        $('editPhotoPreview').innerHTML = `<img src="${e.target.result}" class="photo-preview" style="width:70px;height:70px;">`;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    window.saveProfileChanges = async function(btn) {
+      hideError('editError');
+      const newName = $('editName').value.trim();
+      const newNumber = $('editNumber').value.trim();
+      
+      if(!newName) return showError('editError', 'Amazina ntashobora kuba ubusa');
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Tubika...';
+
+      try {
+        const { doc, updateDoc } = window.firebaseFunctions;
+        let photoURL = currentStudent.photo;
+
+        if(editPhotoFile) {
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Turazamura ifoto...';
+          photoURL = await uploadToCloudinary(editPhotoFile);
+        }
+
+        const names = newName.split(' ');
+        const updateData = {
+          firstName: names[0] || newName,
+          lastName: names.slice(1).join(' ') || '',
+          fullName: newName,
+          number: newNumber,
+          photo: photoURL
+        };
+
+        await updateDoc(doc(window.db, "students", currentStudent.id), updateData);
+        
+        currentStudent.firstName = updateData.firstName;
+        currentStudent.lastName = updateData.lastName;
+        currentStudent.fullName = updateData.fullName;
+        currentStudent.number = updateData.number;
+        currentStudent.photo = updateData.photo;
+
+        const { updateProfile } = window.firebaseFunctions;
+        const user = window.auth.currentUser;
+        if(user) {
+          await updateProfile(user, { displayName: newName, photoURL: photoURL });
+        }
+
+        enterStudent();
+        closeEditProfile();
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-save"></i> Bika Impinduka';
+        alert('Profile yahinduwe neza!');
+
+      } catch (e) {
+        console.error(e);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-save"></i> Bika Impinduka';
+        showError('editError', 'Habaye ikibazo: ' + e.message);
+      }
+    };
+
+    $('editProfileModal').addEventListener('click', (e) => {
+      if(e.target === $('editProfileModal')) closeEditProfile();
+    });
+
+    $('paymentModal').addEventListener('click', (e) => {
+      if(e.target === $('paymentModal')) closePaymentModal();
+    });
+
     window.openSidebar = function(id) { $(id).classList.add('open'); $(id.replace('Sidebar','Overlay')).classList.add('show'); };
     window.closeSidebar = function(id) { $(id).classList.remove('open'); $(id.replace('Sidebar','Overlay')).classList.remove('show'); };
 
-    /* =========================================================
-       ADMIN APP
-       ========================================================= */
     let adminStudents = [];
     let adminResults = [];
     let adminPdfs = [];
+    let adminPayments = [];
 
     async function enterAdmin(){
       $('studentApp').classList.remove('active');
       $('adminApp').classList.add('active');
-      
       await fetchAdminData();
       renderAdminStats();
       renderAdminStudents();
+      renderPaymentsTable();
       renderResultStudentSelect();
     }
 
@@ -1173,6 +1253,8 @@
         adminResults = snapResults.docs.map(d => ({ id: d.id, ...d.data() }));
         const snapPdfs = await getDocs(collection(window.db, "pdfs"));
         adminPdfs = snapPdfs.docs.map(d => ({ id: d.id, ...d.data() }));
+        const snapPayments = await getDocs(collection(window.db, "payments"));
+        adminPayments = snapPayments.docs.map(d => ({ id: d.id, ...d.data() }));
       } catch(e) { console.error(e); }
     }
 
@@ -1183,14 +1265,16 @@
       btn.classList.add('active');
       closeSidebar('adminSidebar');
       window.scrollTo({ top:0, behavior:'smooth' });
+      
+      if (page === 'payments') renderPaymentsTable();
     };
 
     function renderAdminStats(){
       $('adminStats').innerHTML = `
-        <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">${adminStudents.length}</div><div class="stat-label">Abanyeshuri</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#e0f2fe;color:#0284c7;"><i class="fas fa-users"></i></div><div class="stat-value">${adminStudents.length}</div><div class="stat-label">Abanyeshuri</div></div>
         <div class="stat-card"><div class="stat-icon" style="background:#fef3c7;color:#f59e0b;"><i class="fas fa-clock"></i></div><div class="stat-value">${adminStudents.filter(s=>s.approvalStatus==='pending').length}</div><div class="stat-label">Pending</div></div>
         <div class="stat-card"><div class="stat-icon" style="background:#d1fae5;color:#10b981;"><i class="fas fa-check"></i></div><div class="stat-value">${adminStudents.filter(s=>s.approvalStatus==='approved').length}</div><div class="stat-label">Approved</div></div>
-        <div class="stat-card"><div class="stat-icon" style="background:#ede9fe;color:#8b5cf6;"><i class="fas fa-edit"></i></div><div class="stat-value">${adminResults.length}</div><div class="stat-label">Amanota</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#fef3c7;color:#f59e0b;"><i class="fas fa-hand-holding-usd"></i></div><div class="stat-value">${adminPayments.filter(p=>p.status==='pending').length}</div><div class="stat-label">Ubwishyu Butegereje</div></div>
       `;
     }
 
@@ -1206,23 +1290,28 @@
 
       const tbody = $('studentsTableBody');
       if(!filtered.length){
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:20px;">Nta munyeshuri uhuye n'ibyo washakishije</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:20px;">Nta munyeshuri uhuye n'ibyo washakishije</td></tr>`;
         return;
       }
-      tbody.innerHTML = filtered.map(s => `
+      tbody.innerHTML = filtered.map(s => {
+        const ps = s.paymentStatus || 'unpaid';
+        const psLabel = ps === 'paid' ? 'Yishyuye' : ps === 'pending' ? 'Gutegereza' : 'Ntiyishyuye';
+        const psClass = ps === 'paid' ? 'badge-paid' : ps === 'pending' ? 'badge-pending-payment' : 'badge-unpaid';
+        return `
         <tr>
           <td><strong>${s.fullName}</strong></td>
           <td>${s.email}</td>
           <td>${s.programme}</td>
           <td>${s.year}</td>
           <td><span class="badge ${s.approvalStatus==='approved'?'badge-approved':'badge-pending'}">${s.approvalStatus}</span></td>
+          <td><span class="badge ${psClass}">${psLabel}</span></td>
           <td style="white-space:nowrap">
             ${s.approvalStatus==='pending'
               ? `<button class="btn btn-sm btn-primary" onclick="approveStudent('${s.id}')">Emeza</button>`
               : `<button class="btn btn-sm btn-outline" style="color:var(--danger);border-color:var(--danger);" onclick="deleteStudent('${s.id}')">Siba</button>`}
           </td>
         </tr>
-      `).join('');
+      `}).join('');
     }
 
     window.approveStudent = async function(id){
@@ -1243,6 +1332,65 @@
         adminStudents = adminStudents.filter(s => s.id !== id);
         renderAdminStats(); renderAdminStudents(); renderResultStudentSelect();
       } catch(e) { alert("Byanze gusiba"); }
+    };
+
+    function renderPaymentsTable(){
+      const tbody = $('paymentsTableBody');
+      const pending = adminPayments.filter(p => p.status === 'pending');
+      if(!pending.length){
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:20px;">Nta bwishyu butegereje.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = pending.map(p => `
+        <tr>
+          <td><strong>${p.studentName || 'N/A'}</strong><br><span style="font-size:.75rem;color:var(--text-secondary);">${p.studentEmail || ''}</span></td>
+          <td>${p.phone || 'N/A'}</td>
+          <td>${p.reference || 'N/A'}</td>
+          <td>${new Date(p.createdAt).toLocaleDateString()}</td>
+          <td><span class="badge badge-pending-payment">Gutegereza</span></td>
+          <td style="white-space:nowrap">
+            <button class="btn btn-sm btn-primary" onclick="approvePayment('${p.id}')">Emeza</button>
+            <button class="btn btn-sm" style="background:#fee2e2;color:#b91c1c;" onclick="rejectPayment('${p.id}')">Anga</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    window.approvePayment = async function(paymentId){
+      const { doc, updateDoc } = window.firebaseFunctions;
+      try {
+        const payment = adminPayments.find(p => p.id === paymentId);
+        if(!payment) return;
+        
+        await updateDoc(doc(window.db, "payments", paymentId), { status: 'approved' });
+        await updateDoc(doc(window.db, "students", payment.studentId), { paymentStatus: 'paid' });
+        
+        payment.status = 'approved';
+        const s = adminStudents.find(x => x.id === payment.studentId);
+        if(s) s.paymentStatus = 'paid';
+        
+        renderAdminStats(); renderAdminStudents(); renderPaymentsTable();
+        alert('✅ Ubwishyu bwemejwe! Umunyeshuri yishyuye.');
+      } catch(e) { alert("Byanze kwemeza ubwishyu: " + e.message); }
+    };
+
+    window.rejectPayment = async function(paymentId){
+      if(!confirm('Anga ubu bwishyu?')) return;
+      const { doc, updateDoc } = window.firebaseFunctions;
+      try {
+        const payment = adminPayments.find(p => p.id === paymentId);
+        if(!payment) return;
+        
+        await updateDoc(doc(window.db, "payments", paymentId), { status: 'rejected' });
+        await updateDoc(doc(window.db, "students", payment.studentId), { paymentStatus: 'unpaid' });
+        
+        payment.status = 'rejected';
+        const s = adminStudents.find(x => x.id === payment.studentId);
+        if(s) s.paymentStatus = 'unpaid';
+        
+        renderAdminStats(); renderAdminStudents(); renderPaymentsTable();
+        alert('Ubwishyu bwanzwe. Umunyeshuri agomba kongera kwishyura.');
+      } catch(e) { alert("Byanze kwanga ubwishyu: " + e.message); }
     };
 
     function renderResultStudentSelect(){
@@ -1289,6 +1437,7 @@
       hideError('pdfError');
       const school=$('pdfSchool').value, programme=$('pdfProgramme').value;
       const year=$('pdfYear').value, trimester=$('pdfTrimester').value;
+      const pdfType=$('pdfType').value;
       const subject=$('pdfSubject').value.trim(), title=$('pdfTitle').value.trim();
       const file=$('pdfFile').files[0];
       
@@ -1302,7 +1451,7 @@
         const { collection, addDoc } = window.firebaseFunctions;
         try {
           await addDoc(collection(window.db, "pdfs"), {
-            title, subject, school, programme, year, trimester, fileName: file.name, size: file.size, data: e.target.result, uploadedAt: new Date().toISOString()
+            title, subject, school, programme, year, trimester, pdfType, fileName: file.name, size: file.size, data: e.target.result, uploadedAt: new Date().toISOString()
           });
           $('pdfSubject').value=''; $('pdfTitle').value=''; $('pdfFile').value='';
           btn.disabled = false; btn.innerHTML = '<i class="fas fa-upload"></i> Ongeraho PDF';
@@ -1319,6 +1468,12 @@
     };
 
     window.openPdf = function(id){
+      if (currentStudent && currentStudent.paymentStatus !== 'paid') {
+        alert('⚠️ Ugomba kwishyura mbere yo kureba PDF!');
+        openPaymentModal();
+        return;
+      }
+      
       const pdf = adminPdfs.find(p => p.id === id) || studentPdfs.find(p => p.id === id);
       if(!pdf) return alert('PDF ntiyabonetse');
       try{
@@ -1333,13 +1488,11 @@
       }catch(e){ alert('Ikibazo: ' + e.message); }
     };
 
-    // Initialize selects on load
     window.addEventListener('DOMContentLoaded', () => {
       fillSelect($('pdfSchool'), Object.keys(EAUR_CONFIG.schools), 'Hitamo Ishuri');
       fillSelect($('pdfYear'), EAUR_CONFIG.years, 'Hitamo Umwaka');
       fillSelect($('pdfTrimester'), EAUR_CONFIG.trimesters, 'Hitamo Trimester');
     });
-
   </script>
 </body>
 </html>
