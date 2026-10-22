@@ -3,585 +3,542 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0b5ed7">
+<meta name="theme-color" content="#0a1929">
 <title>ExamHub Rwanda — EAUR</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
+
 <style>
-  :root{
-    --primary:#0b5ed7; --primary-dark:#084298; --primary-light:#e7f1ff;
-    --success:#198754; --success-light:#d1e7dd;
-    --danger:#dc3545; --danger-light:#f8d7da;
-    --warning:#ffc107; --warning-light:#fff3cd;
-    --purple:#6f42c1; --purple-light:#e9e1f7;
-    --bg:#f0f4f9; --card:#ffffff; --text:#1a1f36; --muted:#6b7280;
-    --border:#e5e7eb; --radius:14px; --radius-sm:10px;
-    --shadow:0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
-    --shadow-lg:0 10px 30px rgba(0,0,0,.1);
-    --sidebar-w:260px;
+  :root {
+    --primary: #38bdf8;
+    --primary-dark: #0284c7;
+    --primary-light: rgba(56, 189, 248, 0.15);
+    --secondary: #8b5cf6;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --purple: #8b5cf6;
+    
+    --bg: #0a1929;
+    --bg-card: #ffffff;
+    --text: #0f172a;
+    --text-secondary: #64748b;
+    --border: #e2e8f0;
+    
+    --gradient-1: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    --gradient-2: linear-gradient(135deg, #10b981, #06b6d4);
+    --gradient-purple: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --shadow-lg: 0 20px 60px rgba(0,0,0,0.15);
+    
+    --radius-sm: 12px;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
   }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  html,body{height:100%}
-  body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; overflow-x: hidden; }
 
   /* ============================================================
-     ANIMATIONS
+     BACKGROUND NSHYA (Cyber / Space Effect)
      ============================================================ */
-  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-  @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes scaleIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-  @keyframes popIn{0%{opacity:0;transform:scale(.5)}70%{transform:scale(1.1)}100%{opacity:1;transform:scale(1)}}
-  @keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(5deg)}}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-  @keyframes ripple{to{transform:scale(4);opacity:0}}
-  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-  @keyframes slideInRight{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
-  @keyframes slideOutRight{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(100px)}}
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background-color: #030b14;
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.15), transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%),
+      linear-gradient(180deg, #030b14 0%, #0a1929 100%);
+    color: var(--text);
+    line-height: 1.6;
+    background-attachment: fixed;
+  }
   
-  /* BUTTON ANIMATION */
-  @keyframes btnPulse {
-    0% { box-shadow: 0 0 0 0 rgba(11, 94, 215, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(11, 94, 215, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(11, 94, 215, 0); }
-  }
-  
-  /* CONFETTI ANIMATION */
-  @keyframes confettiFall {
-    0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  /* Utubuto turasa nk'inyenyeri (Stars/Dots effect) */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: -1;
+    background-image: radial-gradient(#38bdf8 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.15;
+    animation: moveStars 20s linear infinite;
   }
 
-  /* FLOATING ICONS (Pens & Books) */
-  .floating-icons { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1; }
-  .f-icon { position: absolute; opacity: 0.15; animation: float 6s ease-in-out infinite; }
-  .f-icon.pen { font-size: 4rem; top: 10%; left: 10%; animation-delay: 0s; }
-  .f-icon.book { font-size: 5rem; bottom: 15%; right: 10%; animation-delay: 2s; }
-  .f-icon.pen2 { font-size: 3rem; bottom: 20%; left: 20%; animation-delay: 1s; }
-  .f-icon.book2 { font-size: 4rem; top: 15%; right: 15%; animation-delay: 3s; }
+  @keyframes moveStars { from { background-position: 0 0; } to { background-position: 50px 50px; } }
 
-  /* ============================================================
-     BUTTONS
-     ============================================================ */
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;
-    padding:12px 24px;border:none;border-radius:12px;cursor:pointer;
-    font-size:.95rem;font-weight:700;font-family:inherit;
-    transition:all .28s cubic-bezier(.22,1,.36,1);
-    text-decoration:none;white-space:nowrap;position:relative;overflow:hidden;
-    transform:translateZ(0);min-height:48px;letter-spacing:0.5px;
-  }
-  .btn:active{transform:scale(.96)}
-  .btn-primary{
-    background:linear-gradient(135deg,#3b82f6,#0b5ed7 60%,#084298);
-    color:#fff;box-shadow:0 4px 15px rgba(11,94,215,.4);
-    animation: btnPulse 2s infinite;
-  }
-  .btn-primary:hover{box-shadow:0 8px 25px rgba(11,94,215,.6);transform:translateY(-2px)}
-  .btn-success{background:linear-gradient(135deg,#34d399,#198754 60%,#0f5132);color:#fff;box-shadow:0 4px 14px rgba(25,135,84,.35)}
-  .btn-success:hover{box-shadow:0 8px 25px rgba(25,135,84,.5);transform:translateY(-2px)}
-  .btn-danger{background:linear-gradient(135deg,#f87171,#dc3545 60%,#b02a37);color:#fff;box-shadow:0 4px 14px rgba(220,53,69,.35)}
-  .btn-danger:hover{box-shadow:0 8px 25px rgba(220,53,69,.5);transform:translateY(-2px)}
-  .btn-warning{background:linear-gradient(135deg,#fcd34d,#ffc107 60%,#cc9a06);color:#664d03;box-shadow:0 4px 14px rgba(255,193,7,.4)}
-  .btn-warning:hover{box-shadow:0 8px 25px rgba(255,193,7,.55);transform:translateY(-2px)}
-  .btn-purple{background:linear-gradient(135deg,#a78bfa,#6f42c1 60%,#59359a);color:#fff;box-shadow:0 4px 14px rgba(111,66,193,.35)}
-  .btn-purple:hover{box-shadow:0 8px 25px rgba(111,66,193,.5);transform:translateY(-2px)}
-  .btn-ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border);animation:none;}
-  .btn-ghost:hover{background:#f9fafb;transform:translateY(-1px);border-color:#cbd5e1}
-  .btn-sm{padding:8px 14px;font-size:.8rem;border-radius:9px;min-height:36px;gap:5px; animation:none;}
-  .btn-block{width:100%}
-  .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);transform:scale(0);animation:ripple .6s ease-out;pointer-events:none}
+  /* ANIMATIONS */
+  @keyframes equalizer { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+  @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+  @keyframes slideUp { from { transform: translateY(60px) scale(0.95); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+  @keyframes logoFloat { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
+  @keyframes glowPulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.15); opacity: 0.5; } }
+  @keyframes errorShake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+  @keyframes successBounce { 0% { transform: scale(0) rotate(-180deg); } 60% { transform: scale(1.2) rotate(10deg); } 100% { transform: scale(1) rotate(0); } }
 
-  /* ============================================================
-     AUTH PAGES (LOGIN & REGISTER)
-     ============================================================ */
-  .auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0b5ed7 0%,#6f42c1 50%,#0b5ed7 100%);background-size:300% 300%;animation:gradientShift 12s ease infinite}
-  
-  /* ROTATOR KURI RECTANGLE YA LOGIN */
-  .auth-card{
-    width:100%;max-width:440px;background:rgba(255, 255, 255, 0.95);backdrop-filter:blur(10px);
-    border-radius:24px;padding:40px 32px;box-shadow:0 25px 60px rgba(0,0,0,.3);
-    position:relative;z-index:2;animation:fadeInUp .6s cubic-bezier(.22,1,.36,1) both;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-  }
-  /* KUGIRA NGO HABEHO ROTATOR KURI RECTANGLE */
-  .auth-card::before {
-    content: ''; position: absolute; top: -4px; left: -4px; right: -4px; bottom: -4px;
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-    background-size: 400%;
-    z-index: -1; border-radius: 28px;
-    animation: gradientShift 10s linear infinite;
-    filter: blur(8px); opacity: 0.8;
-  }
-  .auth-card.wide{max-width:700px}
-
-  .auth-logo{text-align:center;margin-bottom:26px; position: relative; z-index: 2;}
-  .auth-logo .logo-icon{font-size:3rem;margin-bottom:10px;display:inline-block;animation:popIn .6s cubic-bezier(.34,1.56,.64,1) .2s both}
-  .auth-logo h1{font-size:1.8rem;font-weight:800;font-family:'Poppins', sans-serif;background:linear-gradient(135deg,var(--primary),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fadeInUp .5s ease .3s both}
-  .auth-logo p{font-size:.9rem;color:var(--muted);animation:fadeInUp .5s ease .4s both}
-
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px; position:relative; z-index:2;}
-  .form-group{display:flex;flex-direction:column;gap:6px;position:relative}
-  .form-group.full{grid-column:1 / -1}
-  label{font-size:.82rem;font-weight:700;color:#374151;transition:color .2s;display:block}
-  .form-group:focus-within label{color:var(--primary)}
-  input,select,textarea{padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:.92rem;font-family:inherit;background:#f9fafb;transition:all .25s cubic-bezier(.22,1,.36,1);width:100%;color:var(--text)}
-  input:hover,select:hover{border-color:#cbd5e1; background:#fff;}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(11,94,215,.12);transform:translateY(-1px); background:#fff;}
-  select:disabled{background:#f3f4f6;cursor:not-allowed;color:var(--muted)}
-  input[type=file]{padding:9px;cursor:pointer}
-  input[type=file]::file-selector-button{padding:7px 14px;border:none;border-radius:8px;background:var(--primary-light);color:var(--primary);font-weight:600;cursor:pointer;margin-right:10px;transition:.2s;font-family:inherit}
-  input[type=file]::file-selector-button:hover{background:var(--primary);color:#fff}
-
-  .error{color:var(--danger);font-size:.85rem;margin-top:8px;display:none;padding:11px 14px;background:var(--danger-light);border-radius:10px;border-left:3px solid var(--danger);font-weight:500}
-  .error.show{display:block;animation:shake .4s ease, fadeIn .3s ease}
-
-  .auth-links{display:flex;flex-direction:column;gap:12px;margin-top:20px;text-align:center; position:relative; z-index:2;}
-  .auth-links a{font-size:.95rem;color:var(--primary);text-decoration:none;font-weight:700;transition:.2s; padding: 10px; border-radius: 10px; background: #e7f1ff;}
-  .auth-links a:hover{color:#fff; background:var(--primary); transform:translateY(-2px); box-shadow:0 4px 10px rgba(11,94,215,.3);}
-
-  /* ============================================================
-     CONGRATULATIONS OVERLAY (CONFETTI)
-     ============================================================ */
-  .confetti-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(255, 255, 255, 0.95); z-index: 9999;
+  /* LOADING SCREEN */
+  .loading-screen {
+    position: fixed; inset: 0; background: #0a1929;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+    z-index: 10000; color: white; transition: all 0.6s;
   }
-  .confetti-overlay.show { opacity: 1; pointer-events: auto; }
-  .congrats-box { background: #fff; padding: 40px; border-radius: 24px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,.1); position: relative; z-index: 2; animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); max-width: 400px; width: 90%; border: 2px solid #e5e7eb;}
-  .congrats-box .icon { font-size: 4rem; margin-bottom: 20px; }
-  .congrats-box h2 { font-size: 1.8rem; color: var(--success); margin-bottom: 10px; font-family: 'Poppins', sans-serif;}
-  .congrats-box p { color: var(--muted); margin-bottom: 24px; font-size: 1rem;}
-  .confetti { position: absolute; width: 10px; height: 10px; background-color: #f00; opacity: 0; animation: confettiFall 3s linear infinite; z-index: 1;}
-  
+  .loading-screen.hidden { opacity: 0; pointer-events: none; }
+  .music-loader { position: relative; width: 100px; height: 100px; margin-bottom: 30px; }
+  .music-loader .bar { position: absolute; bottom: 0; width: 8px; background: #38bdf8; border-radius: 4px; animation: equalizer 1.2s ease-in-out infinite; box-shadow: 0 0 10px #38bdf8; }
+  .music-loader .bar:nth-child(1) { left: 10px; height: 30%; animation-delay: 0s; }
+  .music-loader .bar:nth-child(2) { left: 24px; height: 60%; animation-delay: 0.1s; }
+  .music-loader .bar:nth-child(3) { left: 38px; height: 100%; animation-delay: 0.2s; }
+  .music-loader .bar:nth-child(4) { left: 52px; height: 70%; animation-delay: 0.3s; }
+  .music-loader .bar:nth-child(5) { left: 66px; height: 40%; animation-delay: 0.4s; }
+  .music-loader .bar:nth-child(6) { left: 80px; height: 80%; animation-delay: 0.5s; }
+  .loading-screen h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #38bdf8; }
+  .loading-screen p { font-size: 14px; color: rgba(255,255,255,0.7); animation: pulse 2s ease-in-out infinite; }
+
   /* ============================================================
-     APP LAYOUT
+     AUTH SCREEN (YASHYIZWEHO SCROLL NEZA)
      ============================================================ */
-  .app-layout{display:flex;min-height:100vh;animation:fadeIn .4s ease}
-  .sidebar{
-    width:var(--sidebar-w);background:#fff;border-right:1px solid var(--border);
-    display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:100;
-    transition:transform .35s cubic-bezier(.22,1,.36,1);box-shadow:var(--shadow);
+  .auth-screen {
+    position: fixed; inset: 0; display: none; 
+    align-items: flex-start; 
+    justify-content: center;
+    z-index: 9999; padding: 30px 15px; 
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch;
   }
-  .sidebar-header{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-  .sidebar-header .logo-area{display:flex;align-items:center;gap:10px;}
-  .sidebar-header .logo-icon{font-size:1.6rem;}
-  .sidebar-header h2{font-size:1rem;font-weight:800;color:var(--primary-dark)}
-  .sidebar-header small{font-size:.72rem;color:var(--muted);font-weight:500}
+  .auth-screen.active { display: flex; }
+
+  .auth-container {
+    background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(30px);
+    border-radius: var(--radius-xl); box-shadow: 0 30px 90px rgba(0,0,0,0.5), 0 0 0 1px rgba(56,189,248,0.3) inset;
+    padding: 40px 32px; max-width: 480px; width: 100%; position: relative; z-index: 1;
+    animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); margin: auto 0;
+  }
   
-  .sidebar-close{
-    display:none;background:#f3f4f6;border:none;font-size:1.2rem;color:var(--text);
-    width:34px;height:34px;border-radius:50%;cursor:pointer;align-items:center;justify-content:center;
+  @media (max-width: 600px) {
+    .auth-screen { padding: 15px 10px; }
+    .auth-container { padding: 30px 20px; border-radius: var(--radius-lg); }
   }
-  .sidebar-close:hover{background:#e5e7eb}
 
-  .sidebar-user{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
-  .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--purple));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.1rem;flex-shrink:0;box-shadow:0 4px 12px rgba(11,94,215,.3)}
-  .sidebar-user .info{overflow:hidden}
-  .sidebar-user .name{font-weight:700;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .sidebar-user .role{font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .auth-header { text-align: center; margin-bottom: 30px; }
+  .auth-header .logo-wrap { position: relative; width: 80px; height: 80px; margin: 0 auto 16px; }
+  .auth-header .logo-wrap::before { content: ''; position: absolute; inset: -10px; border-radius: 50%; background: var(--gradient-1); opacity: 0.3; filter: blur(20px); animation: glowPulse 2.5s ease-in-out infinite; }
+  .auth-header .icon { position: relative; width: 80px; height: 80px; background: var(--gradient-1); color: white; border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 36px; box-shadow: 0 15px 35px rgba(56, 189, 248, 0.4); animation: logoFloat 3s ease-in-out infinite; transform: rotate(-3deg); }
+  .auth-header h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .auth-header p { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
 
-  .sidebar-nav{flex:1;padding:12px 10px;overflow-y:auto}
-  .nav-item{
-    display:flex;align-items:center;gap:12px;padding:13px 16px;
-    border-radius:12px;cursor:pointer;color:var(--muted);
-    font-weight:600;font-size:.9rem;transition:all .28s;
-    margin-bottom:4px;border:none;background:none;width:100%;text-align:left;
-    font-family:inherit;position:relative;overflow:hidden;
-  }
-  .nav-item::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:0;background:var(--primary);border-radius:0 4px 4px 0;transition:height .3s ease}
-  .nav-item:hover{background:#f3f4f6;color:var(--text);transform:translateX(3px)}
-  .nav-item:hover::before{height:60%}
-  .nav-item.active{background:linear-gradient(135deg,var(--primary-light),#f0f7ff);color:var(--primary);font-weight:700}
-  .nav-item.active::before{height:60%}
-  .nav-item .icon{font-size:1.2rem;width:28px;height:28px;text-align:center;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;transition:transform .25s ease;border-radius:8px}
-  .nav-item:hover .icon{transform:scale(1.15)}
-  .nav-item.active .icon{background:linear-gradient(135deg,var(--primary),var(--purple));color:#fff;box-shadow:0 3px 10px rgba(11,94,215,.3)}
-  .nav-item .badge-count{margin-left:auto;background:var(--primary);color:#fff;font-size:.7rem;padding:3px 9px;border-radius:20px;font-weight:700;}
-  .nav-item.enrolled .icon{background:linear-gradient(135deg,#34d399,#059669);color:#fff;box-shadow:0 3px 10px rgba(25,135,84,.3)}
-  .nav-item.enrolled.active .icon{background:linear-gradient(135deg,#34d399,#059669)}
-  .sidebar-footer{padding:12px 10px;border-top:1px solid var(--border)}
-
-  .main-content{flex:1;margin-left:var(--sidebar-w);padding:24px;min-height:100vh;max-width:100%}
-  .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:12px;}
-  .page-header h1{font-size:1.5rem;font-weight:800;color:var(--text)}
-  .page-header p{font-size:.88rem;color:var(--muted)}
-
-  /* TOPBAR (kuri mobile) */
-  .mobile-topbar{
-    display:none;background:linear-gradient(135deg, #fff, #f8fafc);
-    padding:10px 16px;border-bottom:1px solid var(--border);
-    position:sticky;top:0;z-index:50;
-    align-items:center;justify-content:space-between;
-    box-shadow:0 2px 10px rgba(0,0,0,.05);
-  }
-  .mobile-topbar .hamburger{
-    background:#eef2f7;border:none;font-size:1.4rem;cursor:pointer;
-    padding:8px 12px;color:var(--text);border-radius:10px;
-    transition:background .2s, transform .2s;display:flex;align-items:center;justify-content:center;
-  }
-  .mobile-topbar .hamburger:active{background:#e2e8f0;transform:scale(.9)}
-  .mobile-topbar h2{font-size:1.05rem;font-weight:800;color:var(--primary-dark);letter-spacing:-.5px; text-align:center; flex:1;}
+  .form-group { margin-bottom: 20px; position: relative; z-index: 2; }
+  .form-group label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .form-group label i { color: var(--primary); width: 18px; }
+  .form-group label span { color: var(--danger); margin-left: auto; }
   
-  .mobile-profile-btn{
-    width:38px;height:38px;border-radius:50%;
-    background:linear-gradient(135deg,#e0e7ff,#c7d2fe);
-    display:flex;align-items:center;justify-content:center;
-    font-size:1.2rem; cursor:pointer; border:2px solid #fff;
-    box-shadow:0 2px 8px rgba(0,0,0,.1); transition:transform .2s;
+  .form-control { width: 100%; padding: 15px 18px; border: 2px solid var(--border); border-radius: var(--radius); background: #f8fafc; font-family: inherit; font-size: 14.5px; font-weight: 600; transition: all 0.3s; }
+  .form-control:focus { outline: none; border-color: var(--primary); background: white; box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.12); }
+  
+  select.form-control { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 12 8'%3E%3Cpath fill='%2338bdf8' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 20px center; padding-right: 50px; }
+
+  /* ============================================================
+     LEVEL SELECTOR (SPECIAL YAKUWEHO)
+     ============================================================ */
+  .level-selector { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .level-btn { padding: 12px 4px; border: 2px solid var(--border); border-radius: var(--radius); background: #f8fafc; color: var(--text); font-size: 13px; font-weight: 800; cursor: pointer; text-align: center; transition: all 0.3s; }
+  .level-btn .level-icon { display: block; font-size: 18px; margin-bottom: 4px; }
+  .level-btn:hover { border-color: var(--primary); transform: translateY(-3px); }
+  .level-btn.selected { background: var(--gradient-1); color: white; border-color: transparent; box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4); transform: translateY(-3px) scale(1.02); }
+
+  /* PHOTO UPLOAD */
+  .photo-upload { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 20px; border: 2.5px dashed var(--border); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(56, 189, 248, 0.05), rgba(139, 92, 246, 0.05)); cursor: pointer; transition: all 0.4s; margin-bottom: 24px; }
+  .photo-upload:hover { border-color: var(--primary); border-style: solid; transform: translateY(-2px); }
+  .photo-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid white; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4), 0 0 0 3px var(--primary); }
+  .photo-placeholder { width: 100px; height: 100px; border-radius: 50%; background: var(--gradient-1); color: white; display: flex; align-items: center; justify-content: center; font-size: 36px; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35); position: relative; }
+  .photo-placeholder::after { content: '+'; position: absolute; bottom: 2px; right: 2px; width: 28px; height: 28px; background: white; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; box-shadow: 0 4px 10px rgba(0,0,0,0.15); border: 2px solid var(--primary); }
+  .photo-upload-text { font-size: 12px; color: var(--text-secondary); text-align: center; font-weight: 500; }
+  .photo-upload-text strong { display: block; color: var(--primary); margin-bottom: 4px; font-size: 13px; }
+
+  /* BUTTONS */
+  .btn { width: 100%; padding: 16px 24px; border: none; border-radius: var(--radius); font-family: inherit; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s; position: relative; overflow: hidden; }
+  .btn-primary { background: var(--gradient-1); color: white; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4); margin-top: 10px; }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(56, 189, 248, 0.55); }
+  .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
+  
+  .auth-links { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; text-align: center; position: relative; z-index: 2; }
+  .auth-links a { font-size: 14px; color: var(--primary); text-decoration: none; font-weight: 700; cursor: pointer; padding: 10px; border-radius: 10px; background: var(--primary-light); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .auth-links a:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+
+  .error-message { background: rgba(239, 68, 68, 0.1); color: var(--danger); padding: 14px 18px; border-radius: var(--radius); font-size: 13px; font-weight: 600; margin-bottom: 20px; display: none; align-items: center; gap: 12px; border-left: 4px solid var(--danger); }
+  .error-message.active { display: flex; animation: errorShake 0.5s ease; }
+
+  /* CHOIR BANNER */
+  .choir-title-banner { position: relative; width: 100%; padding: 20px 16px; margin-bottom: 24px; border-radius: 20px; background: var(--gradient-1); overflow: hidden; box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35); text-align: center; }
+  .choir-title-text { font-size: 20px; font-weight: 900; color: white; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+  .choir-title-subtitle { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.9); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
+
+  /* CHOICE MODAL */
+  .choice-modal { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); display: none; align-items: flex-end; justify-content: center; z-index: 10000; }
+  .choice-modal.active { display: flex; }
+  .choice-sheet { background: white; border-radius: var(--radius-xl) var(--radius-xl) 0 0; padding: 12px 24px 32px; width: 100%; max-width: 500px; animation: slideUp 0.4s ease; }
+  .sheet-handle { width: 44px; height: 5px; background: #cbd5e1; border-radius: 3px; margin: 0 auto 20px; }
+  .choice-title { font-size: 18px; font-weight: 800; text-align: center; margin-bottom: 6px; }
+  .choice-subtitle { font-size: 13px; color: var(--text-secondary); text-align: center; margin-bottom: 20px; }
+  .choice-options { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .choice-option { padding: 20px 16px; border: 2px solid var(--border); border-radius: var(--radius-lg); background: #f8fafc; cursor: pointer; transition: all 0.3s; text-align: center; }
+  .choice-option:hover { border-color: var(--primary); transform: translateY(-4px); }
+  .choice-option .opt-icon { width: 56px; height: 56px; margin: 0 auto 12px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; }
+  .choice-option.camera .opt-icon { background: var(--gradient-1); }
+  .choice-option.gallery .opt-icon { background: var(--gradient-2); }
+  .choice-option h4 { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
+  .choice-option p { font-size: 12px; color: var(--text-secondary); }
+  .choice-cancel { width: 100%; padding: 14px; border: none; border-radius: var(--radius); background: #f1f5f9; color: var(--text-secondary); font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+
+  /* SUCCESS SCREEN */
+  .success-screen { display: none; text-align: center; padding: 20px 0; }
+  .success-screen.active { display: block; animation: slideUp 0.7s ease; }
+  .success-icon { width: 100px; height: 100px; background: var(--gradient-2); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 50px; margin: 0 auto 20px; box-shadow: 0 20px 50px rgba(16, 185, 129, 0.5); animation: successBounce 0.8s; }
+  .success-screen h2 { font-size: 26px; font-weight: 800; margin-bottom: 10px; color: var(--success); }
+  .success-screen p { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
+  .member-card { background: #f8fafc; border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; text-align: left; border: 2px solid var(--border); }
+  .member-photo { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 3px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+  .member-avatar { width: 70px; height: 70px; border-radius: 50%; background: var(--gradient-1); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 22px; border: 3px solid white; }
+  .member-name { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+  .member-details { font-size: 12px; color: var(--text-secondary); display: flex; flex-direction: column; gap: 4px; }
+  .member-details span { display: flex; align-items: center; gap: 6px; }
+
+  /* ============================================================
+     APP LAYOUT & DASHBOARD (Hidden initially)
+     ============================================================ */
+  .app-layout { display: none; min-height: 100vh; background: var(--bg); }
+  .app-layout.active { display: flex; }
+  
+  .sidebar { width: 260px; background: #fff; border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; top: 0; bottom: 0; left: 0; z-index: 100; transition: transform 0.35s ease; }
+  .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .sidebar-header h2 { font-size: 18px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+  .sidebar-user { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+  .sidebar-user .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--gradient-1); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
+  .sidebar-user .info .name { font-weight: 700; font-size: 14px; }
+  .sidebar-user .info .role { font-size: 12px; color: var(--text-secondary); }
+  .sidebar-nav { flex: 1; padding: 12px; overflow-y: auto; }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; cursor: pointer; color: var(--text-secondary); font-weight: 600; font-size: 14px; transition: all 0.2s; margin-bottom: 4px; border: none; background: transparent; width: 100%; text-align: left; }
+  .nav-item:hover { background: #f1f5f9; color: var(--text); }
+  .nav-item.active { background: var(--primary-light); color: var(--primary); }
+  .nav-item i { width: 20px; text-align: center; font-size: 16px; }
+  .sidebar-footer { padding: 12px; border-top: 1px solid var(--border); }
+
+  .main-content { flex: 1; margin-left: 260px; padding: 24px; min-height: 100vh; }
+  .topbar { display: none; background: #fff; padding: 12px 20px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 90; align-items: center; justify-content: space-between; }
+  .topbar .menu-btn { background: transparent; border: none; font-size: 20px; cursor: pointer; color: var(--text); }
+  
+  .page-section { display: none; }
+  .page-section.active { display: block; animation: slideUp 0.4s ease; }
+  .page-title { font-size: 24px; font-weight: 800; margin-bottom: 6px; color: #fff; }
+  .page-subtitle { font-size: 14px; color: #94a3b8; margin-bottom: 24px; }
+
+  /* CARDS (Dark theme for dashboard) */
+  .card { background: #1e293b; border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-sm); margin-bottom: 20px; border: 1px solid #334155; color: #fff; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .stat-card { background: #1e293b; border-radius: var(--radius); padding: 20px; border: 1px solid #334155; }
+  .stat-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
+  .stat-value { font-size: 28px; font-weight: 800; line-height: 1; margin-bottom: 6px; color: #fff; }
+  .stat-label { font-size: 13px; color: #94a3b8; font-weight: 600; }
+
+  .table-wrapper { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid #334155; background: #1e293b; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
+  th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #334155; color: #fff; }
+  th { background: #0f172a; font-weight: 700; color: #94a3b8; font-size: 12px; text-transform: uppercase; }
+
+  .badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .badge-pending { background: #fef3c7; color: #b45309; }
+  .badge-approved { background: #d1fae5; color: #047857; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .main-content { margin-left: 0; padding: 16px; padding-top: 70px; }
+    .topbar { display: flex; }
   }
-  .mobile-profile-btn:active{transform:scale(.9)}
-
-  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;animation:fadeIn .25s;backdrop-filter:blur(2px)}
-  .overlay.show{display:block}
-
-  /* CARDS & UI */
-  .card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:20px;animation:fadeInUp .45s cubic-bezier(.22,1,.36,1) both;}
-  .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
-  .card h2{font-size:1.1rem;font-weight:700;color:var(--text)}
-  .card h3{font-size:.95rem;font-weight:700;color:var(--primary-dark);margin:16px 0 10px}
-  .card h2 .emoji, .card h3 .emoji{margin-right:6px;display:inline-block}
-
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:20px}
-  .stat{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;animation:fadeInUp .5s both}
-  .stat .stat-icon{position:absolute;right:14px;top:14px;font-size:1.6rem;opacity:.15;}
-  .stat .num{font-size:2rem;font-weight:800;line-height:1.1}
-  .stat .lbl{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-top:4px}
-  .stat.blue .num{color:var(--primary)}
-  .stat.green .num{color:var(--success)}
-  .stat.yellow .num{color:#b8860b}
-  .stat.purple .num{color:var(--purple)}
-  .stat.red .num{color:var(--danger)}
-
-  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-  .cat-card{background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;}
-  .cat-card .cat-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-  .cat-card .cat-icon{font-size:1.8rem;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#d1fae5,#a7f3d0);}
-  .cat-card .cat-status{padding:4px 10px;border-radius:20px;font-size:.72rem;font-weight:700;}
-  .cat-status.done{background:#cfe2ff;color:#084298}
-  .cat-card .cat-subject{font-size:1.05rem;font-weight:800;color:var(--text);line-height:1.3}
-  .cat-card .cat-meta{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap:3px}
-  .cat-card .cat-meta strong{color:#374151;font-weight:600}
-  .cat-card .cat-score{display:flex;align-items:baseline;gap:4px;padding:10px 14px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:10px;margin-top:auto;}
-  .cat-card .cat-score .score-num{font-size:1.6rem;font-weight:800;color:var(--success)}
-  .cat-card .cat-score .score-total{font-size:.9rem;color:var(--muted);font-weight:600}
-  .cat-card .cat-score .score-label{margin-left:auto;font-size:.75rem;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:.5px}
-
-  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-sm);border:1px solid var(--border);position:relative;}
-  table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:600px}
-  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
-  th{background:#f9fafb;font-weight:700;color:#374151;font-size:.78rem;text-transform:uppercase;letter-spacing:.4px;}
-  tr:last-child td{border-bottom:none}
-  tbody tr:hover td{background:#f9fafb}
-  .total-cell{font-weight:800;color:var(--success);font-size:.95rem}
-
-  .badge{display:inline-block;padding:4px 11px;border-radius:20px;font-size:.75rem;font-weight:700;}
-  .badge-pending{background:var(--warning-light);color:#856404}
-  .badge-approved{background:var(--success-light);color:#0f5132}
-  .badge-school{background:var(--primary-light);color:var(--primary-dark)}
-  .grade{display:inline-block;padding:3px 10px;border-radius:6px;font-weight:800;font-size:.8rem;min-width:32px;text-align:center}
-  .grade-a{background:#d1e7dd;color:#0f5132}
-  .grade-b{background:#cfe2ff;color:#084298}
-  .grade-c{background:#fff3cd;color:#856404}
-  .grade-d{background:#ffe5d0;color:#984c0c}
-  .grade-f{background:#f8d7da;color:#842029}
-
-  .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
-  .search-box{position:relative;margin-bottom:16px}
-  .search-box input{padding-left:44px}
-  .search-box::before{content:'🔍';position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1rem;opacity:.5}
-
-  .pdf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
-  .pdf-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:10px;}
-  .pdf-card .pdf-icon{font-size:2rem;}
-  .pdf-card .pdf-title{font-weight:700;color:var(--text);font-size:.95rem;line-height:1.3}
-  .pdf-card .pdf-meta{font-size:.8rem;color:var(--muted);line-height:1.6}
-  .pdf-card .pdf-meta strong{color:#374151;font-weight:600}
-  .pdf-card .pdf-actions{display:flex;gap:8px;margin-top:auto;padding-top:6px}
-
-  .empty-state{text-align:center;padding:40px 20px;color:var(--muted);}
-  .empty-state .icon{font-size:3rem;margin-bottom:12px;opacity:.5;display:inline-block;}
-  .empty-state p{font-size:.9rem}
-
-  .note-box{background:var(--warning-light);border-left:4px solid var(--warning);padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:.85rem;color:#664d03;}
-
-  .page-section{display:none}
-  .page-section.active{display:block;animation:fadeInUp .4s ease}
-  .hidden{display:none !important}
-
-  .toast-container{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
-  .toast{background:#fff;padding:14px 20px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.15);display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:600;animation:slideInRight .4s both;min-width:260px;max-width:400px;border-left:4px solid var(--primary);pointer-events:auto}
-  .toast.success{border-left-color:var(--success)}
-  .toast.error{border-left-color:var(--danger)}
-  .toast.warning{border-left-color:var(--warning)}
-  .toast.hide{animation:slideOutRight .3s ease forwards}
-
-  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
-  .modal-overlay.show{display:flex;animation:fadeIn .25s ease}
-  .modal{background:#fff;border-radius:16px;padding:26px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;animation:scaleIn .3s cubic-bezier(.22,1,.36,1);box-shadow:0 25px 60px rgba(0,0,0,.25)}
-  .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-  .modal-header h2{font-size:1.2rem;font-weight:800;color:var(--text)}
-  .modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted);padding:4px 8px;border-radius:8px;transition:.2s}
-  .modal-close:hover{background:#f3f4f6;color:var(--text)}
-
-  @media(max-width:900px){
-    .sidebar{transform:translateX(-100%)}
-    .sidebar.open{transform:translateX(0)}
-    .sidebar-close{display:flex;}
-    .main-content{margin-left:0;padding:16px;padding-bottom:24px;}
-    .mobile-topbar{display:flex;}
-    .page-header h1{font-size:1.25rem}
-    .form-grid{grid-template-columns:1fr}
-    .stats{grid-template-columns:repeat(2,1fr);gap:12px}
-    .stat{padding:16px}
-    .stat .num{font-size:1.6rem}
-    .card{padding:16px;border-radius:12px}
-    .pdf-grid{grid-template-columns:1fr}
-    .cat-grid{grid-template-columns:1fr}
-    table{font-size:.8rem;min-width:600px;}
-    th,td{padding:10px}
-    .table-wrap::after {
-      content: '← Sunika urebe ibindi →';
-      display: block;text-align: center;font-size: 0.7rem;color: var(--muted);
-      padding: 8px;background: #f9fafb;border-top: 1px solid var(--border);
-    }
-    .auth-card { padding: 30px 20px; }
-  }
-  @media(max-width:480px){
-    .auth-logo h1{font-size:1.5rem}
-    .stats{grid-template-columns:1fr 1fr}
-    .stat .num{font-size:1.5rem}
-    .toast-container{top:10px;right:10px;left:10px}
-    .toast{min-width:auto;font-size:.85rem}
-  }
-
-  ::-webkit-scrollbar{width:8px;height:8px}
-  ::-webkit-scrollbar-track{background:transparent}
-  ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
-  ::-webkit-scrollbar-thumb:hover{background:#94a3b8}
-  .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99; backdrop-filter: blur(2px); }
+  .overlay.show { display: block; }
 </style>
 </head>
 <body>
 
-<div class="toast-container" id="toastContainer"></div>
-
-<!-- ============ CONFETTI / CONGRATULATIONS OVERLAY ============ -->
-<div class="confetti-overlay" id="congratsOverlay">
-  <div id="confettiContainer"></div>
-  <div class="congrats-box">
-    <div class="icon">🎉🎊🎓</div>
-    <h2>Congratulations!</h2>
-    <p>Kwiyandikisha byagenze neza!<br>Konti yawe yoherejwe kuri Admin. <br>Tegereza ko yemeza mbere yo kwinjira.</p>
-    <button class="btn btn-primary btn-block" onclick="closeCongratsAndGoToLogin()">📝 Injira Ubu</button>
-  </div>
-</div>
-
-<!-- ============ LOGIN PAGE ============ -->
-<div id="loginPage" class="auth-page">
-  <!-- FLOATING PENS & BOOKS -->
-  <div class="floating-icons">
-    <div class="f-icon pen">🖊️</div>
-    <div class="f-icon book">📚</div>
-    <div class="f-icon pen2">✏️</div>
-    <div class="f-icon book2">📖</div>
+  <!-- ============ LOADING SCREEN ============ -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="music-loader">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+    <h2>🎓 ExamHub Rwanda</h2>
+    <p>Turashakisha amakuru...</p>
   </div>
 
-  <div class="auth-card">
-    <div class="auth-logo">
-      <div class="logo-icon">🎓</div>
-      <h1>ExamHub</h1>
-      <p>East African University Rwanda</p>
-    </div>
-    
-    <h2 style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:20px;color:var(--text)">Injira mu konti yawe</h2>
-    
-    <div class="form-grid">
-      <div class="form-group full"><label>Email</label><input type="email" id="loginEmail" placeholder="email@example.com" autocomplete="email"></div>
-      <div class="form-group full"><label>Ijambo ry'ibanga</label><input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password"></div>
-    </div>
-    <p id="loginError" class="error"></p>
-    
-    <!-- BUTTON YO KWINJIRA IFITE ANIMATION Y'AMABARA -->
-    <button class="btn btn-primary btn-block" style="margin-top:24px; height:55px; font-size:1.1rem;" onclick="handleLogin(this)">🚀 Injira</button>
-    
-    <div class="auth-links">
-      <a href="#" onclick="showRegisterPage(); return false;">📝 Nta konti? Iyandikishe nka umunyeshuri</a>
+  <!-- ============ AUTH SCREEN (LOGIN) ============ -->
+  <div class="auth-screen" id="authScreen">
+    <div class="auth-container">
+      <div class="auth-header">
+        <div class="logo-wrap"><div class="icon"><i class="fas fa-graduation-cap"></i></div></div>
+        <h1>ExamHub</h1>
+        <p>Injira muri sisitemu ya EAUR</p>
+      </div>
+
+      <div class="error-message" id="loginError">
+        <i class="fas fa-exclamation-circle"></i> <span id="loginErrorText"></span>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email yawe</label>
+        <input type="email" id="loginEmail" class="form-control" placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Ijambo ry'ibanga</label>
+        <input type="password" id="loginPassword" class="form-control" placeholder="••••••••">
+      </div>
+      
+      <button class="btn btn-primary" id="loginBtn" onclick="handleLogin()">
+        <i class="fas fa-sign-in-alt"></i> <span>INJIRA</span>
+      </button>
+
+      <div class="auth-links">
+        <a onclick="showRegisterScreen()"><i class="fas fa-user-plus"></i> Nta konti? Iyandikishe</a>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- ============ REGISTER PAGE ============ -->
-<div id="registerPage" class="auth-page hidden">
-  <!-- FLOATING PENS & BOOKS -->
-  <div class="floating-icons">
-    <div class="f-icon pen">🖊️</div>
-    <div class="f-icon book">📚</div>
-    <div class="f-icon pen2">✏️</div>
-    <div class="f-icon book2">📖</div>
+  <!-- ============ AUTH SCREEN (REGISTER) ============ -->
+  <div class="auth-screen" id="registerScreen">
+    <div class="auth-container">
+      <div class="choir-title-banner">
+        <div>
+          <div class="choir-title-text" id="memberChoirTitle">🎓 EAUR STUDENT</div>
+          <div class="choir-title-subtitle">Kwiyandikisha mu EAUR</div>
+        </div>
+      </div>
+
+      <div class="auth-header" style="margin-bottom: 20px;">
+        <h1 style="font-size: 22px;">Iyandikishe</h1>
+        <p>Uzuza amakuru yawe neza</p>
+      </div>
+
+      <div class="error-message" id="regError">
+        <i class="fas fa-exclamation-circle"></i> <span id="regErrorText"></span>
+      </div>
+
+      <!-- PHOTO UPLOAD -->
+      <div class="photo-upload" onclick="openPhotoChoice()">
+        <div id="photoPreviewContainer">
+          <div class="photo-placeholder"><i class="fas fa-camera"></i></div>
+        </div>
+        <div class="photo-upload-text">
+          <strong>📸 Kanda hano wongeremo ifoto</strong>
+          Kamera cyangwa Gallery
+        </div>
+      </div>
+      <input type="file" id="cameraInput" accept="image/*" capture="user" style="display: none;" onchange="handlePhotoSelected(event)">
+      <input type="file" id="galleryInput" accept="image/*" style="display: none;" onchange="handlePhotoSelected(event)">
+
+      <div class="form-group">
+        <label><i class="fas fa-user"></i> Amazina yuzuye <span>*</span></label>
+        <input type="text" id="regName" class="form-control" placeholder="Jean Mugisha">
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email yawe <span>*</span></label>
+        <input type="email" id="regEmail" class="form-control" placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Ijambo ry'ibanga <span>*</span></label>
+        <input type="password" id="regPassword" class="form-control" placeholder="Nibura 6">
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-phone"></i> Nimero ya Telefone <span>*</span></label>
+        <input type="text" id="regNumber" class="form-control" placeholder="0788...">
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-university"></i> Campus <span>*</span></label>
+        <select id="regCampus" class="form-control"></select>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-building"></i> Ishuri / Department <span>*</span></label>
+        <select id="regSchool" class="form-control" onchange="onSchoolChange()"></select>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-book"></i> Porogaramu <span>*</span></label>
+        <select id="regProgramme" class="form-control" disabled></select>
+      </div>
+
+      <!-- LEVEL SELECTOR (Special yakuweho) -->
+      <div class="form-group">
+        <label><i class="fas fa-graduation-cap"></i> Umwaka w'amashuri <span>*</span></label>
+        <div class="level-selector" id="levelSelector">
+          <button type="button" class="level-btn" onclick="selectLevel('Year 1', this)"><span class="level-icon">🎓</span><span>Y1</span></button>
+          <button type="button" class="level-btn" onclick="selectLevel('Year 2', this)"><span class="level-icon">🎓</span><span>Y2</span></button>
+          <button type="button" class="level-btn" onclick="selectLevel('Year 3', this)"><span class="level-icon">🎓</span><span>Y3</span></button>
+          <button type="button" class="level-btn" onclick="selectLevel('Year 4', this)"><span class="level-icon">🎓</span><span>Y4</span></button>
+        </div>
+        <input type="hidden" id="regYear">
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-calendar-alt"></i> Trimester <span>*</span></label>
+        <select id="regTrimester" class="form-control"></select>
+      </div>
+
+      <button class="btn btn-primary" id="submitBtn" onclick="handleRegister()">
+        <i class="fas fa-check-circle"></i> <span>IYANDIKISHE</span>
+      </button>
+
+      <div class="auth-links">
+        <a onclick="showLoginScreen()"><i class="fas fa-arrow-left"></i> Usanzwe ufite konti? Injira</a>
+      </div>
+    </div>
   </div>
 
-  <div class="auth-card wide">
-    <div class="auth-logo">
-      <div class="logo-icon">📝</div>
-      <h1>Kwiyandikisha</h1>
-      <p>Umunyeshuri mushya — EAUR</p>
-    </div>
-    
-    <div class="form-grid">
-      <div class="form-group"><label>Izina ry'ibanze *</label><input type="text" id="regFirstName" placeholder="Jean"></div>
-      <div class="form-group"><label>Izina ry'umuryango *</label><input type="text" id="regLastName" placeholder="Mugisha"></div>
-      <div class="form-group full"><label>Email *</label><input type="email" id="regEmail" placeholder="email@example.com"></div>
-      <div class="form-group full"><label>Ijambo ry'ibanga *</label><input type="password" id="regPassword" placeholder="Nibura inyuguti 6"></div>
-      <div class="form-group"><label>Campus *</label><select id="regCampus"></select></div>
-      <div class="form-group"><label>Ishuri *</label><select id="regSchool" onchange="onSchoolChange()"></select></div>
-      <div class="form-group full"><label>Porogaramu *</label><select id="regProgramme" disabled></select></div>
-      <div class="form-group"><label>Umwaka *</label><select id="regYear"></select></div>
-      <div class="form-group"><label>Trimester *</label><select id="regTrimester"></select></div>
-    </div>
-    <p id="regError" class="error"></p>
-    
-    <button class="btn btn-success btn-block" style="margin-top:24px; height:55px; font-size:1.1rem;" onclick="handleRegister(this)">✅ Iyandikishe</button>
-    
-    <div class="auth-links">
-      <a href="#" onclick="showLoginPage(); return false;">← Usanzwe ufite konti? Injira</a>
+  <!-- ============ SUCCESS SCREEN ============ -->
+  <div class="auth-screen" id="successScreen">
+    <div class="auth-container">
+      <div class="success-icon"><i class="fas fa-check"></i></div>
+      <h2>Wakiriwe! 🎉</h2>
+      <p style="text-align: center; margin-bottom: 20px;">Wiyandikishije neza. Tegereza Admin yemeze konti yawe.</p>
+      
+      <div class="member-card" id="successMemberCard"></div>
+
+      <button class="btn btn-primary" onclick="showLoginScreen()">
+        <i class="fas fa-sign-in-alt"></i> Injira Ubu
+      </button>
     </div>
   </div>
-</div>
 
-<!-- ============ STUDENT APP ============ -->
-<div id="studentApp" class="hidden">
-  <div class="app-layout">
+  <!-- ============ PHOTO CHOICE MODAL ============ -->
+  <div class="choice-modal" id="photoChoiceModal">
+    <div class="choice-sheet">
+      <div class="sheet-handle"></div>
+      <div class="choice-title">📸 Hitamo Ifoto</div>
+      <div class="choice-subtitle">Fata ifoto nshya cyangwa uhitemo iyi isanzwe muri gallery</div>
+      <div class="choice-options">
+        <div class="choice-option camera" onclick="chooseCamera()">
+          <div class="opt-icon"><i class="fas fa-camera"></i></div>
+          <h4>Kamera</h4>
+          <p>Fata ifoto nshya</p>
+        </div>
+        <div class="choice-option gallery" onclick="chooseGallery()">
+          <div class="opt-icon"><i class="fas fa-images"></i></div>
+          <h4>Gallery</h4>
+          <p>Hitamo ifoto isanzwe</p>
+        </div>
+      </div>
+      <button class="choice-cancel" onclick="closePhotoChoice()">Hagarika</button>
+    </div>
+  </div>
+
+  <!-- ============ STUDENT APP ============ -->
+  <div class="app-layout" id="studentApp">
     <aside class="sidebar" id="studentSidebar">
       <div class="sidebar-header">
-        <div class="logo-area">
-          <div class="logo-icon">🎓</div>
-          <div><h2>ExamHub</h2><small>EAUR Student</small></div>
-        </div>
-        <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+        <h2><i class="fas fa-graduation-cap"></i> ExamHub</h2>
+        <button class="btn btn-sm" onclick="closeSidebar('studentSidebar')" style="display: none;"><i class="fas fa-times"></i></button>
       </div>
       <div class="sidebar-user">
         <div class="avatar" id="studentAvatar">?</div>
         <div class="info"><div class="name" id="sidebarName">—</div><div class="role" id="sidebarRole">Umunyeshuri</div></div>
       </div>
       <nav class="sidebar-nav">
-        <button class="nav-item active" data-page="home" onclick="studentNav('home')"><span class="icon">🏠</span><span>Dashboard</span></button>
-        <button class="nav-item enrolled" data-page="cat" onclick="studentNav('cat')"><span class="icon">📝</span><span>Enrolled CAT</span><span class="badge-count" id="catCount">0</span></button>
-        <button class="nav-item" data-page="pdfs" onclick="studentNav('pdfs')"><span class="icon">📄</span><span>Exam PDFs</span><span class="badge-count" id="pdfsCount">0</span></button>
-        <button class="nav-item" data-page="profile" onclick="studentNav('profile')"><span class="icon">👤</span><span>Profile</span></button>
+        <button class="nav-item active" onclick="studentNav('home', this)"><i class="fas fa-home"></i> Dashboard</button>
+        <button class="nav-item" onclick="studentNav('cat', this)"><i class="fas fa-book-open"></i> Enrolled CAT</button>
+        <button class="nav-item" onclick="studentNav('pdfs', this)"><i class="fas fa-file-pdf"></i> Exam PDFs</button>
+        <button class="nav-item" onclick="studentNav('profile', this)"><i class="fas fa-user"></i> Profile</button>
       </nav>
       <div class="sidebar-footer">
-        <button class="nav-item" onclick="logout()"><span class="icon">🚪</span><span>Sohoka</span></button>
+        <button class="nav-item" onclick="logout()" style="color: var(--danger);"><i class="fas fa-sign-out-alt"></i> Sohoka</button>
       </div>
     </aside>
-    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+    
+    <div class="overlay" id="studentOverlay" onclick="closeSidebar('studentSidebar')"></div>
+    
     <main class="main-content">
-      <div class="mobile-topbar">
-        <button class="hamburger" onclick="openSidebar()">☰</button>
-        <h2>ExamHub EAUR</h2>
-        <div class="mobile-profile-btn" id="mobileAvatar" onclick="studentNav('profile')" title="Profile">👤</div>
+      <div class="topbar">
+        <button class="menu-btn" onclick="openSidebar('studentSidebar')"><i class="fas fa-bars"></i></button>
+        <h2 style="font-size: 16px; font-weight: 800; color: var(--primary);">ExamHub EAUR</h2>
+        <div class="avatar" style="width: 34px; height: 34px; border-radius: 50%; background: var(--gradient-1); color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800;" id="mobileAvatar">?</div>
       </div>
 
       <section class="page-section active" id="page-home">
-        <div class="page-header"><div><h1 id="welcomeTitle">Muraho!</h1><p id="welcomeMeta"></p></div></div>
-        <div class="stats" id="studentStats"></div>
+        <div class="page-title" id="welcomeTitle">Muraho!</div>
+        <div class="page-subtitle" id="welcomeMeta"></div>
+        <div class="stat-grid" id="studentStats"></div>
         <div class="card">
-          <div class="card-header"><h2><span class="emoji">📈</span>Incamake y'amanota</h2></div>
+          <h3 style="margin-bottom: 16px;">📈 Incamake y'amanota</h3>
           <div id="homeResultsSummary"></div>
         </div>
       </section>
 
       <section class="page-section" id="page-cat">
-        <div class="page-header"><div><h1>Enrolled CAT</h1><p>CAT zawe zose ku isomo</p></div></div>
-        <div class="card">
-          <div class="card-header"><h2><span class="emoji">🔍</span>Shakisha</h2></div>
-          <div class="search-box"><input type="text" id="catSearch" placeholder="Shakisha ku isomo..." oninput="renderStudentCATs()"></div>
-          <div class="filters">
-            <select id="catFilterSemester" onchange="renderStudentCATs()">
-              <option value="">Semester yose</option>
-              <option value="Trimester 1">Trimester 1</option>
-              <option value="Trimester 2">Trimester 2</option>
-              <option value="Trimester 3">Trimester 3</option>
-            </select>
-          </div>
-        </div>
+        <div class="page-title">Enrolled CAT</div>
+        <div class="page-subtitle">Reba amanota yawe yose ku isomo</div>
         <div id="studentCATs"></div>
       </section>
 
       <section class="page-section" id="page-pdfs">
-        <div class="page-header"><div><h1>Exam PDFs</h1><p>Past papers zihuye na porogaramu yawe</p></div></div>
+        <div class="page-title">Exam PDFs</div>
+        <div class="page-subtitle">Past papers zihuye na porogaramu yawe</div>
         <div id="studentPdfs"></div>
       </section>
 
       <section class="page-section" id="page-profile">
-        <div class="page-header"><div><h1>Profile Yanjye</h1><p>Amakuru yawe yose</p></div></div>
+        <div class="page-title">Profile Yanjye</div>
+        <div class="page-subtitle">Amakuru yawe yose</div>
         <div class="card" id="profileCard"></div>
       </section>
     </main>
   </div>
-</div>
 
-<!-- ============ ADMIN APP ============ -->
-<div id="adminApp" class="hidden">
-  <div class="app-layout">
+  <!-- ============ ADMIN APP ============ -->
+  <div class="app-layout" id="adminApp">
     <aside class="sidebar" id="adminSidebar">
       <div class="sidebar-header">
-        <div class="logo-area">
-          <div class="logo-icon">🛡️</div>
-          <div><h2>ExamHub</h2><small>Admin Panel</small></div>
-        </div>
-        <button class="sidebar-close" onclick="closeAdminSidebar()">✕</button>
+        <h2><i class="fas fa-shield-alt"></i> ExamHub</h2>
+        <button class="btn btn-sm" onclick="closeSidebar('adminSidebar')" style="display: none;"><i class="fas fa-times"></i></button>
       </div>
       <div class="sidebar-user">
-        <div class="avatar" style="background:linear-gradient(135deg,#dc3545,#ffc107)">A</div>
+        <div class="avatar" style="background: linear-gradient(135deg, #ef4444, #f59e0b);">A</div>
         <div class="info"><div class="name" id="adminName">Admin</div><div class="role">Super Admin</div></div>
       </div>
       <nav class="sidebar-nav">
-        <button class="nav-item active" data-page="dashboard" onclick="adminNav('dashboard')"><span class="icon">📊</span><span>Dashboard</span></button>
-        <button class="nav-item" data-page="students" onclick="adminNav('students')"><span class="icon">👥</span><span>Abanyeshuri</span></button>
-        <button class="nav-item" data-page="results" onclick="adminNav('results')"><span class="icon">📝</span><span>Injiza Amanota</span></button>
-        <button class="nav-item" data-page="pdfs" onclick="adminNav('pdfs')"><span class="icon">📄</span><span>PDF Exams</span></button>
-        <button class="nav-item" data-page="settings" onclick="adminNav('settings')"><span class="icon">⚙️</span><span>Settings</span></button>
+        <button class="nav-item active" onclick="adminNav('dashboard', this)"><i class="fas fa-chart-line"></i> Dashboard</button>
+        <button class="nav-item" onclick="adminNav('students', this)"><i class="fas fa-users"></i> Abanyeshuri</button>
+        <button class="nav-item" onclick="adminNav('results', this)"><i class="fas fa-edit"></i> Injiza Amanota</button>
+        <button class="nav-item" onclick="adminNav('pdfs', this)"><i class="fas fa-file-pdf"></i> PDF Exams</button>
       </nav>
       <div class="sidebar-footer">
-        <button class="nav-item" onclick="logout()"><span class="icon">🚪</span><span>Sohoka</span></button>
+        <button class="nav-item" onclick="logout()" style="color: var(--danger);"><i class="fas fa-sign-out-alt"></i> Sohoka</button>
       </div>
     </aside>
-    <div class="overlay" id="adminOverlay" onclick="closeAdminSidebar()"></div>
+
+    <div class="overlay" id="adminOverlay" onclick="closeSidebar('adminSidebar')"></div>
+
     <main class="main-content">
-      <div class="mobile-topbar">
-        <button class="hamburger" onclick="openAdminSidebar()">☰</button>
-        <h2>ExamHub Admin</h2>
-        <div class="mobile-profile-btn" style="background:linear-gradient(135deg,#dc3545,#ffc107); color: white;">A</div>
+      <div class="topbar">
+        <button class="menu-btn" onclick="openSidebar('adminSidebar')"><i class="fas fa-bars"></i></button>
+        <h2 style="font-size: 16px; font-weight: 800; color: var(--primary);">ExamHub Admin</h2>
+        <div class="avatar" style="width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #ef4444, #f59e0b); color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800;">A</div>
       </div>
 
       <section class="page-section active" id="admin-page-dashboard">
-        <div class="page-header"><div><h1>Dashboard</h1><p>Incamake y'ishuri</p></div></div>
-        <div class="stats" id="adminStats"></div>
+        <div class="page-title">Dashboard</div>
+        <div class="page-subtitle">Incamake y'ishuri</div>
+        <div class="stat-grid" id="adminStats"></div>
       </section>
 
       <section class="page-section" id="admin-page-students">
-        <div class="page-header"><div><h1>Abanyeshuri</h1><p>Emeza cyangwa usibe abanyeshuri</p></div></div>
+        <div class="page-title">Abanyeshuri</div>
+        <div class="page-subtitle">Emeza cyangwa usibe abanyeshuri</div>
         <div class="card">
-          <div class="search-box"><input type="text" id="searchStudents" placeholder="Shakisha ku izina cyangwa email..." oninput="renderAdminStudents()"></div>
-          <div class="filters">
-            <select id="filterSchool" onchange="renderAdminStudents()"><option value="">Ishuri ryose</option></select>
-            <select id="filterProgramme" onchange="renderAdminStudents()"><option value="">Porogaramu yose</option></select>
-            <select id="filterYear" onchange="renderAdminStudents()"><option value="">Umwaka wose</option></select>
-            <select id="filterTrimester" onchange="renderAdminStudents()"><option value="">Trimester yose</option></select>
-            <select id="filterStatus" onchange="renderAdminStudents()">
-              <option value="">Status yose</option>
-              <option value="pending">Pending</option>
-              <option value="approved">Approved</option>
-            </select>
-          </div>
-          <div class="table-wrap">
+          <input type="text" id="searchStudents" class="form-control" placeholder="Shakisha ku izina cyangwa email..." oninput="renderAdminStudents()" style="margin-bottom: 16px;">
+          <div class="table-wrapper">
             <table>
-              <thead><tr><th>Amazina</th><th>Email</th><th>Ishuri</th><th>Porogaramu</th><th>Umwaka</th><th>Trimester</th><th>Status</th><th>Ibikorwa</th></tr></thead>
+              <thead><tr><th>Amazina</th><th>Email</th><th>Porogaramu</th><th>Umwaka</th><th>Status</th><th>Ibikorwa</th></tr></thead>
               <tbody id="studentsTableBody"></tbody>
             </table>
           </div>
@@ -589,1095 +546,827 @@
       </section>
 
       <section class="page-section" id="admin-page-results">
-        <div class="page-header"><div><h1>Injiza Amanota</h1><p>Injiza, hindura cyangwa urebe amanota</p></div></div>
+        <div class="page-title">Injiza Amanota</div>
+        <div class="page-subtitle">Ongeraho cyangwa urebe amanota y'abanyeshuri</div>
         <div class="card">
-          <div class="card-header"><h2><span class="emoji">📝</span>Injiza Amanota Mashya</h2></div>
-          <div class="note-box">CAT/10 · Midterm/40 · Final/40 · Total/100</div>
-          <div class="form-grid">
-            <div class="form-group full"><label>Umunyeshuri *</label><select id="resultStudent" onchange="onResultStudentChange()"></select></div>
-            <div class="form-group"><label>Isomo *</label><input type="text" id="resultSubject" placeholder="Mathematics"></div>
-            <div class="form-group"><label>Semester *</label>
-              <select id="resultSemester">
+          <div class="stat-grid" style="grid-template-columns: 1fr;">
+            <div>
+              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Umunyeshuri</label>
+              <select id="resultStudent" class="form-control"></select>
+            </div>
+            <div>
+              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Isomo</label>
+              <input type="text" id="resultSubject" class="form-control" placeholder="Mathematics">
+            </div>
+            <div>
+              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Semester</label>
+              <select id="resultSemester" class="form-control">
                 <option value="Trimester 1">Trimester 1</option>
                 <option value="Trimester 2">Trimester 2</option>
                 <option value="Trimester 3">Trimester 3</option>
               </select>
             </div>
-            <div class="form-group"><label>CAT (/10) *</label><input type="number" id="resultCat" min="0" max="10" step="0.5"></div>
-            <div class="form-group"><label>Midterm (/40) *</label><input type="number" id="resultMid" min="0" max="40" step="0.5"></div>
-            <div class="form-group"><label>Final (/40) *</label><input type="number" id="resultFinal" min="0" max="40" step="0.5"></div>
+            <div>
+              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">CAT (/10)</label>
+              <input type="number" id="resultCat" class="form-control" min="0" max="10" step="0.5">
+            </div>
+            <div>
+              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Midterm (/40)</label>
+              <input type="number" id="resultMid" class="form-control" min="0" max="40" step="0.5">
+            </div>
+            <div>
+              <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Final (/40)</label>
+              <input type="number" id="resultFinal" class="form-control" min="0" max="40" step="0.5">
+            </div>
           </div>
-          <p id="resultError" class="error"></p>
-          <button class="btn btn-success" style="margin-top:14px" onclick="saveResult(this)">💾 Bika Amanota</button>
-        </div>
-
-        <div class="card">
-          <div class="card-header"><h2><span class="emoji">📊</span>Amanota yose</h2></div>
-          <div class="search-box"><input type="text" id="searchResults" placeholder="Shakisha ku izina, isomo..." oninput="renderAllResults()"></div>
-          <div class="filters">
-            <select id="resFilterSchool" onchange="renderAllResults()"><option value="">Ishuri ryose</option></select>
-            <select id="resFilterProgramme" onchange="renderAllResults()"><option value="">Porogaramu yose</option></select>
-            <select id="resFilterSemester" onchange="renderAllResults()">
-              <option value="">Semester yose</option>
-              <option value="Trimester 1">Trimester 1</option>
-              <option value="Trimester 2">Trimester 2</option>
-              <option value="Trimester 3">Trimester 3</option>
-            </select>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Umunyeshuri</th><th>Ishuri</th><th>Isomo</th><th>Semester</th><th>CAT/10</th><th>Mid/40</th><th>Final/40</th><th>Total</th><th>Ibikorwa</th></tr></thead>
-              <tbody id="resultsTableBody"></tbody>
-            </table>
-          </div>
+          <p id="resultError" class="error-message" style="margin-top: 10px; margin-bottom: 10px;"></p>
+          <button class="btn btn-primary" onclick="saveResult(this)"><i class="fas fa-save"></i> Bika Amanota</button>
         </div>
       </section>
 
       <section class="page-section" id="admin-page-pdfs">
-        <div class="page-header"><div><h1>PDF Exams</h1><p>Ongeraho cyangwa ucunge PDF z'ibizamini</p></div></div>
+        <div class="page-title">PDF Exams</div>
+        <div class="page-subtitle">Ongeraho PDF z'ibizamini</div>
         <div class="card">
-          <div class="card-header"><h2><span class="emoji">📤</span>Ongeraho PDF Nshya</h2></div>
-          <div class="note-box">PDF max 3MB. Ishuri + Porogaramu + Umwaka + Trimester bigena abazayibona.</div>
-          <div class="form-grid">
-            <div class="form-group"><label>Ishuri *</label><select id="pdfSchool" onchange="onPdfSchoolChange()"></select></div>
-            <div class="form-group"><label>Porogaramu *</label><select id="pdfProgramme" disabled></select></div>
-            <div class="form-group"><label>Umwaka *</label><select id="pdfYear"></select></div>
-            <div class="form-group"><label>Trimester *</label><select id="pdfTrimester"></select></div>
-            <div class="form-group"><label>Isomo *</label><input type="text" id="pdfSubject" placeholder="Mathematics"></div>
-            <div class="form-group"><label>Izina rya PDF *</label><input type="text" id="pdfTitle" placeholder="CAT 1 2024"></div>
-            <div class="form-group full"><label>Dosiye PDF *</label><input type="file" id="pdfFile" accept="application/pdf"></div>
-          </div>
-          <p id="pdfError" class="error"></p>
-          <button class="btn btn-purple" style="margin-top:14px" onclick="uploadPdf(this)">📤 Ongeraho PDF</button>
-        </div>
-
-        <div class="card">
-          <div class="card-header"><h2><span class="emoji">📚</span>PDF Zose</h2></div>
-          <div class="filters">
-            <select id="pdfFilterSchool" onchange="renderAdminPdfs()"><option value="">Ishuri ryose</option></select>
-            <select id="pdfFilterProgramme" onchange="renderAdminPdfs()"><option value="">Porogaramu yose</option></select>
-            <select id="pdfFilterYear" onchange="renderAdminPdfs()"><option value="">Umwaka wose</option></select>
-            <select id="pdfFilterTrimester" onchange="renderAdminPdfs()"><option value="">Trimester yose</option></select>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Izina</th><th>Isomo</th><th>Ishuri</th><th>Umwaka</th><th>Ibikorwa</th></tr></thead>
-              <tbody id="pdfsTableBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <section class="page-section" id="admin-page-settings">
-        <div class="page-header"><div><h1>Settings</h1><p>Backup, Restore na Password</p></div></div>
-        <div class="card">
-          <div class="card-header"><h2><span class="emoji">💾</span>Backup & Restore</h2></div>
-          <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px">Bika data yose muri dosiye JSON.</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn-primary" onclick="backupData()">⬇️ Download Backup</button>
-            <button class="btn btn-warning" onclick="document.getElementById('restoreFile').click()">⬆️ Restore</button>
-            <input type="file" id="restoreFile" accept="application/json" style="display:none" onchange="restoreData(this)">
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header"><h2><span class="emoji">🔐</span>Guhindura Ijambo ry'Ibanga (Admin)</h2></div>
-          <div class="form-grid">
-            <div class="form-group full"><label>Ijambo rya kera *</label><input type="password" id="oldPass"></div>
-            <div class="form-group full"><label>Ijambo rishya *</label><input type="password" id="newPass"></div>
-            <div class="form-group full"><label>Emeza *</label><input type="password" id="confirmPass"></div>
-          </div>
-          <p id="passError" class="error"></p>
-          <button class="btn btn-success" style="margin-top:14px" onclick="changeAdminPassword(this)">🔐 Hindura</button>
-        </div>
-        <div class="card">
-          <div class="card-header"><h2><span class="emoji">⚠️</span>Danger Zone</h2></div>
-          <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px">Ibi bikorwa ntibishobora gusubizwa.</p>
-          <button class="btn btn-danger" onclick="clearAllData()">🗑 Siba Data Yose</button>
+           <div class="stat-grid" style="grid-template-columns: 1fr 1fr;">
+             <div>
+               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Ishuri</label>
+               <select id="pdfSchool" class="form-control" onchange="onPdfSchoolChange()"></select>
+             </div>
+             <div>
+               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Porogaramu</label>
+               <select id="pdfProgramme" class="form-control" disabled></select>
+             </div>
+             <div>
+               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Umwaka</label>
+               <select id="pdfYear" class="form-control"></select>
+             </div>
+             <div>
+               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Trimester</label>
+               <select id="pdfTrimester" class="form-control"></select>
+             </div>
+             <div>
+               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Isomo</label>
+               <input type="text" id="pdfSubject" class="form-control" placeholder="Mathematics">
+             </div>
+             <div>
+               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Izina rya PDF</label>
+               <input type="text" id="pdfTitle" class="form-control" placeholder="CAT 1 2024">
+             </div>
+             <div style="grid-column: 1 / -1;">
+               <label style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #fff;">Dosiye PDF</label>
+               <input type="file" id="pdfFile" class="form-control" accept="application/pdf">
+             </div>
+           </div>
+           <p id="pdfError" class="error-message" style="margin-top: 10px; margin-bottom: 10px;"></p>
+           <button class="btn btn-primary" onclick="uploadPdf(this)"><i class="fas fa-upload"></i> Ongeraho PDF</button>
         </div>
       </section>
     </main>
   </div>
-</div>
 
-<!-- ============ MODALS ============ -->
-<div class="modal-overlay" id="editResultModal">
-  <div class="modal">
-    <div class="modal-header"><h2>✏️ Hindura Amanota</h2><button class="modal-close" onclick="closeEditResult()">✕</button></div>
-    <div class="form-grid">
-      <div class="form-group full"><label>Umunyeshuri</label><input type="text" id="editStudentName" readonly></div>
-      <div class="form-group full"><label>Isomo *</label><input type="text" id="editSubject"></div>
-      <div class="form-group full"><label>Semester *</label>
-        <select id="editSemester">
-          <option value="Trimester 1">Trimester 1</option>
-          <option value="Trimester 2">Trimester 2</option>
-          <option value="Trimester 3">Trimester 3</option>
-        </select>
-      </div>
-      <div class="form-group"><label>CAT (/10) *</label><input type="number" id="editCat" min="0" max="10" step="0.5"></div>
-      <div class="form-group"><label>Midterm (/40) *</label><input type="number" id="editMid" min="0" max="40" step="0.5"></div>
-      <div class="form-group"><label>Final (/40) *</label><input type="number" id="editFinal" min="0" max="40" step="0.5"></div>
-    </div>
-    <p id="editError" class="error"></p>
-    <div style="display:flex;gap:10px;margin-top:16px">
-      <button class="btn btn-ghost btn-block" onclick="closeEditResult()">Reka</button>
-      <button class="btn btn-success btn-block" onclick="saveEditedResult(this)">💾 Bika</button>
-    </div>
-  </div>
-</div>
+  <!-- =========================================================
+       FIREBASE IMPORTS & SCRIPT
+       ========================================================= -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, doc, setDoc, getDocs, query, where, updateDoc, deleteDoc, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-<div class="modal-overlay" id="changePassModal">
-  <div class="modal">
-    <div class="modal-header"><h2>🔐 Hindura Ijambo ry'Ibanga</h2><button class="modal-close" onclick="closeChangePass()">✕</button></div>
-    <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px">Umunyeshuri: <strong id="passStudentName"></strong></p>
-    <div class="form-grid">
-      <div class="form-group full"><label>Ijambo rishya *</label><input type="password" id="modalNewPass" placeholder="Nibura 6"></div>
-      <div class="form-group full"><label>Emeza *</label><input type="password" id="modalConfirmPass" placeholder="Subiramo"></div>
-    </div>
-    <p id="modalPassError" class="error"></p>
-    <div style="display:flex;gap:10px;margin-top:16px">
-      <button class="btn btn-ghost btn-block" onclick="closeChangePass()">Reka</button>
-      <button class="btn btn-success btn-block" onclick="saveStudentPassword(this)">🔐 Hindura</button>
-    </div>
-  </div>
-</div>
+    // --- CONFIG YAWE YA FIREBASE ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-O0scHYyCvym0EfxyUn-uPA5AD66GM-g",
+      authDomain: "rwandahub.firebaseapp.com",
+      projectId: "rwandahub",
+      storageBucket: "rwandahub.firebasestorage.app",
+      messagingSenderId: "1038573627957",
+      appId: "1:1038573627957:web:1df573adc06421e6e59f7c"
+    };
 
-<!-- =========================================================
-     FIREBASE IMPORTS & CONFIG
-     ========================================================= -->
-<script type="module">
-  // --- IBI NI HO USHYIRA CONFIG YAWE YA FIREBASE ---
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, doc, setDoc, getDocs, query, where, updateDoc, deleteDoc, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-const firebaseConfig = {
-  apiKey: "AIzaSyB-O0scHYyCvym0EfxyUn-uPA5AD66GM-g",
-  authDomain: "rwandahub.firebaseapp.com",
-  projectId: "rwandahub",
-  storageBucket: "rwandahub.firebasestorage.app",
-  messagingSenderId: "1038573627957",
-  appId: "1:1038573627957:web:1df573adc06421e6e59f7c"
-};
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
 
+    // ============================================
+    // CLOUDINARY CONFIG NSHYA (UKURIKIJE FOTO YAWE)
+    // ============================================
+    const CLOUDINARY_CLOUD_NAME = "xkibckfu"; // Yari fepicrec, ubu ni xkibckfu
+    const CLOUDINARY_UPLOAD_PRESET = "HUBRWA";
+    const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const auth = getAuth(app);
+    window.EAUR_CONFIG = {
+      campuses: ['Nyagatare Campus','Kigali Campus'],
+      schools: {
+        'School of Business Administration and Management Studies': ['Economics','Accounting','Finance','Marketing','Procurement','Human Resource Management','Credit Management','Leisure, Tourism and Hotel Management'],
+        'School of Education': ['Mathematics and Computer Science with Education','Mathematics and Physics with Education','History and Geography with Education'],
+        'School of Mass Communication': ['Mass Communication'],
+        'School of Film Making and Film Production': ['Film Making and Production'],
+        'School of Industrial Art and Design': ['Industrial and Fine Arts','Industrial Design','Fashion Design','Visual Communication'],
+        'School of Hospitality, Leisure and Tourism Management': ['Leisure, Tourism and Hotel Management','Hospitality and Hotel Management']
+      },
+      years: ['Year 1','Year 2','Year 3','Year 4'],
+      trimesters: ['Trimester 1','Trimester 2','Trimester 3']
+    };
 
-  // --- EAUR CONFIG ---
-  window.EAUR_CONFIG = {
-    campuses: ['Nyagatare Campus','Kigali Campus'],
-    schools: {
-      'School of Business Administration and Management Studies': ['Economics','Accounting','Finance','Marketing','Procurement','Human Resource Management','Credit Management','Leisure, Tourism and Hotel Management'],
-      'School of Education': ['Mathematics and Computer Science with Education','Mathematics and Physics with Education','History and Geography with Education'],
-      'School of Mass Communication': ['Mass Communication'],
-      'School of Film Making and Film Production': ['Film Making and Production'],
-      'School of Industrial Art and Design': ['Industrial and Fine Arts','Industrial Design','Fashion Design','Visual Communication'],
-      'School of Hospitality, Leisure and Tourism Management': ['Leisure, Tourism and Hotel Management','Hospitality and Hotel Management']
-    },
-    years: ['Year 1','Year 2','Year 3','Year 4'],
-    trimesters: ['Trimester 1','Trimester 2','Trimester 3']
-  };
+    window.db = db;
+    window.auth = auth;
+    window.firebaseFunctions = { collection, doc, setDoc, getDocs, query, where, updateDoc, deleteDoc, addDoc, getDoc, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, CLOUDINARY_URL, CLOUDINARY_UPLOAD_PRESET };
+  </script>
 
-  window.db = db;
-  window.auth = auth;
-  window.firebaseFunctions = { collection, doc, setDoc, getDocs, query, where, updateDoc, deleteDoc, addDoc, getDoc, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut };
-</script>
+  <script>
+    /* =========================================================
+       UI HELPERS
+       ========================================================= */
+    function $(id){ return document.getElementById(id); }
+    function showError(elId, msg){ 
+      const e = $(elId); 
+      e.querySelector('span').textContent = msg; 
+      e.classList.add('active'); 
+      setTimeout(() => e.classList.remove('active'), 5000);
+    }
+    function hideError(elId){ const e=$(elId); e.classList.remove('active'); }
+    function fillSelect(el,options,placeholder){
+      el.innerHTML = `<option value="">${placeholder}</option>` + options.map(o => `<option value="${o}">${o}</option>`).join('');
+    }
+    function formatBytes(b){
+      if(b < 1024) return b + ' B';
+      if(b < 1048576) return (b/1024).toFixed(1) + ' KB';
+      return (b/1048576).toFixed(2) + ' MB';
+    }
+    function initials(f,l){ return ((f||'?')[0] + (l||'?')[0]).toUpperCase(); }
 
-<script>
-/* =========================================================
-   UI HELPERS
-   ========================================================= */
-function $(id){ return document.getElementById(id); }
-function showError(elId,msg){ const e=$(elId); e.textContent=msg; e.classList.add('show'); }
-function hideError(elId){ const e=$(elId); e.textContent=''; e.classList.remove('show'); }
-function uid(p){ return p+'-'+Date.now()+'-'+Math.floor(Math.random()*1000); }
-function fillSelect(el,options,placeholder){
-  el.innerHTML = `<option value="">${placeholder}</option>` + options.map(o => `<option value="${o}">${o}</option>`).join('');
-}
-function formatBytes(b){
-  if(b < 1024) return b + ' B';
-  if(b < 1048576) return (b/1024).toFixed(1) + ' KB';
-  return (b/1048576).toFixed(2) + ' MB';
-}
-function initials(f,l){ return ((f||'?')[0] + (l||'?')[0]).toUpperCase(); }
+    function calculateGrade(total){
+      if(total >= 80) return { letter:'A', points:4.0, color:'a' };
+      if(total >= 70) return { letter:'B', points:3.0, color:'b' };
+      if(total >= 60) return { letter:'C', points:2.0, color:'c' };
+      if(total >= 50) return { letter:'D', points:1.0, color:'d' };
+      return { letter:'F', points:0.0, color:'f' };
+    }
+    function calculateGPA(results){
+      if(!results.length) return 0;
+      const tp = results.reduce((s, r) => s + calculateGrade((r.cat||0)+(r.midterm||0)+(r.final||0)).points, 0);
+      return (tp / results.length).toFixed(2);
+    }
+    function gradeBadge(total){
+      const g = calculateGrade(total);
+      return `<span class="badge" style="background:var(--primary-light);color:var(--primary-dark);">${g.letter}</span>`;
+    }
 
-function calculateGrade(total){
-  if(total >= 80) return { letter:'A', points:4.0, color:'a' };
-  if(total >= 70) return { letter:'B', points:3.0, color:'b' };
-  if(total >= 60) return { letter:'C', points:2.0, color:'c' };
-  if(total >= 50) return { letter:'D', points:1.0, color:'d' };
-  return { letter:'F', points:0.0, color:'f' };
-}
-function calculateGPA(results){
-  if(!results.length) return 0;
-  const tp = results.reduce((s, r) => s + calculateGrade((r.cat||0)+(r.midterm||0)+(r.final||0)).points, 0);
-  return (tp / results.length).toFixed(2);
-}
-function gradeBadge(total){
-  const g = calculateGrade(total);
-  return `<span class="grade grade-${g.color}">${g.letter}</span>`;
-}
+    /* =========================================================
+       UI FLOW (AUTH)
+       ========================================================= */
+    let photoFile = null;
+    let selectedLevel = null;
 
-function showToast(message, type='success', duration=3500){
-  const container = $('toastContainer');
-  const icons = { success:'✅', error:'❌', warning:'⚠️', info:'ℹ️' };
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.innerHTML = `<span>${icons[type]||''}</span><span>${message}</span>`;
-  container.appendChild(toast);
-  setTimeout(() => { toast.classList.add('hide'); setTimeout(() => toast.remove(), 300); }, duration);
-}
-function setLoading(btn, loading, text){
-  if(!btn) return;
-  if(loading){
-    btn.dataset.original = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = `<span class="spinner"></span> ${text || 'Tegereza...'}`;
-  } else {
-    btn.disabled = false;
-    if(btn.dataset.original) btn.innerHTML = btn.dataset.original;
-  }
-}
+    window.showLoginScreen = function() {
+      document.querySelectorAll('.auth-screen').forEach(s => s.style.display = 'none');
+      $('authScreen').style.display = 'flex';
+      hideError('loginError');
+    };
 
-document.addEventListener('click', function(e){
-  const btn = e.target.closest('.btn');
-  if(!btn) return;
-  const rect = btn.getBoundingClientRect();
-  const size = Math.max(rect.width, rect.height);
-  const ripple = document.createElement('span');
-  ripple.className = 'ripple';
-  ripple.style.width = ripple.style.height = size + 'px';
-  ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
-  ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
-  btn.appendChild(ripple);
-  setTimeout(() => ripple.remove(), 600);
-});
+    window.showRegisterScreen = function() {
+      document.querySelectorAll('.auth-screen').forEach(s => s.style.display = 'none');
+      $('registerScreen').style.display = 'flex';
+      hideError('regError');
+      initRegisterForm();
+    };
 
-/* =========================================================
-   AUTH & ROUTING
-   ========================================================= */
-function showLoginPage(){ 
-  $('registerPage').classList.add('hidden'); 
-  $('loginPage').classList.remove('hidden'); 
-  hideError('loginError'); 
-}
-function showRegisterPage(){ 
-  $('loginPage').classList.add('hidden'); 
-  $('registerPage').classList.remove('hidden'); 
-  hideError('regError'); 
-}
+    window.showSuccessScreen = function() {
+      document.querySelectorAll('.auth-screen').forEach(s => s.style.display = 'none');
+      $('successScreen').style.display = 'flex';
+    };
 
-function initRegisterForm(){
-  fillSelect($('regCampus'), EAUR_CONFIG.campuses, 'Hitamo Campus');
-  fillSelect($('regSchool'), Object.keys(EAUR_CONFIG.schools), 'Hitamo Ishuri');
-  $('regProgramme').innerHTML = '<option value="">Hitamo Ishuri mbere</option>';
-  $('regProgramme').disabled = true;
-  fillSelect($('regYear'), EAUR_CONFIG.years, 'Hitamo Umwaka');
-  fillSelect($('regTrimester'), EAUR_CONFIG.trimesters, 'Hitamo Trimester');
-}
+    window.selectLevel = function(level, btn) {
+      selectedLevel = level;
+      $('regYear').value = level;
+      document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      if (navigator.vibrate) navigator.vibrate(20);
+    };
 
-function onSchoolChange(){
-  const school = $('regSchool').value;
-  const prog = $('regProgramme');
-  if(!school){ prog.innerHTML = '<option value="">Hitamo Ishuri mbere</option>'; prog.disabled = true; return; }
-  prog.innerHTML = '<option value="">Hitamo Porogaramu</option>' + (EAUR_CONFIG.schools[school] || []).map(p => `<option value="${p}">${p}</option>`).join('');
-  prog.disabled = false;
-}
+    /* =========================================================
+       PHOTO UPLOAD LOGIC
+       ========================================================= */
+    window.openPhotoChoice = function() { $('photoChoiceModal').classList.add('active'); };
+    window.closePhotoChoice = function() { $('photoChoiceModal').classList.remove('active'); };
+    window.chooseCamera = function() { closePhotoChoice(); setTimeout(() => $('cameraInput').click(), 200); };
+    window.chooseGallery = function() { closePhotoChoice(); setTimeout(() => $('galleryInput').click(), 200); };
 
-/* =========================================================
-   CONFETTI LOGIC
-   ========================================================= */
-function showCongratulations() {
-  const overlay = $('congratsOverlay');
-  const container = $('confettiContainer');
-  container.innerHTML = '';
-  
-  const colors = ['#0b5ed7', '#ffc107', '#198754', '#dc3545', '#6f42c1', '#0dcaf0'];
-  for (let i = 0; i < 100; i++) {
-    const confetti = document.createElement('div');
-    confetti.classList.add('confetti');
-    confetti.style.left = Math.random() * 100 + 'vw';
-    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-    confetti.style.animationDelay = Math.random() * 2 + 's';
-    if (Math.random() > 0.5) confetti.style.borderRadius = '50%';
-    else confetti.style.width = '8px'; confetti.style.height = '16px';
-    
-    container.appendChild(confetti);
-  }
-  
-  overlay.classList.add('show');
-}
+    window.handlePhotoSelected = function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) {
+        showError('regError', 'Ifoto ni nini cyane (max 5MB)');
+        event.target.value = '';
+        return;
+      }
+      photoFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        $('photoPreviewContainer').innerHTML = `<img src="${e.target.result}" class="photo-preview" alt="Preview">`;
+      };
+      reader.readAsDataURL(file);
+      if (navigator.vibrate) navigator.vibrate(30);
+    };
 
-function closeCongratsAndGoToLogin() {
-  $('congratsOverlay').classList.remove('show');
-  showLoginPage();
-}
+       async function uploadToCloudinary(file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', window.firebaseFunctions.CLOUDINARY_UPLOAD_PRESET);
+      
+      // NTUKONGERE GUSHYIRAMO 'folder' kuko iyi ari Unsigned preset
 
-/* =========================================================
-   FIREBASE ACTIONS (Register & Login)
-   ========================================================= */
-async function handleRegister(btn){
-  hideError('regError');
-  const first=$('regFirstName').value.trim(), last=$('regLastName').value.trim();
-  const email=$('regEmail').value.trim().toLowerCase(), pass=$('regPassword').value;
-  const campus=$('regCampus').value, school=$('regSchool').value;
-  const prog=$('regProgramme').value, year=$('regYear').value, tri=$('regTrimester').value;
+      try {
+        const response = await fetch(window.firebaseFunctions.CLOUDINARY_URL, {
+          method: 'POST',
+          body: formData
+          // NTUKONGERE GUSHYIRAMO 'headers' cyangwa 'credentials' hano
+        });
 
-  if(!first||!last||!email||!pass||!campus||!school||!prog||!year||!tri) return showError('regError','Uzuza ibice byose byasabwa (*)');
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('regError','Email ntiyemewe');
-  if(pass.length < 6) return showError('regError','Ijambo ry\'ibanga: nibura inyuguti 6');
+        const data = await response.json();
 
-  setLoading(btn, true, 'Tubika...');
-  
-  try {
-    const { createUserWithEmailAndPassword, doc, setDoc } = window.firebaseFunctions;
-    
-    // 1. Kora konti muri Firebase Auth
-    const userCredential = await createUserWithEmailAndPassword(window.auth, email, pass);
-    const user = userCredential.user;
+        if (!response.ok) {
+          console.error("Cloudinary YANZE:", data);
+          throw new Error(data.error?.message || 'Gushyira ifoto byanze.');
+        }
 
-    // 2. Bika amakuru mu Firestore
-    await setDoc(doc(window.db, "students", user.uid), {
-      firstName: first,
-      lastName: last,
-      email: email,
-      campus: campus,
-      school: school,
-      programme: prog,
-      year: year,
-      trimester: tri,
-      role: 'student',
-      approvalStatus: 'pending',
-      createdAt: new Date().toISOString()
+        return data.secure_url;
+      } catch (error) {
+        console.error("Upload Error:", error);
+        throw error;
+      }
+    }
+    /* =========================================================
+       INIT REGISTER FORM
+       ========================================================= */
+    function initRegisterForm(){
+      fillSelect($('regCampus'), EAUR_CONFIG.campuses, 'Hitamo Campus');
+      fillSelect($('regSchool'), Object.keys(EAUR_CONFIG.schools), 'Hitamo Ishuri');
+      $('regProgramme').innerHTML = '<option value="">Hitamo Ishuri mbere</option>';
+      $('regProgramme').disabled = true;
+      fillSelect($('regTrimester'), EAUR_CONFIG.trimesters, 'Hitamo Trimester');
+    }
+
+    window.onSchoolChange = function(){
+      const school = $('regSchool').value;
+      const prog = $('regProgramme');
+      if(!school){ prog.innerHTML = '<option value="">Hitamo Ishuri mbere</option>'; prog.disabled = true; return; }
+      prog.innerHTML = '<option value="">Hitamo Porogaramu</option>' + (EAUR_CONFIG.schools[school] || []).map(p => `<option value="${p}">${p}</option>`).join('');
+      prog.disabled = false;
+    };
+
+    /* =========================================================
+       REGISTER
+       ========================================================= */
+    window.handleRegister = async function(){
+      hideError('regError');
+      const first = $('regName').value.trim();
+      const email = $('regEmail').value.trim().toLowerCase();
+      const pass = $('regPassword').value;
+      const number = $('regNumber').value.trim();
+      const campus = $('regCampus').value;
+      const school = $('regSchool').value;
+      const prog = $('regProgramme').value;
+      const year = $('regYear').value;
+      const tri = $('regTrimester').value;
+
+      if(!first || !email || !pass || !number || !campus || !school || !prog || !year || !tri) {
+        return showError('regError', 'Uzuza ibice byose byasabwa (*)');
+      }
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('regError', 'Email ntiyemewe');
+      if(pass.length < 6) return showError('regError', 'Ijambo ry\'ibanga: nibura inyuguti 6');
+
+      const btn = $('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Tubika...</span>';
+
+      try {
+        const { createUserWithEmailAndPassword, updateProfile, doc, setDoc } = window.firebaseFunctions;
+        
+        // 1. Upload Photo
+        let photoURL = null;
+        if(photoFile) {
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Turazamura ifoto...</span>';
+          try {
+            photoURL = await uploadToCloudinary(photoFile);
+          } catch (uploadError) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-check-circle"></i> <span>IYANDIKISHE</span>';
+            return showError('regError', 'Ifoto ntiyashyizweho: ' + uploadError.message);
+          }
+        }
+
+        // 2. Create Auth
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Turakora account...</span>';
+        const userCredential = await createUserWithEmailAndPassword(window.auth, email, pass);
+        const user = userCredential.user;
+        
+        await updateProfile(user, { displayName: first, photoURL: photoURL });
+
+        // 3. Firestore
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Turabika...</span>';
+        const names = first.split(' ');
+        await setDoc(doc(window.db, "students", user.uid), {
+          firstName: names[0] || first,
+          lastName: names.slice(1).join(' ') || '',
+          fullName: first,
+          email: email,
+          number: number,
+          photo: photoURL,
+          campus: campus,
+          school: school,
+          programme: prog,
+          year: year,
+          trimester: tri,
+          role: 'student',
+          approvalStatus: 'pending',
+          createdAt: new Date().toISOString()
+        });
+
+        await window.firebaseFunctions.signOut(window.auth);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-check-circle"></i> <span>IYANDIKISHE</span>';
+
+        // Confetti
+        confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#38bdf8', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899'] });
+
+        // Show Success
+        const inits = initials(first, names.slice(1).join(' '));
+        const photoHtml = photoURL ? `<img src="${photoURL}" class="member-photo">` : `<div class="member-avatar">${inits}</div>`;
+        $('successMemberCard').innerHTML = `
+          ${photoHtml}
+          <div class="member-info">
+            <div class="member-name">${first}</div>
+            <div class="member-details">
+              <span><i class="fas fa-envelope"></i> ${email}</span>
+              <span><i class="fas fa-graduation-cap"></i> ${year} • ${tri}</span>
+              <span><i class="fas fa-university"></i> ${prog}</span>
+            </div>
+          </div>
+        `;
+        showSuccessScreen();
+
+      } catch (error) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-check-circle"></i> <span>IYANDIKISHE</span>';
+        if (error.code === 'auth/email-already-in-use') {
+          showError('regError', 'Iyi email yamaze kwiyandikisha.');
+        } else {
+          showError('regError', 'Habaye ikibazo: ' + error.message);
+        }
+      }
+    };
+
+    /* =========================================================
+       LOGIN & ROUTING
+       ========================================================= */
+    window.handleLogin = async function(){
+      hideError('loginError');
+      const email = $('loginEmail').value.trim().toLowerCase();
+      const pass = $('loginPassword').value;
+      if(!email || !pass) return showError('loginError', 'Uzuza email na ijambo ry\'ibanga');
+
+      const btn = $('loginBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Tugenzura...</span>';
+
+      try {
+        const { signInWithEmailAndPassword, doc, getDoc } = window.firebaseFunctions;
+
+        // Admin logic ihishe
+        if (email === "admin@eaur.rw" && pass === "admin123") {
+          sessionStorage.setItem('eaur_session', JSON.stringify({ role:'admin', id:'admin-1', name:'Super Admin', email:email }));
+          btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>INJIRA</span>';
+          enterAdmin();
+          return;
+        }
+
+        const userCredential = await signInWithEmailAndPassword(window.auth, email, pass);
+        const user = userCredential.user;
+
+        const docRef = doc(window.db, "students", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const studentData = docSnap.data();
+          if (studentData.approvalStatus !== 'approved') {
+            btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>INJIRA</span>';
+            await window.firebaseFunctions.signOut(window.auth);
+            return showError('loginError', '⏳ Konti yawe ntiyemejwe na Admin. Tegereza.');
+          }
+          
+          sessionStorage.setItem('eaur_session', JSON.stringify({ role:'student', id:user.uid }));
+          btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>INJIRA</span>';
+          await fetchStudentDataAndEnter(user.uid);
+          
+        } else {
+          btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>INJIRA</span>';
+          showError('loginError', 'Amakuru yawe ntabonetse muri system.');
+        }
+
+      } catch (error) {
+        btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>INJIRA</span>';
+        if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+          showError('loginError', 'Email cyangwa ijambo ry\'ibanga si byo.');
+        } else {
+          showError('loginError', 'Habaye ikibazo: ' + error.message);
+        }
+      }
+    };
+
+    window.logout = async function(){ 
+      await window.firebaseFunctions.signOut(window.auth);
+      sessionStorage.removeItem('eaur_session'); 
+      location.reload(); 
+    };
+    function getSession(){ try{ return JSON.parse(sessionStorage.getItem('eaur_session')); }catch(e){ return null; } }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      setTimeout(() => {
+        $('loadingScreen').classList.add('hidden');
+      }, 1000);
+
+      const s = getSession();
+      if(!s){ 
+        showLoginScreen(); 
+        return; 
+      }
+      document.querySelectorAll('.auth-screen').forEach(s => s.style.display = 'none');
+      if(s.role === 'admin') enterAdmin();
+      else await fetchStudentDataAndEnter(s.id);
     });
 
-    setLoading(btn, false);
-    showCongratulations(); // Hano turahamagara Confetti!
-    
-  } catch (error) {
-    setLoading(btn, false);
-    console.error(error);
-    if (error.code === 'auth/email-already-in-use') {
-      showError('regError', 'Iyi email yamaze kwiyandikisha.');
-    } else {
-      showError('regError', 'Habaye ikibazo: ' + error.message);
-    }
-  }
-}
+    /* =========================================================
+       STUDENT APP
+       ========================================================= */
+    let currentStudent = null;
+    let studentResults = [];
+    let studentPdfs = [];
 
-async function handleLogin(btn){
-  hideError('loginError');
-  const email=$('loginEmail').value.trim().toLowerCase();
-  const pass=$('loginPassword').value;
-  if(!email || !pass) return showError('loginError','Uzuza email na ijambo ry\'ibanga');
+    async function fetchStudentDataAndEnter(uid) {
+      const { doc, getDoc, collection, query, where, getDocs } = window.firebaseFunctions;
+      try {
+        const docSnap = await getDoc(doc(window.db, "students", uid));
+        if(!docSnap.exists()) return logout();
+        currentStudent = { id: uid, ...docSnap.data() };
 
-  setLoading(btn, true, 'Tugenzura...');
-  
-  try {
-    const { signInWithEmailAndPassword, doc, getDoc, query, collection, where, getDocs } = window.firebaseFunctions;
+        const qResults = query(collection(window.db, "results"), where("studentId", "==", uid));
+        const snapResults = await getDocs(qResults);
+        studentResults = snapResults.docs.map(d => ({ id: d.id, ...d.data() }));
 
-    // 1. Gerageza kwinjira nka ADMIN (Ushobora gukoresha Localstorage cyangwa Firestore aha)
-    // Kuko tutifuza ko umuntu wese yiyandikisha nka admin, dushobora kugenzura email runaka.
-    if (email === "admin@eaur.rw" && pass === "admin123") {
-      // Iyi ni admin demo yawe yihishe (Ntibagaragara kuri page)
-      sessionStorage.setItem('eaur_session', JSON.stringify({ role:'admin', id:'admin-1', name:'Super Admin', email:email }));
-      setLoading(btn, false);
-      showToast(`Murakaza neza, Super Admin!`, 'success');
-      enterAdmin();
-      return;
-    }
+        const qPdfs = query(collection(window.db, "pdfs"), where("school", "==", currentStudent.school), where("programme", "==", currentStudent.programme), where("year", "==", currentStudent.year));
+        const snapPdfs = await getDocs(qPdfs);
+        studentPdfs = snapPdfs.docs.map(d => ({ id: d.id, ...d.data() }));
 
-    // 2. Injira nk'umunyeshuri
-    const userCredential = await signInWithEmailAndPassword(window.auth, email, pass);
-    const user = userCredential.user;
-
-    // 3. Reba niba yemejwe muri Firestore
-    const docRef = doc(window.db, "students", user.uid);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      const studentData = docSnap.data();
-      if (studentData.approvalStatus !== 'approved') {
-        setLoading(btn, false);
-        await window.firebaseFunctions.signOut(window.auth);
-        return showError('loginError','⏳ Konti yawe ntiyemejwe na Admin. Tegereza.');
+        enterStudent();
+      } catch (e) {
+        console.error(e);
+        alert("Ikibazo cyo kubona amakuru");
       }
-      
-      sessionStorage.setItem('eaur_session', JSON.stringify({ role:'student', id:user.uid }));
-      setLoading(btn, false);
-      showToast(`Murakaza neza, ${studentData.firstName}!`, 'success');
-      await fetchStudentDataAndEnter(user.uid);
-      
-    } else {
-      setLoading(btn, false);
-      showError('loginError','Amakuru yawe ntabonetse muri system.');
     }
 
-  } catch (error) {
-    setLoading(btn, false);
-    console.error(error);
-    if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-      showError('loginError','Email cyangwa ijambo ry\'ibanga si byo.');
-    } else {
-      showError('loginError','Habaye ikibazo: ' + error.message);
+    function enterStudent(){
+      const student = currentStudent;
+      $('studentApp').classList.add('active');
+      $('adminApp').classList.remove('active');
+
+      const inits = initials(student.firstName, student.lastName);
+      $('studentAvatar').textContent = inits;
+      $('mobileAvatar').textContent = inits;
+      $('sidebarName').textContent = `${student.firstName} ${student.lastName}`;
+      $('sidebarRole').textContent = student.programme;
+
+      $('welcomeTitle').textContent = `Muraho, ${student.firstName}! 👋`;
+      $('welcomeMeta').textContent = `${student.campus} · ${student.programme} · ${student.year} · ${student.trimester}`;
+
+      renderStudentStats(student);
+      renderStudentHomeSummary(student);
+      renderStudentCATs();
+      renderStudentPdfs(student);
+      renderStudentProfile(student);
+      
+      document.querySelectorAll('#studentApp .page-section').forEach(s => s.classList.remove('active'));
+      $('page-home').classList.add('active');
     }
-  }
-}
 
-async function logout(){ 
-  await window.firebaseFunctions.signOut(window.auth);
-  sessionStorage.removeItem('eaur_session'); 
-  location.reload(); 
-}
-function getSession(){ try{ return JSON.parse(sessionStorage.getItem('eaur_session')); }catch(e){ return null; } }
+    window.studentNav = function(page, btn){
+      document.querySelectorAll('#studentApp .page-section').forEach(s => s.classList.remove('active'));
+      $('page-' + page).classList.add('active');
+      document.querySelectorAll('#studentApp .nav-item').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      closeSidebar('studentSidebar');
+      window.scrollTo({ top:0, behavior:'smooth' });
+    };
 
-window.addEventListener('DOMContentLoaded', async () => {
-  initRegisterForm();
-  const s = getSession();
-  if(!s){ return; }
-  $('loginPage').classList.add('hidden');
-  $('registerPage').classList.add('hidden');
-  if(s.role === 'admin') enterAdmin();
-  else await fetchStudentDataAndEnter(s.id);
-});
+    function renderStudentStats(student){
+      const avg = studentResults.length ? (studentResults.reduce((s,r) => s + ((r.cat||0)+(r.midterm||0)+(r.final||0)), 0) / studentResults.length).toFixed(1) : '0';
+      const gpa = calculateGPA(studentResults);
+      $('studentStats').innerHTML = `
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-book"></i></div><div class="stat-value">${studentResults.length}</div><div class="stat-label">Amanota</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#d1fae5;color:#10b981;"><i class="fas fa-chart-line"></i></div><div class="stat-value">${avg}</div><div class="stat-label">Average /100</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#fef3c7;color:#f59e0b;"><i class="fas fa-bullseye"></i></div><div class="stat-value">${gpa}</div><div class="stat-label">GPA /4.0</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#ede9fe;color:#8b5cf6;"><i class="fas fa-file-pdf"></i></div><div class="stat-value">${studentPdfs.length}</div><div class="stat-label">PDF Exams</div></div>
+      `;
+    }
 
-/* =========================================================
-   STUDENT APP
-   ========================================================= */
-let currentStudent = null;
-let studentResults = [];
-let studentPdfs = [];
-
-async function fetchStudentDataAndEnter(uid) {
-  const { doc, getDoc, collection, query, where, getDocs } = window.firebaseFunctions;
-  try {
-    const docSnap = await getDoc(doc(window.db, "students", uid));
-    if(!docSnap.exists()) return logout();
-    currentStudent = { id: uid, ...docSnap.data() };
-
-    // Fata amanota
-    const qResults = query(collection(window.db, "results"), where("studentId", "==", uid));
-    const snapResults = await getDocs(qResults);
-    studentResults = snapResults.docs.map(d => ({ id: d.id, ...d.data() }));
-
-    // Fata PDFs (zihuye n'ishuri, porogaramu, umwaka)
-    const qPdfs = query(collection(window.db, "pdfs"), where("school", "==", currentStudent.school), where("programme", "==", currentStudent.programme), where("year", "==", currentStudent.year));
-    const snapPdfs = await getDocs(qPdfs);
-    studentPdfs = snapPdfs.docs.map(d => ({ id: d.id, ...d.data() }));
-
-    enterStudent();
-  } catch (e) {
-    console.error(e);
-    showToast("Ikibazo cyo kubona amakuru", "error");
-  }
-}
-
-function enterStudent(){
-  const student = currentStudent;
-  $('loginPage').classList.add('hidden');
-  $('registerPage').classList.add('hidden');
-  $('adminApp').classList.add('hidden');
-  $('studentApp').classList.remove('hidden');
-
-  const inits = initials(student.firstName, student.lastName);
-  $('studentAvatar').textContent = inits;
-  $('mobileAvatar').textContent = '👤'; 
-
-  $('sidebarName').textContent = `${student.firstName} ${student.lastName}`;
-  $('sidebarRole').textContent = student.programme;
-
-  $('welcomeTitle').textContent = `Muraho, ${student.firstName}! 👋`;
-  $('welcomeMeta').textContent = `${student.campus} · ${student.programme} · ${student.year} · ${student.trimester}`;
-
-  renderStudentStats(student);
-  renderStudentHomeSummary(student);
-  renderStudentCATs();
-  renderStudentPdfs(student);
-  renderStudentProfile(student);
-  studentNav('home');
-}
-
-function studentNav(page){
-  document.querySelectorAll('#studentApp .page-section').forEach(s => s.classList.remove('active'));
-  $('page-' + page).classList.add('active');
-  document.querySelectorAll('#studentSidebar .nav-item[data-page]').forEach(b => b.classList.toggle('active', b.dataset.page === page));
-  closeSidebar(); 
-  window.scrollTo({ top:0, behavior:'smooth' });
-}
-
-function renderStudentStats(student){
-  const avg = studentResults.length ? (studentResults.reduce((s,r) => s + ((r.cat||0)+(r.midterm||0)+(r.final||0)), 0) / studentResults.length).toFixed(1) : '0';
-  const gpa = calculateGPA(studentResults);
-  $('studentStats').innerHTML = `
-    <div class="stat blue"><div class="stat-icon">📚</div><div class="num">${studentResults.length}</div><div class="lbl">Amanota</div></div>
-    <div class="stat green"><div class="stat-icon">📈</div><div class="num">${avg}</div><div class="lbl">Average /100</div></div>
-    <div class="stat yellow"><div class="stat-icon">🎯</div><div class="num">${gpa}</div><div class="lbl">GPA /4.0</div></div>
-    <div class="stat purple"><div class="stat-icon">📄</div><div class="num">${studentPdfs.length}</div><div class="lbl">PDF Exams</div></div>
-  `;
-  $('catCount').textContent = studentResults.length;
-  $('pdfsCount').textContent = studentPdfs.length;
-}
-
-function renderStudentHomeSummary(student){
-  const results = studentResults;
-  const wrap = $('homeResultsSummary');
-  if(!results.length){
-    wrap.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>Nta manota arashyirwaho. Tegereza Admin.</p></div>`;
-    return;
-  }
-  const bySem = {};
-  results.forEach(r => { const s = r.semester||'Nta semester'; (bySem[s]=bySem[s]||[]).push(r); });
-  wrap.innerHTML = Object.keys(bySem).sort().map(sem => {
-    const avg = (bySem[sem].reduce((s,r)=>s+((r.cat||0)+(r.midterm||0)+(r.final||0)),0)/bySem[sem].length).toFixed(1);
-    const gpa = calculateGPA(bySem[sem]);
-    return `<div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);gap:10px;flex-wrap:wrap">
-      <div><strong>${sem}</strong><div style="font-size:.8rem;color:var(--muted)">${bySem[sem].length} amasomo</div></div>
-      <div style="display:flex;gap:16px;align-items:center">
-        <div style="text-align:right"><div style="font-size:1.1rem;font-weight:800;color:var(--success)">${avg}<span style="font-size:.75rem;color:var(--muted)">/100</span></div><div style="font-size:.7rem;color:var(--muted)">AVERAGE</div></div>
-        <div style="text-align:right"><div style="font-size:1.1rem;font-weight:800;color:var(--purple)">${gpa}</div><div style="font-size:.7rem;color:var(--muted)">GPA</div></div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function renderStudentCATs(){
-  if(!currentStudent) return;
-  const results = studentResults;
-  const search = ($('catSearch').value || '').toLowerCase().trim();
-  const filterSem = $('catFilterSemester').value;
-
-  const filtered = results.filter(r => {
-    if(filterSem && r.semester !== filterSem) return false;
-    if(search && !r.subject.toLowerCase().includes(search)) return false;
-    return true;
-  });
-
-  const wrap = $('studentCATs');
-  if(!filtered.length){
-    wrap.innerHTML = `<div class="card"><div class="empty-state"><div class="icon">📝</div><p>Nta CAT ihuye n'ibyo washakishije. Tegereza Admin.</p></div></div>`;
-    return;
-  }
-
-  const bySem = {};
-  filtered.forEach(r => { const s = r.semester||'Nta semester'; (bySem[s]=bySem[s]||[]).push(r); });
-
-  wrap.innerHTML = Object.keys(bySem).sort().map(sem => {
-    const cards = bySem[sem].map((r, idx) => {
-      const total = (r.cat||0) + (r.midterm||0) + (r.final||0);
-      const grade = calculateGrade(total);
-      const catPct = ((r.cat||0) / 10 * 100).toFixed(0);
-      const midPct = ((r.midterm||0) / 40 * 100).toFixed(0);
-      const finPct = ((r.final||0) / 40 * 100).toFixed(0);
-      return `
-        <div class="cat-card" style="animation-delay:${idx * 0.05}s">
-          <div class="cat-header">
-            <div class="cat-icon">📝</div>
-            <span class="cat-status done">✓ Yakozwe</span>
+    function renderStudentHomeSummary(student){
+      const results = studentResults;
+      const wrap = $('homeResultsSummary');
+      if(!results.length){
+        wrap.innerHTML = `<div style="text-align:center;padding:30px;color:#94a3b8;"><i class="fas fa-inbox" style="font-size:40px;opacity:0.3;margin-bottom:10px;"></i><br>Nta manota arashyirwaho.</div>`;
+        return;
+      }
+      const bySem = {};
+      results.forEach(r => { const s = r.semester||'Nta semester'; (bySem[s]=bySem[s]||[]).push(r); });
+      wrap.innerHTML = Object.keys(bySem).sort().map(sem => {
+        const avg = (bySem[sem].reduce((s,r)=>s+((r.cat||0)+(r.midterm||0)+(r.final||0)),0)/bySem[sem].length).toFixed(1);
+        const gpa = calculateGPA(bySem[sem]);
+        return `<div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #334155;gap:10px;flex-wrap:wrap">
+          <div><strong>${sem}</strong><div style="font-size:.8rem;color:#94a3b8">${bySem[sem].length} amasomo</div></div>
+          <div style="display:flex;gap:16px;align-items:center">
+            <div style="text-align:right"><div style="font-size:1.1rem;font-weight:800;color:var(--success)">${avg}<span style="font-size:.75rem;color:#94a3b8">/100</span></div><div style="font-size:.7rem;color:#94a3b8">AVERAGE</div></div>
+            <div style="text-align:right"><div style="font-size:1.1rem;font-weight:800;color:var(--purple)">${gpa}</div><div style="font-size:.7rem;color:#94a3b8">GPA</div></div>
           </div>
-          <div class="cat-subject">${r.subject}</div>
-          <div class="cat-meta">
-            <span><strong>📅 Semester:</strong> ${r.semester}</span>
-            <span><strong>📊 CAT:</strong> ${r.cat??0}/10 (${catPct}%)</span>
-            <span><strong>📝 Midterm:</strong> ${r.midterm??0}/40 (${midPct}%)</span>
-            <span><strong>📄 Final:</strong> ${r.final??0}/40 (${finPct}%)</span>
+        </div>`;
+      }).join('');
+    }
+
+    function renderStudentCATs(){
+      const results = studentResults;
+      const wrap = $('studentCATs');
+      if(!results.length){
+        wrap.innerHTML = `<div class="card" style="text-align:center;padding:40px;color:#94a3b8;">Nta manota arashyirwaho.</div>`;
+        return;
+      }
+      const bySem = {};
+      results.forEach(r => { const s = r.semester||'Nta semester'; (bySem[s]=bySem[s]||[]).push(r); });
+      wrap.innerHTML = Object.keys(bySem).sort().map(sem => {
+        const cards = bySem[sem].map(r => {
+          const total = (r.cat||0) + (r.midterm||0) + (r.final||0);
+          const catPct = ((r.cat||0) / 10 * 100).toFixed(0);
+          const midPct = ((r.midterm||0) / 40 * 100).toFixed(0);
+          const finPct = ((r.final||0) / 40 * 100).toFixed(0);
+          return `
+            <div class="card" style="padding:16px;margin-bottom:12px;border-left:4px solid var(--primary);background:#0f172a;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+                <div style="font-size:1.05rem;font-weight:800;color:#fff;">${r.subject}</div>
+                <span class="badge badge-approved">✓ Yakozwe</span>
+              </div>
+              <div style="font-size:.85rem;color:#94a3b8;display:flex;flex-direction:column;gap:4px;margin-bottom:12px;">
+                <span><strong>📊 CAT:</strong> ${r.cat??0}/10 (${catPct}%)</span>
+                <span><strong>📝 Midterm:</strong> ${r.midterm??0}/40 (${midPct}%)</span>
+                <span><strong>📄 Final:</strong> ${r.final??0}/40 (${finPct}%)</span>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:4px;padding:10px;background:#1e293b;border-radius:8px;">
+                <span style="font-size:1.4rem;font-weight:800;color:var(--success)">${total}</span>
+                <span style="font-size:.85rem;color:#94a3b8;font-weight:600">/100</span>
+                <span style="margin-left:auto;">${gradeBadge(total)}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="card" style="margin-bottom:20px;">
+            <h3 style="margin-bottom:16px;">📅 ${sem}</h3>
+            <div>${cards}</div>
           </div>
-          <div class="cat-score">
-            <span class="score-num">${total}</span>
-            <span class="score-total">/100</span>
-            <span class="score-label">Total ${gradeBadge(total)}</span>
+        `;
+      }).join('');
+    }
+
+    function renderStudentPdfs(student){
+      const filtered = studentPdfs;
+      const wrap = $('studentPdfs');
+      if(!filtered.length){
+        wrap.innerHTML = `<div class="card" style="text-align:center;padding:40px;color:#94a3b8;">Nta PDF ya exam yabonetse.</div>`;
+        return;
+      }
+      wrap.innerHTML = `<div style="display:grid;gap:16px;">` + filtered.map(p => `
+        <div class="card" style="margin-bottom:0;">
+          <div style="font-size:1.5rem;margin-bottom:10px;">📄</div>
+          <div style="font-weight:700;color:#fff;font-size:1rem;margin-bottom:8px;">${p.title}</div>
+          <div style="font-size:.85rem;color:#94a3b8;line-height:1.6;margin-bottom:12px;">
+            <strong>Isomo:</strong> ${p.subject}<br>
+            <strong>${p.year}</strong> · ${p.trimester}<br>
+            <strong>Ingano:</strong> ${formatBytes(p.size)}
           </div>
+          <button class="btn btn-primary btn-sm" onclick="openPdf('${p.id}')">Fungura PDF</button>
+        </div>
+      `).join('') + `</div>`;
+    }
+
+    function renderStudentProfile(student){
+      $('profileCard').innerHTML = `
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap">
+          <div style="width:70px;height:70px;border-radius:50%;background:var(--gradient-1);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.6rem;">${initials(student.firstName,student.lastName)}</div>
+          <div><h2 style="margin:0;font-size:20px;">${student.firstName} ${student.lastName}</h2><p style="color:#94a3b8;font-size:.9rem">${student.email}</p></div>
+        </div>
+        <div style="display:grid;gap:12px;">
+          <div style="background:#0f172a;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:#94a3b8;">Campus</label><div style="font-weight:600;">${student.campus}</div></div>
+          <div style="background:#0f172a;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:#94a3b8;">Ishuri</label><div style="font-weight:600;">${student.school}</div></div>
+          <div style="background:#0f172a;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:#94a3b8;">Porogaramu</label><div style="font-weight:600;">${student.programme}</div></div>
+          <div style="background:#0f172a;padding:12px;border-radius:10px;"><label style="font-size:12px;font-weight:700;color:#94a3b8;">Umwaka / Trimester</label><div style="font-weight:600;">${student.year} • ${student.trimester}</div></div>
         </div>
       `;
-    }).join('');
-
-    const semAvg = (bySem[sem].reduce((s,r)=>s+((r.cat||0)+(r.midterm||0)+(r.final||0)),0)/bySem[sem].length).toFixed(1);
-    const semGPA = calculateGPA(bySem[sem]);
-
-    return `
-      <div class="card">
-        <div class="card-header">
-          <h2><span class="emoji">📅</span>${sem}</h2>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <span class="badge badge-school">Avg: ${semAvg}/100</span>
-            <span class="badge badge-approved">GPA: ${semGPA}</span>
-          </div>
-        </div>
-        <div class="cat-grid">${cards}</div>
-      </div>
-    `;
-  }).join('');
-}
-
-function renderStudentPdfs(student){
-  const filtered = studentPdfs;
-  const wrap = $('studentPdfs');
-  if(!filtered.length){
-    wrap.innerHTML = `<div class="card"><div class="empty-state"><div class="icon">📄</div><p>Nta PDF ya exam yabonetse.</p></div></div>`;
-    return;
-  }
-  wrap.innerHTML = `<div class="pdf-grid">` + filtered.map(p => `
-    <div class="pdf-card">
-      <div class="pdf-icon">📄</div>
-      <div class="pdf-title">${p.title}</div>
-      <div class="pdf-meta">
-        <strong>Isomo:</strong> ${p.subject}<br>
-        <strong>${p.year}</strong> · ${p.trimester}<br>
-        <strong>Ingano:</strong> ${formatBytes(p.size)}
-      </div>
-      <div class="pdf-actions">
-        <button class="btn btn-primary btn-sm btn-block" onclick="openPdf('${p.id}')">Fungura PDF →</button>
-      </div>
-    </div>
-  `).join('') + `</div>`;
-}
-
-function renderStudentProfile(student){
-  $('profileCard').innerHTML = `
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap">
-      <div class="avatar" style="width:70px;height:70px;font-size:1.6rem">${initials(student.firstName,student.lastName)}</div>
-      <div><h2 style="margin:0">${student.firstName} ${student.lastName}</h2><p style="color:var(--muted);font-size:.9rem">${student.email}</p></div>
-    </div>
-    <div class="form-grid">
-      <div class="form-group"><label>Campus</label><input value="${student.campus}" readonly></div>
-      <div class="form-group"><label>Ishuri</label><input value="${student.school}" readonly></div>
-      <div class="form-group full"><label>Porogaramu</label><input value="${student.programme}" readonly></div>
-      <div class="form-group"><label>Umwaka</label><input value="${student.year}" readonly></div>
-      <div class="form-group"><label>Trimester</label><input value="${student.trimester}" readonly></div>
-      <div class="form-group full"><label>Status</label><input value="${student.approvalStatus === 'approved' ? '✅ Yemejwe' : '⏳ Itagereje'}" readonly></div>
-    </div>
-    <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
-      <button class="btn btn-warning" onclick="openStudentChangePass()">🔐 Hindura Ijambo ry'Ibanga</button>
-    </div>
-  `;
-}
-
-function openStudentChangePass(){
-  const session = getSession();
-  const student = currentStudent;
-  if(!student) return;
-  currentStudentPassId = student.id;
-  $('passStudentName').textContent = `${student.firstName} ${student.lastName}`;
-  $('modalNewPass').value = '';
-  $('modalConfirmPass').value = '';
-  hideError('modalPassError');
-  $('changePassModal').classList.add('show');
-}
-
-function openSidebar(){ $('studentSidebar').classList.add('open'); $('overlay').classList.add('show'); }
-function closeSidebar(){ $('studentSidebar').classList.remove('open'); $('overlay').classList.remove('show'); }
-
-/* =========================================================
-   ADMIN APP (Partially local storage until Firebase is fully wired)
-   ========================================================= */
-let adminStudents = [];
-let adminResults = [];
-let adminPdfs = [];
-
-async function enterAdmin(){
-  $('loginPage').classList.add('hidden');
-  $('registerPage').classList.add('hidden');
-  $('studentApp').classList.add('hidden');
-  $('adminApp').classList.remove('hidden');
-  
-  await fetchAdminData();
-  initAdminFilters();
-  renderAdminStats();
-  renderAdminStudents();
-  renderResultStudentSelect();
-  renderAllResults();
-  initPdfForm();
-  renderAdminPdfs();
-  adminNav('dashboard');
-}
-
-async function fetchAdminData() {
-  const { collection, getDocs } = window.firebaseFunctions;
-  try {
-    const snapStudents = await getDocs(collection(window.db, "students"));
-    adminStudents = snapStudents.docs.map(d => ({ id: d.id, ...d.data() }));
-
-    const snapResults = await getDocs(collection(window.db, "results"));
-    adminResults = snapResults.docs.map(d => ({ id: d.id, ...d.data() }));
-
-    const snapPdfs = await getDocs(collection(window.db, "pdfs"));
-    adminPdfs = snapPdfs.docs.map(d => ({ id: d.id, ...d.data() }));
-  } catch(e) {
-    console.error("Kubona data byanze", e);
-    showToast("Kubona data byanze", "error");
-  }
-}
-
-function adminNav(page){
-  document.querySelectorAll('#adminApp .page-section').forEach(s => s.classList.remove('active'));
-  $('admin-page-' + page).classList.add('active');
-  document.querySelectorAll('#adminSidebar .nav-item[data-page]').forEach(b => b.classList.toggle('active', b.dataset.page === page));
-  closeAdminSidebar(); 
-  window.scrollTo({ top:0, behavior:'smooth' });
-}
-
-function openAdminSidebar(){ $('adminSidebar').classList.add('open'); $('adminOverlay').classList.add('show'); }
-function closeAdminSidebar(){ $('adminSidebar').classList.remove('open'); $('adminOverlay').classList.remove('show'); }
-
-function initAdminFilters(){
-  fillSelect($('filterSchool'), Object.keys(EAUR_CONFIG.schools), 'Ishuri ryose');
-  fillSelect($('resFilterSchool'), Object.keys(EAUR_CONFIG.schools), 'Ishuri ryose');
-  fillSelect($('pdfFilterSchool'), Object.keys(EAUR_CONFIG.schools), 'Ishuri ryose');
-
-  $('filterSchool').addEventListener('change', () => {
-    const s = $('filterSchool').value;
-    fillSelect($('filterProgramme'), s ? EAUR_CONFIG.schools[s] : [], 'Porogaramu yose');
-    renderAdminStudents();
-  });
-  $('resFilterSchool').addEventListener('change', () => {
-    const s = $('resFilterSchool').value;
-    fillSelect($('resFilterProgramme'), s ? EAUR_CONFIG.schools[s] : [], 'Porogaramu yose');
-    renderAllResults();
-  });
-  $('pdfFilterSchool').addEventListener('change', () => {
-    const s = $('pdfFilterSchool').value;
-    fillSelect($('pdfFilterProgramme'), s ? EAUR_CONFIG.schools[s] : [], 'Porogaramu yose');
-    renderAdminPdfs();
-  });
-
-  fillSelect($('filterYear'), EAUR_CONFIG.years, 'Umwaka wose');
-  fillSelect($('filterTrimester'), EAUR_CONFIG.trimesters, 'Trimester yose');
-  fillSelect($('pdfFilterYear'), EAUR_CONFIG.years, 'Umwaka wose');
-  fillSelect($('pdfFilterTrimester'), EAUR_CONFIG.trimesters, 'Trimester yose');
-}
-
-function renderAdminStats(){
-  $('adminStats').innerHTML = `
-    <div class="stat blue"><div class="stat-icon">👥</div><div class="num">${adminStudents.length}</div><div class="lbl">Abanyeshuri</div></div>
-    <div class="stat yellow"><div class="stat-icon">⏳</div><div class="num">${adminStudents.filter(s=>s.approvalStatus==='pending').length}</div><div class="lbl">Pending</div></div>
-    <div class="stat green"><div class="stat-icon">✅</div><div class="num">${adminStudents.filter(s=>s.approvalStatus==='approved').length}</div><div class="lbl">Approved</div></div>
-    <div class="stat purple"><div class="stat-icon">📝</div><div class="num">${adminResults.length}</div><div class="lbl">Amanota</div></div>
-    <div class="stat red"><div class="stat-icon">📄</div><div class="num">${adminPdfs.length}</div><div class="lbl">PDF Exams</div></div>
-  `;
-}
-
-function renderAdminStudents(){
-  const search = ($('searchStudents').value || '').toLowerCase().trim();
-  const fS=$('filterSchool').value, fP=$('filterProgramme').value;
-  const fY=$('filterYear').value, fT=$('filterTrimester').value, fSt=$('filterStatus').value;
-
-  const filtered = adminStudents.filter(s => {
-    if(fS && s.school !== fS) return false;
-    if(fP && s.programme !== fP) return false;
-    if(fY && s.year !== fY) return false;
-    if(fT && s.trimester !== fT) return false;
-    if(fSt && s.approvalStatus !== fSt) return false;
-    if(search){
-      const hay = `${s.firstName} ${s.lastName} ${s.email} ${s.programme}`.toLowerCase();
-      if(!hay.includes(search)) return false;
     }
-    return true;
-  });
 
-  const tbody = $('studentsTableBody');
-  if(!filtered.length){
-    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="icon">🔍</div><p>Nta munyeshuri uhuye n'ibyo washakishije</p></div></td></tr>`;
-    return;
-  }
-  tbody.innerHTML = filtered.map(s => `
-    <tr>
-      <td><strong>${s.firstName} ${s.lastName}</strong></td>
-      <td>${s.email}</td>
-      <td>${s.school}</td>
-      <td>${s.programme}</td>
-      <td>${s.year}</td>
-      <td>${s.trimester}</td>
-      <td><span class="badge ${s.approvalStatus==='approved'?'badge-approved':'badge-pending'}">${s.approvalStatus}</span></td>
-      <td style="white-space:nowrap">
-        ${s.approvalStatus==='pending'
-          ? `<button class="btn btn-success btn-sm" onclick="approveStudent('${s.id}')">✅ Emeza</button>`
-          : `<button class="btn btn-danger btn-sm" onclick="deleteStudent('${s.id}')">🗑</button>`}
-        <button class="btn btn-warning btn-sm" onclick="openAdminStudentPass('${s.id}')" title="Hindura password">🔐</button>
-      </td>
-    </tr>
-  `).join('');
-}
+    window.openSidebar = function(id) { $(id).classList.add('open'); $(id.replace('Sidebar','Overlay')).classList.add('show'); };
+    window.closeSidebar = function(id) { $(id).classList.remove('open'); $(id.replace('Sidebar','Overlay')).classList.remove('show'); };
 
-async function approveStudent(id){
-  const { doc, updateDoc } = window.firebaseFunctions;
-  try {
-    await updateDoc(doc(window.db, "students", id), { approvalStatus: 'approved' });
-    const s = adminStudents.find(x => x.id === id);
-    if(s) s.approvalStatus = 'approved';
-    showToast(`${s.firstName} ${s.lastName} yemejwe!`, 'success');
-    renderAdminStats(); renderAdminStudents(); renderResultStudentSelect();
-  } catch(e) { showToast("Byanze kwemeza", "error"); }
-}
+    /* =========================================================
+       ADMIN APP
+       ========================================================= */
+    let adminStudents = [];
+    let adminResults = [];
+    let adminPdfs = [];
 
-async function deleteStudent(id){
-  if(!confirm('Siba uyu munyeshuri n\'amanota ye yose?')) return;
-  const { doc, deleteDoc } = window.firebaseFunctions;
-  try {
-    await deleteDoc(doc(window.db, "students", id));
-    adminStudents = adminStudents.filter(s => s.id !== id);
-    showToast('Umunyeshuri yasibwe', 'warning');
-    renderAdminStats(); renderAdminStudents(); renderResultStudentSelect(); renderAllResults();
-  } catch(e) { showToast("Byanze gusiba", "error"); }
-}
-
-function renderResultStudentSelect(){
-  const students = adminStudents.filter(s => s.approvalStatus === 'approved');
-  const sel = $('resultStudent');
-  if(!students.length){ sel.innerHTML = '<option value="">Nta munyeshuri wemejwe</option>'; return; }
-  sel.innerHTML = '<option value="">Hitamo umunyeshuri</option>' + students.map(s => `<option value="${s.id}">${s.firstName} ${s.lastName} — ${s.programme}</option>`).join('');
-}
-
-function onResultStudentChange(){
-  const sid = $('resultStudent').value;
-  if(!sid) return;
-  const s = adminStudents.find(x => x.id === sid);
-  if(s && s.trimester) $('resultSemester').value = s.trimester;
-}
-
-async function saveResult(btn){
-  hideError('resultError');
-  const studentId=$('resultStudent').value, subject=$('resultSubject').value.trim();
-  const semester=$('resultSemester').value;
-  const cat=parseFloat($('resultCat').value), mid=parseFloat($('resultMid').value), fin=parseFloat($('resultFinal').value);
-
-  if(!studentId||!subject||!semester||isNaN(cat)||isNaN(mid)||isNaN(fin)) return showError('resultError','Uzuza ibice byose');
-  if(cat<0||cat>10) return showError('resultError','CAT: 0 - 10');
-  if(mid<0||mid>40) return showError('resultError','Midterm: 0 - 40');
-  if(fin<0||fin>40) return showError('resultError','Final: 0 - 40');
-
-  setLoading(btn, true, 'Tubika...');
-  const { collection, addDoc } = window.firebaseFunctions;
-  
-  try {
-    await addDoc(collection(window.db, "results"), {
-      studentId, subject, semester, cat, midterm: mid, final: fin, createdAt: new Date().toISOString()
-    });
-    $('resultSubject').value=''; $('resultCat').value=''; $('resultMid').value=''; $('resultFinal').value='';
-    setLoading(btn, false);
-    showToast('Amanota yabitswe!', 'success');
-    await fetchAdminData();
-    renderAdminStats(); renderAllResults();
-  } catch(e) { setLoading(btn, false); showError('resultError', 'Byanze kubika: ' + e.message); }
-}
-
-function renderAllResults(){
-  const search = ($('searchResults').value || '').toLowerCase().trim();
-  const fS=$('resFilterSchool').value, fP=$('resFilterProgramme').value, fSem=$('resFilterSemester').value;
-
-  const enriched = adminResults.map(r => ({ ...r, student: adminStudents.find(x => x.id === r.studentId) || {} })).filter(r => {
-    if(!r.student.id) return false;
-    if(fS && r.student.school !== fS) return false;
-    if(fP && r.student.programme !== fP) return false;
-    if(fSem && r.semester !== fSem) return false;
-    if(search){
-      const hay = `${r.student.firstName} ${r.student.lastName} ${r.subject} ${r.student.school} ${r.student.programme}`.toLowerCase();
-      if(!hay.includes(search)) return false;
-    }
-    return true;
-  });
-
-  const tbody = $('resultsTableBody');
-  if(!enriched.length){
-    tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><div class="icon">📭</div><p>Nta manota ahuye n'ibyo washakishije</p></div></td></tr>`;
-    return;
-  }
-  tbody.innerHTML = enriched.map(r => {
-    const total=(r.cat||0)+(r.midterm||0)+(r.final||0);
-    return `<tr>
-      <td><strong>${r.student.firstName} ${r.student.lastName}</strong></td>
-      <td>${r.student.school}</td>
-      <td>${r.subject}</td>
-      <td>${r.semester}</td>
-      <td>${r.cat}/10</td><td>${r.midterm}/40</td><td>${r.final}/40</td>
-      <td class="total-cell">${total}</td>
-      <td style="white-space:nowrap">
-        <button class="btn btn-primary btn-sm" onclick="openEditResult('${r.id}')" title="Hindura">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteResult('${r.id}')" title="Siba">🗑</button>
-      </td>
-    </tr>`;
-  }).join('');
-}
-
-async function deleteResult(id){
-  if(!confirm('Siba aya manota?')) return;
-  const { doc, deleteDoc } = window.firebaseFunctions;
-  try {
-    await deleteDoc(doc(window.db, "results", id));
-    showToast('Amanota yasibwe', 'warning');
-    await fetchAdminData();
-    renderAdminStats(); renderAllResults();
-  } catch(e){ showToast("Byanze", "error"); }
-}
-
-let editingResultId = null;
-function openEditResult(id){
-  const r = adminResults.find(x => x.id === id);
-  if(!r) return;
-  const student = adminStudents.find(s => s.id === r.studentId);
-  editingResultId = id;
-  $('editStudentName').value = student ? `${student.firstName} ${student.lastName}` : '—';
-  $('editSubject').value = r.subject;
-  $('editSemester').value = r.semester;
-  $('editCat').value = r.cat;
-  $('editMid').value = r.midterm;
-  $('editFinal').value = r.final;
-  hideError('editError');
-  $('editResultModal').classList.add('show');
-}
-function closeEditResult(){ $('editResultModal').classList.remove('show'); editingResultId = null; }
-async function saveEditedResult(btn){
-  hideError('editError');
-  const subject=$('editSubject').value.trim(), semester=$('editSemester').value;
-  const cat=parseFloat($('editCat').value), mid=parseFloat($('editMid').value), fin=parseFloat($('editFinal').value);
-  if(!subject||!semester||isNaN(cat)||isNaN(mid)||isNaN(fin)) return showError('editError','Uzuza ibice byose');
-  if(cat<0||cat>10) return showError('editError','CAT: 0 - 10');
-  if(mid<0||mid>40) return showError('editError','Midterm: 0 - 40');
-  if(fin<0||fin>40) return showError('editError','Final: 0 - 40');
-  
-  setLoading(btn, true, 'Tubika...');
-  const { doc, updateDoc } = window.firebaseFunctions;
-  try {
-    await updateDoc(doc(window.db, "results", editingResultId), {
-      subject, semester, cat, midterm: mid, final: fin, updatedAt: new Date().toISOString()
-    });
-    setLoading(btn, false);
-    showToast('Amanota yahinduwe!', 'success');
-    closeEditResult();
-    await fetchAdminData();
-    renderAdminStats(); renderAllResults();
-  } catch(e){ setLoading(btn, false); showError('editError','Byanze'); }
-}
-
-let currentStudentPassId = null;
-function openAdminStudentPass(id){
-  const student = adminStudents.find(s => s.id === id);
-  if(!student) return;
-  currentStudentPassId = id;
-  $('passStudentName').textContent = `${student.firstName} ${student.lastName}`;
-  $('modalNewPass').value = '';
-  $('modalConfirmPass').value = '';
-  hideError('modalPassError');
-  $('changePassModal').classList.add('show');
-}
-function closeChangePass(){ $('changePassModal').classList.remove('show'); currentStudentPassId = null; }
-
-function saveStudentPassword(btn){
-  showError('modalPassError', 'Guhindura password ya Firestore ntibirakorwa muri code hano. Koresha Firebase Console cyangwa Cloud Functions.');
-  setLoading(btn, false);
-}
-
-function initPdfForm(){
-  fillSelect($('pdfSchool'), Object.keys(EAUR_CONFIG.schools), 'Hitamo Ishuri');
-  $('pdfProgramme').innerHTML = '<option value="">Hitamo Ishuri mbere</option>';
-  $('pdfProgramme').disabled = true;
-  fillSelect($('pdfYear'), EAUR_CONFIG.years, 'Hitamo Umwaka');
-  fillSelect($('pdfTrimester'), EAUR_CONFIG.trimesters, 'Hitamo Trimester');
-}
-function onPdfSchoolChange(){
-  const school=$('pdfSchool').value, prog=$('pdfProgramme');
-  if(!school){ prog.innerHTML = '<option value="">Hitamo Ishuri mbere</option>'; prog.disabled = true; return; }
-  prog.innerHTML = '<option value="">Hitamo Porogaramu</option>' + (EAUR_CONFIG.schools[school]||[]).map(p => `<option value="${p}">${p}</option>`).join('');
-  prog.disabled = false;
-}
-async function uploadPdf(btn){
-  hideError('pdfError');
-  const school=$('pdfSchool').value, programme=$('pdfProgramme').value;
-  const year=$('pdfYear').value, trimester=$('pdfTrimester').value;
-  const subject=$('pdfSubject').value.trim(), title=$('pdfTitle').value.trim();
-  const file=$('pdfFile').files[0];
-  
-  if(!school||!programme||!year||!trimester||!subject||!title||!file) return showError('pdfError','Uzuza ibice byose kandi uhitemo PDF');
-  if(file.type !== 'application/pdf') return showError('pdfError','Dosiye igomba kuba PDF');
-  if(file.size > 3*1024*1024) return showError('pdfError','PDF ntigomba kurenza 3MB');
-
-  setLoading(btn, true, 'Tupakira...');
-  const reader = new FileReader();
-  reader.onload = async function(e){
-    const { collection, addDoc } = window.firebaseFunctions;
-    try {
-      await addDoc(collection(window.db, "pdfs"), {
-        title, subject, school, programme, year, trimester, fileName: file.name, size: file.size, data: e.target.result, uploadedAt: new Date().toISOString()
-      });
-      $('pdfSubject').value=''; $('pdfTitle').value=''; $('pdfFile').value='';
-      setLoading(btn, false);
-      showToast('PDF yongeweho neza!', 'success');
+    async function enterAdmin(){
+      $('studentApp').classList.remove('active');
+      $('adminApp').classList.add('active');
+      
       await fetchAdminData();
-      renderAdminStats(); renderAdminPdfs();
-    } catch(err){
-      setLoading(btn, false);
-      showError('pdfError','Byanze kubika muri Firestore.');
+      renderAdminStats();
+      renderAdminStudents();
+      renderResultStudentSelect();
     }
-  };
-  reader.onerror = () => { setLoading(btn, false); showError('pdfError','Habaye ikibazo'); };
-  reader.readAsDataURL(file);
-}
 
-function renderAdminPdfs(){
-  const fS=$('pdfFilterSchool').value, fP=$('pdfFilterProgramme').value;
-  const fY=$('pdfFilterYear').value, fT=$('pdfFilterTrimester').value;
-  const filtered = adminPdfs.filter(p => (!fS||p.school===fS) && (!fP||p.programme===fP) && (!fY||p.year===fY) && (!fT||p.trimester===fT));
-  const tbody = $('pdfsTableBody');
-  if(!filtered.length){
-    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="icon">📄</div><p>Nta PDF ihuye n'ibyo washakishije</p></div></td></tr>`;
-    return;
-  }
-  tbody.innerHTML = filtered.map(p => `
-    <tr>
-      <td><strong>${p.title}</strong></td>
-      <td>${p.subject}</td>
-      <td>${p.school}</td>
-      <td>${p.year}</td>
-      <td style="white-space:nowrap">
-        <button class="btn btn-primary btn-sm" onclick="openPdf('${p.id}')">👁</button>
-        <button class="btn btn-danger btn-sm" onclick="deletePdf('${p.id}')">🗑</button>
-      </td>
-    </tr>
-  `).join('');
-}
-async function deletePdf(id){
-  if(!confirm('Siba iyi PDF?')) return;
-  const { doc, deleteDoc } = window.firebaseFunctions;
-  try {
-    await deleteDoc(doc(window.db, "pdfs", id));
-    showToast('PDF yasibwe', 'warning');
-    await fetchAdminData();
-    renderAdminStats(); renderAdminPdfs();
-  } catch(e) { showToast("Byanze gusiba", "error"); }
-}
-function openPdf(id){
-  const pdf = adminPdfs.find(p => p.id === id) || studentPdfs.find(p => p.id === id);
-  if(!pdf) return showToast('PDF ntiyabonetse', 'error');
-  try{
-    const base64 = pdf.data.split(',')[1] || pdf.data;
-    const byteChars = atob(base64);
-    const byteNumbers = new Array(byteChars.length);
-    for(let i=0;i<byteChars.length;i++) byteNumbers[i] = byteChars.charCodeAt(i);
-    const blob = new Blob([new Uint8Array(byteNumbers)], { type:'application/pdf' });
-    const url = URL.createObjectURL(blob);
-    window.open(url, '_blank');
-    setTimeout(() => URL.revokeObjectURL(url), 60000);
-  }catch(e){ showToast('Ikibazo: ' + e.message, 'error'); }
-}
+    async function fetchAdminData() {
+      const { collection, getDocs } = window.firebaseFunctions;
+      try {
+        const snapStudents = await getDocs(collection(window.db, "students"));
+        adminStudents = snapStudents.docs.map(d => ({ id: d.id, ...d.data() }));
+        const snapResults = await getDocs(collection(window.db, "results"));
+        adminResults = snapResults.docs.map(d => ({ id: d.id, ...d.data() }));
+        const snapPdfs = await getDocs(collection(window.db, "pdfs"));
+        adminPdfs = snapPdfs.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch(e) { console.error(e); }
+    }
 
-function backupData(){
-  const data = {
-    version: 1, exportedAt: new Date().toISOString(),
-    students: adminStudents, results: adminResults, pdfs: adminPdfs
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `examhub-backup-${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-  showToast('Backup yabitswe!', 'success');
-}
-function changeAdminPassword(btn){ showError('passError', 'Guhindura password ya admin bikorwa gusa muri Firebase Authentication Console.'); setLoading(btn, false); }
-function clearAllData(){ showError('passError', 'Gusiba data byose bikorwa muri Firebase Console.'); }
+    window.adminNav = function(page, btn){
+      document.querySelectorAll('#adminApp .page-section').forEach(s => s.classList.remove('active'));
+      $('admin-page-' + page).classList.add('active');
+      document.querySelectorAll('#adminApp .nav-item').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      closeSidebar('adminSidebar');
+      window.scrollTo({ top:0, behavior:'smooth' });
+    };
 
-$('editResultModal').addEventListener('click', e => { if(e.target.id === 'editResultModal') closeEditResult(); });
-$('changePassModal').addEventListener('click', e => { if(e.target.id === 'changePassModal') closeChangePass(); });
-</script>
+    function renderAdminStats(){
+      $('adminStats').innerHTML = `
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-value">${adminStudents.length}</div><div class="stat-label">Abanyeshuri</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#fef3c7;color:#f59e0b;"><i class="fas fa-clock"></i></div><div class="stat-value">${adminStudents.filter(s=>s.approvalStatus==='pending').length}</div><div class="stat-label">Pending</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#d1fae5;color:#10b981;"><i class="fas fa-check"></i></div><div class="stat-value">${adminStudents.filter(s=>s.approvalStatus==='approved').length}</div><div class="stat-label">Approved</div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#ede9fe;color:#8b5cf6;"><i class="fas fa-edit"></i></div><div class="stat-value">${adminResults.length}</div><div class="stat-label">Amanota</div></div>
+      `;
+    }
+
+    function renderAdminStudents(){
+      const search = ($('searchStudents').value || '').toLowerCase().trim();
+      const filtered = adminStudents.filter(s => {
+        if(search){
+          const hay = `${s.fullName} ${s.email}`.toLowerCase();
+          if(!hay.includes(search)) return false;
+        }
+        return true;
+      });
+
+      const tbody = $('studentsTableBody');
+      if(!filtered.length){
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:20px;">Nta munyeshuri uhuye n'ibyo washakishije</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = filtered.map(s => `
+        <tr>
+          <td><strong>${s.fullName}</strong></td>
+          <td>${s.email}</td>
+          <td>${s.programme}</td>
+          <td>${s.year}</td>
+          <td><span class="badge ${s.approvalStatus==='approved'?'badge-approved':'badge-pending'}">${s.approvalStatus}</span></td>
+          <td style="white-space:nowrap">
+            ${s.approvalStatus==='pending'
+              ? `<button class="btn btn-sm btn-primary" onclick="approveStudent('${s.id}')">Emeza</button>`
+              : `<button class="btn btn-sm btn-outline" style="color:var(--danger);border-color:var(--danger);" onclick="deleteStudent('${s.id}')">Siba</button>`}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    window.approveStudent = async function(id){
+      const { doc, updateDoc } = window.firebaseFunctions;
+      try {
+        await updateDoc(doc(window.db, "students", id), { approvalStatus: 'approved' });
+        const s = adminStudents.find(x => x.id === id);
+        if(s) s.approvalStatus = 'approved';
+        renderAdminStats(); renderAdminStudents(); renderResultStudentSelect();
+      } catch(e) { alert("Byanze kwemeza"); }
+    };
+
+    window.deleteStudent = async function(id){
+      if(!confirm('Siba uyu munyeshuri?')) return;
+      const { doc, deleteDoc } = window.firebaseFunctions;
+      try {
+        await deleteDoc(doc(window.db, "students", id));
+        adminStudents = adminStudents.filter(s => s.id !== id);
+        renderAdminStats(); renderAdminStudents(); renderResultStudentSelect();
+      } catch(e) { alert("Byanze gusiba"); }
+    };
+
+    function renderResultStudentSelect(){
+      const students = adminStudents.filter(s => s.approvalStatus === 'approved');
+      const sel = $('resultStudent');
+      if(!students.length){ sel.innerHTML = '<option value="">Nta munyeshuri wemejwe</option>'; return; }
+      sel.innerHTML = '<option value="">Hitamo umunyeshuri</option>' + students.map(s => `<option value="${s.id}">${s.fullName} — ${s.programme}</option>`).join('');
+    }
+
+    window.saveResult = async function(btn){
+      hideError('resultError');
+      const studentId=$('resultStudent').value, subject=$('resultSubject').value.trim();
+      const semester=$('resultSemester').value;
+      const cat=parseFloat($('resultCat').value), mid=parseFloat($('resultMid').value), fin=parseFloat($('resultFinal').value);
+
+      if(!studentId||!subject||!semester||isNaN(cat)||isNaN(mid)||isNaN(fin)) return showError('resultError','Uzuza ibice byose');
+      if(cat<0||cat>10) return showError('resultError','CAT: 0 - 10');
+      if(mid<0||mid>40) return showError('resultError','Midterm: 0 - 40');
+      if(fin<0||fin>40) return showError('resultError','Final: 0 - 40');
+
+      btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Tubika...';
+      const { collection, addDoc } = window.firebaseFunctions;
+      
+      try {
+        await addDoc(collection(window.db, "results"), {
+          studentId, subject, semester, cat, midterm: mid, final: fin, createdAt: new Date().toISOString()
+        });
+        $('resultSubject').value=''; $('resultCat').value=''; $('resultMid').value=''; $('resultFinal').value='';
+        btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Bika Amanota';
+        await fetchAdminData();
+        renderAdminStats();
+        alert('Amanota yabitswe!');
+      } catch(e) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Bika Amanota'; showError('resultError', e.message); }
+    };
+
+    window.onPdfSchoolChange = function(){
+      const school=$('pdfSchool').value, prog=$('pdfProgramme');
+      if(!school){ prog.innerHTML = '<option value="">Hitamo Ishuri mbere</option>'; prog.disabled = true; return; }
+      prog.innerHTML = '<option value="">Hitamo Porogaramu</option>' + (EAUR_CONFIG.schools[school]||[]).map(p => `<option value="${p}">${p}</option>`).join('');
+      prog.disabled = false;
+    };
+
+    window.uploadPdf = async function(btn){
+      hideError('pdfError');
+      const school=$('pdfSchool').value, programme=$('pdfProgramme').value;
+      const year=$('pdfYear').value, trimester=$('pdfTrimester').value;
+      const subject=$('pdfSubject').value.trim(), title=$('pdfTitle').value.trim();
+      const file=$('pdfFile').files[0];
+      
+      if(!school||!programme||!year||!trimester||!subject||!title||!file) return showError('pdfError','Uzuza ibice byose kandi uhitemo PDF');
+      if(file.type !== 'application/pdf') return showError('pdfError','Dosiye igomba kuba PDF');
+      if(file.size > 3*1024*1024) return showError('pdfError','PDF ntigomba kurenza 3MB');
+
+      btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Tupakira...';
+      const reader = new FileReader();
+      reader.onload = async function(e){
+        const { collection, addDoc } = window.firebaseFunctions;
+        try {
+          await addDoc(collection(window.db, "pdfs"), {
+            title, subject, school, programme, year, trimester, fileName: file.name, size: file.size, data: e.target.result, uploadedAt: new Date().toISOString()
+          });
+          $('pdfSubject').value=''; $('pdfTitle').value=''; $('pdfFile').value='';
+          btn.disabled = false; btn.innerHTML = '<i class="fas fa-upload"></i> Ongeraho PDF';
+          await fetchAdminData();
+          renderAdminStats();
+          alert('PDF yongeweho neza!');
+        } catch(err){
+          btn.disabled = false; btn.innerHTML = '<i class="fas fa-upload"></i> Ongeraho PDF';
+          showError('pdfError','Byanze kubika muri Firestore.');
+        }
+      };
+      reader.onerror = () => { btn.disabled = false; btn.innerHTML = '<i class="fas fa-upload"></i> Ongeraho PDF'; showError('pdfError','Habaye ikibazo'); };
+      reader.readAsDataURL(file);
+    };
+
+    window.openPdf = function(id){
+      const pdf = adminPdfs.find(p => p.id === id) || studentPdfs.find(p => p.id === id);
+      if(!pdf) return alert('PDF ntiyabonetse');
+      try{
+        const base64 = pdf.data.split(',')[1] || pdf.data;
+        const byteChars = atob(base64);
+        const byteNumbers = new Array(byteChars.length);
+        for(let i=0;i<byteChars.length;i++) byteNumbers[i] = byteChars.charCodeAt(i);
+        const blob = new Blob([new Uint8Array(byteNumbers)], { type:'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      }catch(e){ alert('Ikibazo: ' + e.message); }
+    };
+
+    // Initialize selects on load
+    window.addEventListener('DOMContentLoaded', () => {
+      fillSelect($('pdfSchool'), Object.keys(EAUR_CONFIG.schools), 'Hitamo Ishuri');
+      fillSelect($('pdfYear'), EAUR_CONFIG.years, 'Hitamo Umwaka');
+      fillSelect($('pdfTrimester'), EAUR_CONFIG.trimesters, 'Hitamo Trimester');
+    });
+
+  </script>
 </body>
 </html>
